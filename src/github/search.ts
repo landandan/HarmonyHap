@@ -69,9 +69,7 @@ export async function discoverByOrgs(
       if (status === 404) {
         log.warn(`organization "${org}" not found (404) — skipping org enumeration`);
       } else {
-        log.warn(
-          `failed to enumerate organization "${org}": ${(err as Error).message} — skipping`,
-        );
+        log.warn(`failed to enumerate organization "${org}": ${(err as Error).message} — skipping`);
       }
     }
   }

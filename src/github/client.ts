@@ -161,8 +161,7 @@ export class GitHubClient {
 
   private retryAfterMs(err: unknown): number | undefined {
     const e = err as { response?: { headers?: Record<string, string> } };
-    const header =
-      e?.response?.headers?.['retry-after'] ?? e?.response?.headers?.['Retry-After'];
+    const header = e?.response?.headers?.['retry-after'] ?? e?.response?.headers?.['Retry-After'];
     if (header) {
       const secs = Number(header);
       if (!Number.isNaN(secs)) return secs * 1000;
@@ -178,8 +177,7 @@ export class GitHubClient {
   private rateLimitResetMs(err: unknown): number | undefined {
     const e = err as { response?: { headers?: Record<string, string> } };
     const header =
-      e?.response?.headers?.['x-ratelimit-reset'] ??
-      e?.response?.headers?.['X-RateLimit-Reset'];
+      e?.response?.headers?.['x-ratelimit-reset'] ?? e?.response?.headers?.['X-RateLimit-Reset'];
     if (header) {
       const resetSecs = Number(header);
       if (!Number.isNaN(resetSecs)) {
@@ -269,7 +267,9 @@ export class GitHubClient {
           continue;
         }
         const wait = Math.min(delay, MAX_WAIT_MS);
-        log.warn(`retry ${attempt}/${this.maxRetries} for ${context} (status=${status ?? '?'}) in ${wait}ms`);
+        log.warn(
+          `retry ${attempt}/${this.maxRetries} for ${context} (status=${status ?? '?'}) in ${wait}ms`,
+        );
         await sleep(wait);
         delay = Math.min(delay * 2, 30_000);
       }
