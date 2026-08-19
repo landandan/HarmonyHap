@@ -13,7 +13,7 @@ async function main() {
   const repos = repositoriesFileSchema.parse(data).repositories;
   const discovered = await state.readDiscovered();
   const stats = computeStatistics(repos, discovered.length, generatedAt);
-  await state.writeGenerated('llms.txt', generateLlmsTxt(repos, stats));
+  await state.writeGenerated('llms.txt', generateLlmsTxt(repos));
   await state.writeGenerated('llms-full.txt', generateLlmsFullTxt(repos, stats, config.categories));
   console.error('[GENERATE] wrote generated/llms.txt and llms-full.txt');
 }

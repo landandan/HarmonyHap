@@ -156,7 +156,6 @@ export class GitHubClient {
     }
     let attempt = 0;
     let delay = 1000;
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       try {
         const result = await fn();

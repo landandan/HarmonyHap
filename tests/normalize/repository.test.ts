@@ -17,7 +17,7 @@ describe('Normalization + schema', () => {
     config = await loadConfig();
   });
 
-  function analyze(item: any): RepoAnalysis {
+  function analyze(item: RepoAnalysis): RepoAnalysis {
     const a: RepoAnalysis = {
       id: item.id,
       full_name: item.full_name,
@@ -27,20 +27,21 @@ describe('Normalization + schema', () => {
       languages: item.languages,
       treePaths: item.treePaths,
       treeStatus: item.treeStatus,
-      treeSignature: item.treeSignature,
-    };
-    a.hap = detectHap({ treePaths: item.treePaths, readme: item.readme, treeStatus: item.treeStatus });
+        treeSignature: item.treeSignature,
+      };
+      const repo = item.repo!;
+      a.hap = detectHap({ treePaths: item.treePaths, readme: item.readme, treeStatus: item.treeStatus });
     a.platform = detectPlatform({
-      topics: item.repo.topics ?? [],
+      topics: repo.topics ?? [],
       readme: item.readme,
-      description: item.repo.description,
-      organization: item.repo.owner.type === 'Organization' ? item.repo.owner.login : null,
+      description: repo.description,
+      organization: repo.owner.type === 'Organization' ? repo.owner.login : null,
     });
     a.classification = classify(
       {
-        topics: item.repo.topics ?? [],
+        topics: repo.topics ?? [],
         readme: item.readme,
-        description: item.repo.description,
+        description: repo.description,
         languages: item.languages,
         treePaths: item.treePaths,
       },
@@ -50,13 +51,13 @@ describe('Normalization + schema', () => {
       {
         hap: a.hap,
         platform_confidence: a.platform.platform_confidence,
-        stars: item.repo.stargazers_count,
-        forks: item.repo.forks_count,
-        open_issues: item.repo.open_issues_count,
-        license: item.repo.license?.spdx_id ?? null,
+        stars: repo.stargazers_count,
+        forks: repo.forks_count,
+        open_issues: repo.open_issues_count,
+        license: repo.license?.spdx_id ?? null,
         readme: item.readme,
-        pushed_at: item.repo.pushed_at,
-        archived: item.repo.archived,
+        pushed_at: repo.pushed_at,
+        archived: repo.archived,
       },
       config.scoring,
     );
@@ -67,7 +68,7 @@ describe('Normalization + schema', () => {
     fs.readFileSync(path.join(process.cwd(), 'tests/fixtures/sample-fetched.json'), 'utf8'),
   );
 
-  const byName: Record<string, any> = {};
+  const byName: Record<string, RepoAnalysis> = {};
   for (const item of fixture.items) byName[item.full_name] = item;
 
   it('every analyzed repo validates against the Zod schema', () => {

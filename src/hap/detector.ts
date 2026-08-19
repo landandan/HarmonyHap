@@ -1,6 +1,6 @@
 import type { Evidence, Hap, HapStatus, PackageType } from '../schemas/hap.js';
 import { HAP_RULES, isExtensionGlob, type HapRule } from './rules.js';
-import { detectPackageTypes, scoreHapEvidence, type MatchedRule } from './evidence.js';
+import { scoreHapEvidence, type MatchedRule } from './evidence.js';
 
 export interface HapDetectionInput {
   /** Repository tree blob/ tree paths (relative). */

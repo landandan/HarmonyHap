@@ -1,5 +1,4 @@
 import { GitHubClient } from './client.js';
-import type { RawGitHubRepo } from './types.js';
 
 export interface DiscoveredItem {
   id: number;

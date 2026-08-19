@@ -4,7 +4,7 @@ import { getCategoryMeta, categoryOrder } from '../classification/categories.js'
 import { sortRepos } from './readme.js';
 
 /** Concise llms.txt (llmstxt-style index). */
-export function generateLlmsTxt(repos: Repository[], stats: Statistics): string {
+export function generateLlmsTxt(repos: Repository[]): string {
   const indexed = sortRepos(repos.filter((r) => r.status === 'indexed')).slice(0, 50);
   const lines: string[] = [];
   lines.push('# HarmonyOS HAP Open Source Navigator');

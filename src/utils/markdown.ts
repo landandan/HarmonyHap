@@ -14,5 +14,5 @@ export function truncate(s: string | null | undefined, n: number): string {
 
 /** Escape Markdown punctuation that could break formatting. */
 export function escapeMarkdown(s: string): string {
-  return s.replace(/([\\`*_{}\[\]()#+\-.!])/g, '\\$1');
+  return s.replace(/([\\`*_{}[\]()#+\-.!])/g, '\\$1');
 }

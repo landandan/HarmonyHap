@@ -3,7 +3,7 @@ import { Logger } from '../utils/logger.js';
 import { mapWithConcurrency } from '../utils/concurrency.js';
 import { writeText } from '../utils/io.js';
 import { repositoryContentHash } from '../utils/hash.js';
-import { loadConfig, type LoadedConfig } from '../utils/config-loader.js';
+import type { LoadedConfig } from '../utils/config-loader.js';
 import { GitHubClient } from '../github/client.js';
 import {
   discoverByTopics,
@@ -401,7 +401,7 @@ export async function runGenerate(
   const readme = generateReadme(repos, stats, config.categories);
   const aiContext = generateAiContext(repos, stats, config.categories);
   const systemPrompt = generateSystemPrompt(stats);
-  const llms = generateLlmsTxt(repos, stats);
+  const llms = generateLlmsTxt(repos);
   const llmsFull = generateLlmsFullTxt(repos, stats, config.categories);
 
   await state.writeGenerated('README.md', readme);
