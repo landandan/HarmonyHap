@@ -116,11 +116,16 @@ async function main(): Promise<void> {
       }
       throw e;
     }
-    const items = await runDiscovery(state, config, client, generatedAt);
-    discovered = items.length;
-    await runFetch(state, config, client);
-    await runTree(state, config, client);
-    await client.persistCache();
+    try {
+      const items = await runDiscovery(state, config, client, generatedAt);
+      discovered = items.length;
+      await runFetch(state, config, client);
+      await runTree(state, config, client);
+    } finally {
+      // Persist even when a stage throws (e.g. rate-limit exhaustion) so the
+      // next run reuses what we already fetched instead of re-fetching all.
+      await client.persistCache();
+    }
   }
 
   // Incremental reuse from previously committed data.

@@ -4,8 +4,12 @@ import { runDiscovery } from '../src/pipeline/stages.js';
 async function main() {
   const { config, state, generatedAt } = await loadCtx();
   const client = createClient();
-  await runDiscovery(state, config, client, generatedAt);
-  await client.persistCache();
+  try {
+    await runDiscovery(state, config, client, generatedAt);
+  } finally {
+    // Persist cache even on failure so the next run reuses discovered data.
+    await client.persistCache();
+  }
 }
 
 main().catch((e) => {

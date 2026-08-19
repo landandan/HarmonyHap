@@ -1,4 +1,5 @@
 import { Octokit } from '@octokit/rest';
+import { throttling } from '@octokit/plugin-throttling';
 import * as path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { Logger } from '../utils/logger.js';
@@ -77,9 +78,37 @@ export class GitHubClient {
     // rely on it and instead handle rate limits explicitly in `withRetry` so
     // that we can wait until the *hourly* window resets instead of burning the
     // retry budget with sub-second backoff (which never recovers a 403).
-    this.octokit = new Octokit({
+    //
+    // The plugin ALSO gives us a global Bottleneck queue so requests are
+    // serialized instead of bursting (bursts are what trigger GitHub's
+    // *secondary* rate limit / abuse detection — the 403 that has no
+    // `x-ratelimit-reset` header and never recovers from a short backoff).
+    const OctokitWithThrottling = Octokit.plugin(throttling);
+    this.octokit = new OctokitWithThrottling({
       auth: token,
       userAgent: 'harmonyos-hap-navigator',
+      throttle: {
+        // Core (hourly) limit: let the plugin wait for `x-ratelimit-reset`
+        // itself — it tracks the header more reliably than we do. Cap at 2
+        // auto-retries; after that it throws and our withRetry takes over.
+        onRateLimit: (retryAfter, options, octokit, retryCount) => {
+          log.warn(
+            `[THROTTLE] core rate limit on ${options.method} ${options.url} ` +
+              `(retry ${retryCount}/2), waiting ${retryAfter}s`,
+          );
+          return retryCount < 2;
+        },
+        // Secondary/abuse limit: never auto-retry. Throw immediately so our
+        // withRetry can fail fast on non-essential calls (readme/languages/
+        // tree) instead of sleeping a full window that won't recover anyway.
+        onSecondaryRateLimit: (retryAfter, options, octokit, retryCount) => {
+          log.warn(
+            `[THROTTLE] secondary rate limit on ${options.method} ${options.url} ` +
+              `(retry ${retryCount}/1), NOT auto-retrying`,
+          );
+          return false;
+        },
+      },
     });
     this.maxRetries = options.maxRetries ?? 3;
     this.cacheTtlMs = options.cacheTtlMs ?? 24 * 60 * 60 * 1000;
@@ -203,10 +232,12 @@ export class GitHubClient {
    * Run an Octokit request with retry + backoff.
    *
    * Two failure classes are handled differently:
-   *  - Rate limits (403/429): wait until the quota window resets (via
-   *    `x-ratelimit-reset` / `Retry-After`) and retry — these are NOT bounded by
-   *    `maxRetries`, because a short backoff can never recover an hourly limit.
-   *    A cap (`MAX_RATE_LIMIT_WAITS`) prevents an infinite stall.
+   *  - Rate limits (403/429): the throttling plugin already serializes requests
+   *    globally and honors `Retry-After`. If we still see one here, wait until
+   *    the quota window resets (via `x-ratelimit-reset` / `Retry-After`).
+   *    However, requests marked `failFastOnRateLimit` (readme / languages /
+   *    tree — data we can live without) throw immediately instead of sleeping,
+   *    so a secondary/abuse 403 can never stall the pipeline.
    *  - Other transient errors (5xx): exponential backoff up to `maxRetries`.
    *  - 404/410: non-retryable, fail fast.
    */
@@ -215,12 +246,13 @@ export class GitHubClient {
     fn: () => Promise<T>,
     useCache: boolean,
     cacheKeyStr: string,
+    failFastOnRateLimit = false,
   ): Promise<T> {
     if (useCache) {
       const cached = this.getCache<T>(cacheKeyStr);
       if (cached !== undefined) return cached;
     }
-    const MAX_RATE_LIMIT_WAITS = 4;
+    const MAX_RATE_LIMIT_WAITS = 2;
     const MAX_WAIT_MS = 15 * 60 * 1000; // stay safely under the 60m job timeout
     let attempt = 0;
     let rateLimitWaits = 0;
@@ -257,9 +289,25 @@ export class GitHubClient {
               true,
             );
           }
-          const reset = this.rateLimitResetMs(err);
+          // readme/languages/tree are optional metadata: a 403 here must NOT
+          // block the whole run. Fail fast so the caller degrades gracefully.
+          if (failFastOnRateLimit) {
+            throw new GitHubError(
+              `GitHub rate limit (skipped, non-essential): ${context} (${e?.message ?? ''})`,
+              status,
+              true,
+            );
+          }
+          // Trust x-ratelimit-reset only on the FIRST hit. If we waited once
+          // and are still limited, the header (or our parse) is unreliable
+          // (common with secondary/abuse limits) — fall back to a short wait
+          // instead of re-sleeping a full window.
+          const reset = rateLimitWaits === 1 ? this.rateLimitResetMs(err) : undefined;
           const ra = this.retryAfterMs(err);
-          const wait = Math.min(MAX_WAIT_MS, Math.max(reset ?? ra ?? 60_000, 1000));
+          const wait = Math.min(
+            MAX_WAIT_MS,
+            Math.max(reset ?? Math.min(ra ?? 60_000, 60_000), 1000),
+          );
           log.warn(
             `rate limit hit for ${context}; waiting ${Math.round(wait / 1000)}s until reset (wait ${rateLimitWaits}/${MAX_RATE_LIMIT_WAITS})`,
           );
@@ -368,6 +416,7 @@ export class GitHubClient {
         () => this.octokit.rest.repos.getReadme({ owner, repo }),
         true,
         `readme:${fullName}`,
+        true, // readme is optional — a rate-limit 403 must not stall the run
       );
       const content = (res.data as { content?: string; encoding?: string }).content ?? '';
       const encoding = (res.data as { encoding?: string }).encoding ?? 'base64';
@@ -394,6 +443,7 @@ export class GitHubClient {
         () => this.octokit.rest.repos.listLanguages({ owner, repo }),
         true,
         `lang:${fullName}`,
+        true, // languages are optional — a rate-limit 403 must not stall the run
       );
       return Object.keys(res.data ?? {});
     } catch {
@@ -419,6 +469,7 @@ export class GitHubClient {
           }),
         false,
         `tree:${fullName}:${ref}`,
+        true, // tree is optional metadata — a rate-limit 403 must not stall the run
       );
       const tree = (res.data.tree ?? []).map((t) => ({
         path: (t as { path?: string }).path ?? '',

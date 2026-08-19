@@ -42,9 +42,11 @@ const log = new Logger('PIPELINE');
 
 export function getConcurrency(): number {
   const n = Number(process.env.HAP_CONCURRENCY);
-  // Lower default (was 6): GitHub's secondary rate limit is sensitive to bursty
-  // concurrent traffic, and a smaller fan-out reduces the chance of 403 storms.
-  return Number.isFinite(n) && n > 0 ? n : 4;
+  // Low default (was 6, then 4): GitHub's *secondary* rate limit (abuse
+  // detection) is triggered by bursty concurrent traffic — the 403 without a
+  // usable x-ratelimit-reset that never recovers. The throttling plugin now
+  // serializes requests globally, and a small fan-out keeps bursts small.
+  return Number.isFinite(n) && n > 0 ? n : 2;
 }
 
 function ownerOf(fullName: string): string {
