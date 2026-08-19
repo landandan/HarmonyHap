@@ -40,17 +40,17 @@ jobs:
       - name: Discover candidates (full)
         run: npm run discover
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
 
       - name: Fetch repository metadata
         run: npm run fetch
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
 
       - name: Fetch repository trees
         run: npm run fetch-tree
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
 
       - name: Detect HAP
         run: npm run hap
@@ -83,4 +83,4 @@ jobs:
             exit 0
           fi
           git commit -m "chore(data): weekly full scan update"
-          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD
+          git push "https://x-access-token:${{ secrets.HARMONY_TOKEN }}@github.com/${{ github.repository }}.git" HEAD

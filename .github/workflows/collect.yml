@@ -37,17 +37,17 @@ jobs:
       - name: Discover candidates
         run: npm run discover
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
 
       - name: Fetch repository metadata
         run: npm run fetch
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
 
       - name: Fetch repository trees
         run: npm run fetch-tree
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
 
       - name: Detect HAP
         run: npm run hap
@@ -72,12 +72,12 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config user.name "landandan"
-          git config user.email "zyc383326809@gmail.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data generated README.md
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
           fi
           git commit -m "chore(data): update harmonyos repositories"
-          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD
+          git push "https://x-access-token:${{ secrets.HARMONY_TOKEN }}@github.com/${{ github.repository }}.git" HEAD
