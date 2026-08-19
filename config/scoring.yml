@@ -1,0 +1,87 @@
+# Scoring configuration (all weights configurable; no hard-coded weights in TS).
+# Final navigator_score = sum(weight_i * component_i), component_i in 0..100.
+# score_breakdown_i = round(weight_i * component_i).
+
+weights:
+  hap: 0.30
+  platform: 0.15
+  activity: 0.20
+  community: 0.10
+  documentation: 0.10
+  license: 0.05
+  stars: 0.10
+
+# HAP component: uses hap.score (0..100).
+# A real `.hap` binary is the definitive proof of a complete, runnable app, so it
+# gets a strong multiplier; a buildable project (structure only, not yet built)
+# is weighted lower. Both stay config-driven — no hard-coded weights in TS.
+hap:
+  binary_multiplier: 3.0
+  buildable_multiplier: 0.85
+
+# Platform component: platform_confidence * 100.
+platform:
+  # confidence thresholds are produced by src/platform; here we only expose a floor
+  # so an "Unknown" platform still contributes a small baseline.
+  unknown_baseline: 20
+
+# Activity component (0..100). Based primarily on push recency; archived penalized.
+activity:
+  # days since last push -> score
+  last_push_days:
+    - { max_days: 30, score: 100 }
+    - { max_days: 90, score: 80 }
+    - { max_days: 180, score: 60 }
+    - { max_days: 365, score: 40 }
+    - { max_days: 730, score: 20 }
+    - { max_days: 999999, score: 10 }
+  archived_score: 12
+
+# Community component (0..100) from forks + open_issues (log scaled).
+community:
+  forks:
+    - { min: 500, score: 100 }
+    - { min: 100, score: 80 }
+    - { min: 20, score: 60 }
+    - { min: 5, score: 40 }
+    - { min: 1, score: 20 }
+    - { min: 0, score: 0 }
+  open_issues:
+    - { min: 200, score: 100 }
+    - { min: 50, score: 80 }
+    - { min: 10, score: 60 }
+    - { min: 1, score: 40 }
+    - { min: 0, score: 0 }
+
+# Documentation component (0..100) from README presence / length.
+documentation:
+  has_readme_score: 40
+  min_length: 200
+  good_length: 1500
+  max_score: 100
+
+# License component (0..100).
+license:
+  # SPDX ids considered preferred / permissive.
+  preferred:
+    - MIT
+    - Apache-2.0
+    - BSD-3-Clause
+    - BSD-2-Clause
+    - MPL-2.0
+    - ISC
+  preferred_score: 100
+  any_license_score: 70
+  none_score: 0
+
+# Stars component (0..100) — piecewise (not linear) to avoid mega-repos dominating.
+stars:
+  thresholds:
+    - { min: 20000, score: 100 }
+    - { min: 5000, score: 85 }
+    - { min: 1000, score: 70 }
+    - { min: 200, score: 55 }
+    - { min: 50, score: 40 }
+    - { min: 10, score: 25 }
+    - { min: 1, score: 10 }
+    - { min: 0, score: 0 }

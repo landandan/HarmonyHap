@@ -1,0 +1,170 @@
+# Category metadata. The mapping keyword -> category lives in keywords.yml.
+# Editing this file changes display labels and ordering only.
+categories:
+  - id: official
+    label: "Official"
+    description: "Official HarmonyOS / OpenHarmony organization projects."
+  - id: sample
+    label: "Sample"
+    description: "Official or vendor sample / demo projects."
+  - id: application
+    label: "Application"
+    description: "End-user applications built for HarmonyOS / OpenHarmony."
+  - id: demo
+    label: "Demo"
+    description: "Demonstration projects."
+  - id: arkui
+    label: "ArkUI"
+    description: "ArkUI related projects."
+  - id: arkts
+    label: "ArkTS"
+    description: "ArkTS language / tooling projects."
+  - id: ui-component
+    label: "UI Component"
+    description: "Reusable UI component libraries."
+  - id: ui-framework
+    label: "UI Framework"
+    description: "UI frameworks and rendering engines."
+  - id: sdk
+    label: "SDK"
+    description: "Software development kits."
+  - id: library
+    label: "Library"
+    description: "General purpose libraries."
+  - id: network
+    label: "Network"
+    description: "Networking libraries and tools."
+  - id: websocket
+    label: "WebSocket"
+    description: "WebSocket implementations."
+  - id: http
+    label: "HTTP"
+    description: "HTTP client / server libraries."
+  - id: database
+    label: "Database"
+    description: "Database / ORM libraries."
+  - id: storage
+    label: "Storage"
+    description: "Local storage / persistence."
+  - id: audio
+    label: "Audio"
+    description: "Audio playback / processing."
+  - id: video
+    label: "Video"
+    description: "Video playback / processing."
+  - id: multimedia
+    label: "Multimedia"
+    description: "Multimedia (audio + video) projects."
+  - id: graphics
+    label: "Graphics"
+    description: "Graphics / canvas / drawing."
+  - id: image
+    label: "Image"
+    description: "Image processing."
+  - id: ai
+    label: "AI"
+    description: "Artificial intelligence projects."
+  - id: llm
+    label: "LLM"
+    description: "Large language model projects."
+  - id: machine-learning
+    label: "Machine Learning"
+    description: "Machine learning projects."
+  - id: iot
+    label: "IoT"
+    description: "Internet of Things."
+  - id: hardware
+    label: "Hardware"
+    description: "Hardware / driver / peripheral projects."
+  - id: distributed
+    label: "Distributed"
+    description: "Distributed soft-bus / cross-device projects."
+  - id: system
+    label: "System"
+    description: "System level / ROM / tooling."
+  - id: map
+    label: "Map"
+    description: "Map / location services."
+  - id: location
+    label: "Location"
+    description: "Geolocation projects."
+  - id: web
+    label: "Web"
+    description: "Web related projects."
+  - id: game
+    label: "Game"
+    description: "Game development."
+  - id: flutter
+    label: "Flutter"
+    description: "Flutter related projects."
+  - id: react-native
+    label: "React Native"
+    description: "React Native related projects."
+  - id: cross-platform
+    label: "Cross-platform"
+    description: "Cross-platform frameworks."
+  - id: developer-tools
+    label: "Developer Tools"
+    description: "Developer tooling / CLI."
+  - id: tutorial
+    label: "Tutorial"
+    description: "Tutorials and guides."
+  - id: learning
+    label: "Learning"
+    description: "Learning resources."
+  - id: adaptation
+    label: "Adaptation"
+    description: "Adaptation / migration from other platforms."
+  - id: security
+    label: "Security"
+    description: "Security related projects."
+  - id: research
+    label: "Research"
+    description: "Research prototypes."
+  - id: other
+    label: "Other"
+    description: "Projects that do not fit other categories."
+
+# Default ordering of categories in generated output.
+category_order:
+  - official
+  - sample
+  - application
+  - demo
+  - arkui
+  - arkts
+  - ui-component
+  - ui-framework
+  - sdk
+  - library
+  - network
+  - websocket
+  - http
+  - database
+  - storage
+  - audio
+  - video
+  - multimedia
+  - graphics
+  - image
+  - ai
+  - llm
+  - machine-learning
+  - iot
+  - hardware
+  - distributed
+  - system
+  - map
+  - location
+  - web
+  - game
+  - flutter
+  - react-native
+  - cross-platform
+  - developer-tools
+  - tutorial
+  - learning
+  - adaptation
+  - security
+  - research
+  - other

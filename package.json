@@ -1,0 +1,49 @@
+{
+  "name": "harmonyos-hap-navigator",
+  "version": "1.0.0",
+  "description": "GitHub-driven navigator that discovers, validates and indexes HarmonyOS / HarmonyOS NEXT / OpenHarmony HAP open-source projects.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "discover": "tsx scripts/discover.ts",
+    "fetch": "tsx scripts/fetch-repositories.ts",
+    "fetch-tree": "tsx scripts/fetch-tree.ts",
+    "hap": "tsx scripts/detect-hap.ts",
+    "platform": "tsx scripts/detect-platform.ts",
+    "classify": "tsx scripts/classify.ts",
+    "score": "tsx scripts/score.ts",
+    "normalize": "tsx scripts/normalize.ts",
+    "validate": "tsx scripts/validate.ts",
+    "generate": "tsx scripts/generate.ts",
+    "generate-readme": "tsx scripts/generate-readme.ts",
+    "generate-ai-context": "tsx scripts/generate-ai-context.ts",
+    "generate-llms": "tsx scripts/generate-llms.ts",
+    "all": "tsx scripts/main.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.ts\" \"scripts/**/*.ts\" \"tests/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"scripts/**/*.ts\" \"tests/**/*.ts\"",
+    "build": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@octokit/rest": "^21.0.0",
+    "js-yaml": "^4.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.5.0",
+    "eslint": "^9.9.0",
+    "prettier": "^3.3.3",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.2.0",
+    "vitest": "^2.0.5"
+  }
+}

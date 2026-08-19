@@ -1,0 +1,83 @@
+name: Collect
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+# Minimal permissions: only write contents when we commit generated data.
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Cache GitHub API responses
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: github-cache-${{ github.run_id }}
+          restore-keys: |
+            github-cache-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Discover candidates
+        run: npm run discover
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch repository metadata
+        run: npm run fetch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch repository trees
+        run: npm run fetch-tree
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Detect HAP
+        run: npm run hap
+
+      - name: Detect platform
+        run: npm run platform
+
+      - name: Classify
+        run: npm run classify
+
+      - name: Score
+        run: npm run score
+
+      - name: Normalize
+        run: npm run normalize
+
+      - name: Validate
+        run: npm run validate
+
+      - name: Generate outputs
+        run: npm run generate
+
+      - name: Commit changes
+        run: |
+          git config user.name "landandan"
+          git config user.email "zyc383326809@gmail.com"
+          git add data generated README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore(data): update harmonyos repositories"
+          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD

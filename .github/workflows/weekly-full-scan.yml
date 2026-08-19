@@ -1,0 +1,86 @@
+name: Weekly Full Scan
+
+# Re-runs the complete discovery + processing pipeline from scratch once a week.
+# Unlike the daily "Collect" run which relies on the on-disk intermediate state,
+# this scan wipes the intermediate work dir and API cache first, so newly-published
+# HAP projects (and projects that only recently added a buildable HAP structure) are
+# guaranteed to be discovered and re-detected rather than skipped via cached data.
+
+on:
+  schedule:
+    - cron: "0 3 * * 0" # Sunday 03:00 UTC
+  workflow_dispatch:
+
+# Minimal permissions: only write contents when we commit generated data.
+permissions:
+  contents: write
+
+jobs:
+  full-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Force a clean slate: ignore any cached discovery/work state so the scan
+      # cannot silently skip repositories that changed since the last daily run.
+      - name: Clean intermediate state
+        run: rm -rf data/.work .cache
+
+      - name: Discover candidates (full)
+        run: npm run discover
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch repository metadata
+        run: npm run fetch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch repository trees
+        run: npm run fetch-tree
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Detect HAP
+        run: npm run hap
+
+      - name: Detect platform
+        run: npm run platform
+
+      - name: Classify
+        run: npm run classify
+
+      - name: Score
+        run: npm run score
+
+      - name: Normalize
+        run: npm run normalize
+
+      - name: Validate
+        run: npm run validate
+
+      - name: Generate outputs
+        run: npm run generate
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data generated README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore(data): weekly full scan update"
+          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD

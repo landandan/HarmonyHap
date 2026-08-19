@@ -1,0 +1,31 @@
+# Exclusion / inclusion / override rules.
+#
+# exclude.repositories / exclude.organizations / exclude.keywords:
+#   remove false-positive candidates discovered by GitHub search.
+#
+# include.repositories:
+#   force a repository into the candidate set (still MUST pass HAP validation).
+#
+# overrides:
+#   manually adjust DERIVED fields (category / platform) for a repository.
+#   Overrides MUST NOT modify GitHub raw facts (stars, description, license, ...).
+
+exclude:
+  repositories:
+    - "example-owner/example-repo"
+  organizations:
+    - "example-org"
+  keywords:
+    - "unrelated-topic"
+
+include:
+  repositories:
+    - "openharmony/arkui_ace_engine"
+
+overrides:
+  "openharmony/arkui_ace_engine":
+    category:
+      - arkui
+      - ui-framework
+    platform:
+      - OpenHarmony

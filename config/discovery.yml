@@ -1,0 +1,44 @@
+# Discovery configuration
+# Only responsible for FINDING candidate repositories.
+# These rules DO NOT decide whether a project is indexed.
+# Indexing requires HAP evidence (see src/hap).
+
+topics:
+  - harmonyos
+  - openharmony
+  - harmonyos-next
+  - ohos
+  - arkts
+  - arkui
+
+# Free-text / qualified GitHub search queries.
+search_queries:
+  - "HarmonyOS"
+  - "OpenHarmony"
+  - "HarmonyOS NEXT"
+  - "module.json5"
+  - "build-profile.json5"
+  - "oh-package.json5"
+  - "hvigorfile"
+  - "ArkUI"
+  - "ArkTS"
+
+# Organizations to enumerate (not hard-coded in business logic).
+organizations:
+  - openharmony
+  - Awesome-HarmonyOS
+  - HarmonyOS-Next
+
+# Search behavior.
+search:
+  per_page: 100
+  max_pages: 5
+  sort: stars
+  order: desc
+  # Only consider repositories updated/pushed after this date (YYYY-MM-DD).
+  # Keeps discovery focused on maintained projects.
+  pushed_after: "2019-01-01"
+
+dedup:
+  # Field used for de-duplication.
+  by: full_name

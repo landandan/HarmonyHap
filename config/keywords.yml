@@ -1,0 +1,121 @@
+# Keyword -> category mapping (config-driven classification).
+# Each entry:
+#   pattern:   case-insensitive substring or regex (regex when `regex: true`)
+#   categories: one or more category ids to assign
+#   source:    signal source used for evidence ("topic" | "readme" | "description" | "file" | "language" | "any")
+#   weight:    relative strength (used for tie-break / evidence ordering)
+# The classifier collects evidence and assigns categories. It NEVER hard-codes
+# categories in TypeScript.
+keywords:
+  - { pattern: "official", categories: [official], source: "topic", weight: 2 }
+  - { pattern: "sample", categories: [sample], source: "topic", weight: 1 }
+  - { pattern: "sample", categories: [sample], source: "readme", weight: 1 }
+  - { pattern: "demo", categories: [demo], source: "topic", weight: 1 }
+  - { pattern: "demo", categories: [demo], source: "readme", weight: 1 }
+
+  - { pattern: "arkui", categories: [arkui], source: "topic", weight: 2 }
+  - { pattern: "arkui", categories: [arkui, ui-framework], source: "readme", weight: 1 }
+  - { pattern: "arkts", categories: [arkts], source: "topic", weight: 2 }
+  - { pattern: "arkts", categories: [arkts], source: "readme", weight: 1 }
+
+  - { pattern: "component", categories: [ui-component], source: "topic", weight: 2 }
+  - { pattern: "ui-component", categories: [ui-component], source: "topic", weight: 2 }
+  - { pattern: "ui component", categories: [ui-component], source: "readme", weight: 1 }
+  - { pattern: "component library", categories: [ui-component], source: "readme", weight: 1 }
+  - { pattern: "ui framework", categories: [ui-framework], source: "readme", weight: 1 }
+  - { pattern: "ui-framework", categories: [ui-framework], source: "topic", weight: 2 }
+
+  - { pattern: "sdk", categories: [sdk], source: "topic", weight: 1 }
+  - { pattern: "sdk", categories: [sdk], source: "readme", weight: 1 }
+  - { pattern: "library", categories: [library], source: "topic", weight: 1 }
+  - { pattern: "library", categories: [library], source: "readme", weight: 1 }
+
+  - { pattern: "network", categories: [network], source: "topic", weight: 1 }
+  - { pattern: "network", categories: [network], source: "readme", weight: 1 }
+  - { pattern: "websocket", categories: [websocket], source: "topic", weight: 2 }
+  - { pattern: "websocket", categories: [websocket], source: "readme", weight: 1 }
+  - { pattern: "http", categories: [http], source: "topic", weight: 1 }
+  - { pattern: "http client", categories: [http], source: "readme", weight: 1 }
+
+  - { pattern: "database", categories: [database], source: "topic", weight: 2 }
+  - { pattern: "database", categories: [database], source: "readme", weight: 1 }
+  - { pattern: "orm", categories: [database], source: "readme", weight: 1 }
+  - { pattern: "sql", categories: [database], source: "readme", weight: 1 }
+  - { pattern: "storage", categories: [storage], source: "topic", weight: 1 }
+  - { pattern: "storage", categories: [storage], source: "readme", weight: 1 }
+  - { pattern: "persistence", categories: [storage], source: "readme", weight: 1 }
+
+  - { pattern: "audio", categories: [audio], source: "topic", weight: 1 }
+  - { pattern: "audio", categories: [audio], source: "readme", weight: 1 }
+  - { pattern: "music", categories: [audio], source: "readme", weight: 1 }
+  - { pattern: "video", categories: [video], source: "topic", weight: 1 }
+  - { pattern: "video", categories: [video], source: "readme", weight: 1 }
+  - { pattern: "player", categories: [multimedia], source: "readme", weight: 1 }
+  - { pattern: "multimedia", categories: [multimedia], source: "topic", weight: 2 }
+  - { pattern: "multimedia", categories: [multimedia], source: "readme", weight: 1 }
+
+  - { pattern: "graphics", categories: [graphics], source: "topic", weight: 1 }
+  - { pattern: "graphics", categories: [graphics], source: "readme", weight: 1 }
+  - { pattern: "canvas", categories: [graphics], source: "readme", weight: 1 }
+  - { pattern: "image", categories: [image], source: "topic", weight: 1 }
+  - { pattern: "image", categories: [image], source: "readme", weight: 1 }
+
+  - { pattern: "ai", categories: [ai], source: "topic", weight: 1 }
+  - { pattern: "artificial intelligence", categories: [ai], source: "readme", weight: 1 }
+  - { pattern: "llm", categories: [llm], source: "topic", weight: 2 }
+  - { pattern: "large language model", categories: [llm], source: "readme", weight: 1 }
+  - { pattern: "machine learning", categories: [machine-learning], source: "readme", weight: 1 }
+  - { pattern: "machine-learning", categories: [machine-learning], source: "topic", weight: 2 }
+
+  - { pattern: "iot", categories: [iot], source: "topic", weight: 2 }
+  - { pattern: "internet of things", categories: [iot], source: "readme", weight: 1 }
+  - { pattern: "hardware", categories: [hardware], source: "topic", weight: 1 }
+  - { pattern: "driver", categories: [hardware], source: "readme", weight: 1 }
+  - { pattern: "distributed", categories: [distributed], source: "topic", weight: 2 }
+  - { pattern: "soft bus", categories: [distributed], source: "readme", weight: 1 }
+  - { pattern: "softbus", categories: [distributed], source: "readme", weight: 1 }
+  - { pattern: "system", categories: [system], source: "topic", weight: 1 }
+  - { pattern: "rom", categories: [system], source: "readme", weight: 1 }
+
+  - { pattern: "map", categories: [map], source: "topic", weight: 1 }
+  - { pattern: "map", categories: [map], source: "readme", weight: 1 }
+  - { pattern: "location", categories: [location], source: "topic", weight: 1 }
+  - { pattern: "location", categories: [location], source: "readme", weight: 1 }
+  - { pattern: "geolocation", categories: [location], source: "readme", weight: 1 }
+
+  - { pattern: "web", categories: [web], source: "topic", weight: 1 }
+  - { pattern: "web", categories: [web], source: "readme", weight: 1 }
+  - { pattern: "game", categories: [game], source: "topic", weight: 2 }
+  - { pattern: "game", categories: [game], source: "readme", weight: 1 }
+
+  - { pattern: "flutter", categories: [flutter, cross-platform], source: "topic", weight: 2 }
+  - { pattern: "flutter", categories: [flutter, cross-platform], source: "readme", weight: 1 }
+  - { pattern: "react-native", categories: [react-native, cross-platform], source: "topic", weight: 2 }
+  - { pattern: "react native", categories: [react-native, cross-platform], source: "readme", weight: 1 }
+  - { pattern: "cross-platform", categories: [cross-platform], source: "topic", weight: 2 }
+  - { pattern: "cross platform", categories: [cross-platform], source: "readme", weight: 1 }
+
+  - { pattern: "cli", categories: [developer-tools], source: "readme", weight: 1 }
+  - { pattern: "devtools", categories: [developer-tools], source: "topic", weight: 1 }
+  - { pattern: "developer-tools", categories: [developer-tools], source: "topic", weight: 2 }
+  - { pattern: "developer tool", categories: [developer-tools], source: "readme", weight: 1 }
+  - { pattern: "tool", categories: [developer-tools], source: "readme", weight: 1 }
+
+  - { pattern: "tutorial", categories: [tutorial, learning], source: "topic", weight: 1 }
+  - { pattern: "tutorial", categories: [tutorial, learning], source: "readme", weight: 1 }
+  - { pattern: "learning", categories: [learning], source: "topic", weight: 1 }
+  - { pattern: "course", categories: [learning], source: "readme", weight: 1 }
+
+  - { pattern: "adaptation", categories: [adaptation], source: "topic", weight: 1 }
+  - { pattern: "migration", categories: [adaptation], source: "readme", weight: 1 }
+  - { pattern: "port", categories: [adaptation], source: "readme", weight: 1 }
+
+  - { pattern: "security", categories: [security], source: "topic", weight: 2 }
+  - { pattern: "security", categories: [security], source: "readme", weight: 1 }
+  - { pattern: "crypto", categories: [security], source: "readme", weight: 1 }
+
+  - { pattern: "research", categories: [research], source: "topic", weight: 1 }
+  - { pattern: "research", categories: [research], source: "readme", weight: 1 }
+
+  - { pattern: "application", categories: [application], source: "readme", weight: 1 }
+  - { pattern: "app", categories: [application], source: "readme", weight: 1 }
