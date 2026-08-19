@@ -74,11 +74,14 @@ jobs:
       - name: Normalize
         run: npm run normalize
 
-      - name: Validate
-        run: npm run validate
-
+      # Generate must run before Validate: validateOutputs() checks the
+      # data/statistics|categories|organizations.json + generated/* files
+      # that `npm run generate` produces.
       - name: Generate outputs
         run: npm run generate
+
+      - name: Validate
+        run: npm run validate
 
       - name: Commit changes
         run: |
