@@ -28,7 +28,8 @@
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.ts\" \"scripts/**/*.ts\" \"tests/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\" \"scripts/**/*.ts\" \"tests/**/*.ts\"",
-    "build": "tsc --noEmit"
+    "build": "tsc --noEmit",
+    "enrich": "tsx scripts/enrich.ts"
   },
   "dependencies": {
     "@octokit/plugin-throttling": "11.0.0",

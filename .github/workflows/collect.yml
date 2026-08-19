@@ -23,13 +23,23 @@ jobs:
           node-version: 22
           cache: npm
 
+      # Stable cache key: hash of the config/ + src/ trees so unchanged code
+      # reuses previously fetched API responses (trees, search, metadata).
+      # Falls back to the latest matching `github-cache-` entry otherwise.
+      - name: Compute cache key
+        id: cache-key
+        run: |
+          HASH=$(git ls-tree HEAD config src | git hash-object --stdin)
+          echo "key=github-cache-$HASH" >> $GITHUB_OUTPUT
+          echo "restore=github-cache-" >> $GITHUB_OUTPUT
+
       - name: Cache GitHub API responses
         uses: actions/cache@v4
         with:
           path: .cache
-          key: github-cache-${{ github.run_id }}
+          key: ${{ steps.cache-key.outputs.key }}
           restore-keys: |
-            github-cache-
+            ${{ steps.cache-key.outputs.restore }}
 
       - name: Install dependencies
         run: npm ci
@@ -39,18 +49,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
 
-      - name: Fetch repository metadata
+      - name: Fetch metadata + trees
         run: npm run fetch
-        env:
-          GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
-
-      - name: Fetch repository trees
-        run: npm run fetch-tree
         env:
           GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
 
       - name: Detect HAP
         run: npm run hap
+
+      - name: Enrich HAP-verified repos (README + languages)
+        run: npm run enrich
+        env:
+          GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
 
       - name: Detect platform
         run: npm run platform

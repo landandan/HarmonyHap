@@ -9,11 +9,11 @@ import { readJson } from '../src/utils/io.js';
 import {
   runDiscovery,
   runFetch,
-  runTree,
   runHap,
   runPlatform,
   runClassify,
   runScore,
+  runEnrich,
   runNormalize,
   runGenerate,
   applyIncremental,
@@ -120,7 +120,6 @@ async function main(): Promise<void> {
       const items = await runDiscovery(state, config, client, generatedAt);
       discovered = items.length;
       await runFetch(state, config, client);
-      await runTree(state, config, client);
     } finally {
       // Persist even when a stage throws (e.g. rate-limit exhaustion) so the
       // next run reuses what we already fetched instead of re-fetching all.
@@ -139,6 +138,11 @@ async function main(): Promise<void> {
   }
 
   await runHap(state);
+  if (!flags.sample && client) {
+    // README + language enrichment is only needed for HAP-verified repos and
+    // only when a GitHub client exists (sample mode uses bundled fixtures).
+    await runEnrich(state, config, client);
+  }
   await runPlatform(state);
   await runClassify(state, config);
   await runScore(state, config);

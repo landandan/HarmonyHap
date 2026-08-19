@@ -38,7 +38,7 @@ describe('discoverByOrgs', () => {
 
     const result = await discoverByOrgs(client, ['openharmony', 'missing-org'], {});
     expect(result.has('openharmony/sample')).toBe(true);
-    expect(result.get('openharmony/sample')!.has('organization:openharmony')).toBe(true);
+    expect(result.get('openharmony/sample')!.sources.has('organization:openharmony')).toBe(true);
     // The missing org must not poison the result.
     expect(result.has('missing-org/sample')).toBe(false);
   });

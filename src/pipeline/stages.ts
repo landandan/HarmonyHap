@@ -12,7 +12,7 @@ import {
   mergeDiscovered,
   type DiscoveredItem,
 } from '../github/search.js';
-import { fetchRepositoryBundle } from '../github/repositories.js';
+
 import { fetchTreeSafe, treeSignature } from '../github/tree.js';
 import { detectHap, treeItemsToPaths } from '../hap/detector.js';
 import { detectPlatform } from '../platform/detector.js';
@@ -69,7 +69,6 @@ export function applyIncremental(
     if (!prev || prev.status !== 'indexed' || !prev.content_hash) continue;
     const hash = repositoryContentHash({
       treeSignature: a.treeSignature,
-      readme: a.readme ?? '',
       stars: a.repo?.stargazers_count ?? 0,
       pushedAt: a.repo?.pushed_at ?? '',
       archived: a.repo?.archived ?? false,
@@ -157,39 +156,75 @@ export async function runDiscovery(
   return items;
 }
 
-/** Stage 2: fetch repository metadata + README + languages. */
+/**
+ * Build a fresh RepoAnalysis from a discovered item.
+ * Carries the raw metadata supplied by the GitHub search / org response so no
+ * extra `repos.get` call is required.
+ */
+function analysisFromDiscovered(item: DiscoveredItem): RepoAnalysis {
+  return {
+    id: item.repo?.id ?? item.id ?? 0,
+    full_name: item.full_name,
+    discovered_by: item.discovered_by,
+    repo: item.repo ?? null,
+    readme: null,
+    languages: [],
+    treePaths: [],
+    treeStatus: 'unavailable',
+    treeSignature: '',
+  };
+}
+
+/**
+ * Stage 2: fetch repository metadata + Git trees.
+ *
+ * Cost optimization vs. the previous design:
+ *  - Search/topic/org responses already include the full `RawGitHubRepo`
+ *    metadata, so `repos.get` (1 API call per repo) is dropped.
+ *  - README + languages are deferred to the `enrich` stage and only fetched
+ *    for repositories that actually show HAP evidence (binary or buildable).
+ *  - Trees are cached on disk (7-day TTL) so unchanged repos are not
+ *    re-fetched every daily run.
+ */
 export async function runFetch(
   state: PipelineState,
-  config: LoadedConfig,
+  _config: LoadedConfig,
   client: GitHubClient,
 ): Promise<RepoAnalysis[]> {
   const discovered = await state.readDiscovered();
-  log.info(`[FETCH] fetching ${discovered.length} repositories`);
+  log.info(`[FETCH] fetching metadata + trees for ${discovered.length} repositories`);
 
+  let requestsSinceQuotaCheck = 0;
   const results = await mapWithConcurrency(discovered, getConcurrency(), async (item) => {
-    const analysis: RepoAnalysis = {
-      id: item.id,
-      full_name: item.full_name,
-      discovered_by: item.discovered_by,
-      repo: null,
-      readme: null,
-      languages: [],
-      treePaths: [],
-      treeStatus: 'unavailable',
-      treeSignature: '',
-    };
-    try {
-      const repo = await client.getRepository(item.full_name);
-      const bundle = await fetchRepositoryBundle(client, repo);
-      analysis.repo = bundle.repo;
-      analysis.readme = bundle.readme;
-      analysis.languages = bundle.languages;
-      analysis.id = repo.id;
-      log.info(`[FETCH] ${item.full_name} stars=${repo.stargazers_count}`);
-    } catch (err) {
-      analysis.error = (err as Error).message;
-      log.warn(`[FETCH] failed ${item.full_name}: ${(err as Error).message}`);
+    // Amortized rate-limit guard: check core quota once per 20 repos instead
+    // of per repo (the /rate_limit endpoint is free but adds a round trip).
+    if (requestsSinceQuotaCheck++ % 20 === 0) {
+      await client.ensureQuota(20);
     }
+    const analysis = analysisFromDiscovered(item);
+    if (!analysis.repo) {
+      // Manually included repo without search metadata: one metadata call.
+      try {
+        analysis.repo = await client.getRepository(analysis.full_name);
+        analysis.id = analysis.repo.id;
+      } catch (err) {
+        analysis.error = (err as Error).message;
+        log.warn(`[FETCH] metadata failed ${analysis.full_name}: ${(err as Error).message}`);
+      }
+    }
+    // A repo with no metadata cannot be analyzed; leave tree unavailable.
+    if (!analysis.repo) return analysis;
+    const treeRes = await fetchTreeSafe(client, analysis.full_name, analysis.repo.default_branch);
+    if (treeRes.ok) {
+      analysis.treePaths = treeItemsToPaths(treeRes.tree.tree);
+      analysis.treeStatus = treeRes.tree.truncated ? 'truncated' : 'ok';
+      analysis.treeSignature = treeSignature(treeRes.tree);
+      if (treeRes.tree.truncated) log.warn(`[TREE] truncated ${analysis.full_name}`);
+    } else {
+      analysis.treeStatus = 'unavailable';
+      log.warn(`[TREE] unavailable ${analysis.full_name}: ${treeRes.error}`);
+    }
+    log.info(`[FETCH] ${analysis.full_name} stars=${analysis.repo.stargazers_count}`);
     return analysis;
   });
 
@@ -197,36 +232,89 @@ export async function runFetch(
   return results;
 }
 
-/** Stage 3: fetch Git trees. */
+/** Stage 2b (optional): fetch README + languages only for HAP-relevant repos. */
+export async function runEnrich(
+  state: PipelineState,
+  _config: LoadedConfig,
+  client: GitHubClient,
+): Promise<RepoAnalysis[]> {
+  const analyses = await state.readAnalysis('hap');
+  const relevant = analyses.filter(
+    (a) => a.hap?.status === 'binary' || a.hap?.status === 'buildable',
+  );
+  const skipped = analyses.length - relevant.length;
+  log.info(
+    `[ENRICH] fetching README + languages for ${relevant.length} HAP-verified repos (skipping ${skipped} non-HAP)`,
+  );
+
+  const bundleCache = new Map<string, Promise<{ readme: string | null; languages: string[] }>>();
+  const enriched = await mapWithConcurrency(relevant, getConcurrency(), async (a) => {
+    if ((a.readme !== null && a.readme !== undefined) || a.languages.length > 0) return a;
+    if (!bundleCache.has(a.full_name)) {
+      bundleCache.set(a.full_name, client.getReadmeAndLanguages(a.full_name));
+    }
+    const bundle = await bundleCache.get(a.full_name)!;
+    a.readme = bundle.readme;
+    a.languages = bundle.languages;
+    log.info(
+      `[ENRICH] ${a.full_name} readme=${a.readme?.length ?? 0} lang=${a.languages.join(',')}`,
+    );
+    return a;
+  });
+  const byName = new Map(analyses.map((a) => [a.full_name, a]));
+  for (const a of enriched) {
+    const target = byName.get(a.full_name);
+    if (target) {
+      target.readme = a.readme;
+      target.languages = a.languages;
+    }
+  }
+  const full = analyses.map((a) => byName.get(a.full_name) ?? a);
+  await state.writeAnalysis(full, 'hap', new Date().toISOString());
+  return full;
+}
+
+/**
+ * Stage 3 (resume/backfill): fetch Git trees that are still unavailable.
+ * In the normal flow, runFetch fetches metadata + trees together so this is a
+ * cheap no-op; it exists so a crashed `npm run fetch` can be resumed with an
+ * explicit `npm run fetch-tree` without re-fetching every repository.
+ */
 export async function runTree(
   state: PipelineState,
   _config: LoadedConfig,
   client: GitHubClient,
 ): Promise<RepoAnalysis[]> {
   const analyses = await state.readAnalysis('fetched');
-  log.info(`[TREE] fetching trees for ${analyses.length} repositories`);
-
-  const results = await mapWithConcurrency(analyses, getConcurrency(), async (a) => {
-    if (!a.repo) {
-      a.treeStatus = 'unavailable';
-      return a;
-    }
-    const treeRes = await fetchTreeSafe(client, a.full_name, a.repo.default_branch);
+  const missing = analyses.filter(
+    (a) =>
+      a.repo &&
+      (a.treeStatus === 'unavailable' || (a.treeStatus !== 'ok' && a.treeStatus !== 'truncated')) &&
+      a.treePaths.length === 0,
+  );
+  if (missing.length > 0) {
+    log.info(`[TREE] backfilling ${missing.length} missing trees`);
+  }
+  const results = await mapWithConcurrency(missing, getConcurrency(), async (a) => {
+    const treeRes = await fetchTreeSafe(client, a.full_name, a.repo!.default_branch);
     if (treeRes.ok) {
       a.treePaths = treeItemsToPaths(treeRes.tree.tree);
       a.treeStatus = treeRes.tree.truncated ? 'truncated' : 'ok';
       a.treeSignature = treeSignature(treeRes.tree);
       if (treeRes.tree.truncated) log.warn(`[TREE] truncated ${a.full_name}`);
     } else {
-      a.treeStatus = 'unavailable';
-      a.treePaths = [];
       log.warn(`[TREE] unavailable ${a.full_name}: ${treeRes.error}`);
     }
     return a;
   });
-
-  await state.writeAnalysis(results, 'fetched', new Date().toISOString());
-  return results;
+  // Merge backfilled values into the full analysis list, preserving order.
+  if (missing.length > 0) {
+    const byName = new Map(results.map((a) => [a.full_name, a]));
+    const merged = analyses.map((a) => byName.get(a.full_name) ?? a);
+    await state.writeAnalysis(merged, 'fetched', new Date().toISOString());
+    return merged;
+  }
+  return analyses;
 }
 
 /** Stage 4: HAP detection. */
@@ -345,7 +433,6 @@ export function runScore(state: PipelineState, config: LoadedConfig): Promise<Re
     );
     a.content_hash = repositoryContentHash({
       treeSignature: a.treeSignature,
-      readme: a.readme ?? '',
       stars: repo.stargazers_count,
       pushedAt: repo.pushed_at,
       archived: repo.archived,

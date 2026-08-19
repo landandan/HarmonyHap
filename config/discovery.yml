@@ -3,27 +3,27 @@
 # These rules DO NOT decide whether a project is indexed.
 # Indexing requires HAP evidence (see src/hap).
 
+# Topics are queried via the Search API (`topic:...`). To minimize Search-API
+# quota (a separate, lower limit), prefer a handful of high-signal topics and
+# keep `max_pages` small; deep crawling is not profitable for a curated index.
 topics:
   - harmonyos
   - openharmony
   - harmonyos-next
-  - ohos
   - arkts
-  - arkui
 
 # Free-text / qualified GitHub search queries.
+# NOTE: search API quota is shared across topics + queries; fewer queries =
+# less quota consumed. Everything here still yields full repo metadata, so the
+# fetch stage does not need extra `repos.get` calls.
 search_queries:
-  - "HarmonyOS"
-  - "OpenHarmony"
-  - "HarmonyOS NEXT"
   - "module.json5"
-  - "build-profile.json5"
   - "oh-package.json5"
   - "hvigorfile"
   - "ArkUI"
-  - "ArkTS"
 
 # Organizations to enumerate (not hard-coded in business logic).
+# Enumeration uses the org endpoint (does NOT consume search quota).
 organizations:
   - openharmony
   - Awesome-HarmonyOS
@@ -32,13 +32,9 @@ organizations:
 # Search behavior.
 search:
   per_page: 100
-  max_pages: 5
+  max_pages: 2
   sort: stars
   order: desc
   # Only consider repositories updated/pushed after this date (YYYY-MM-DD).
   # Keeps discovery focused on maintained projects.
   pushed_after: "2019-01-01"
-
-dedup:
-  # Field used for de-duplication.
-  by: full_name

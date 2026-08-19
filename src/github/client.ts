@@ -38,6 +38,15 @@ export interface GitHubClientOptions {
    * the window. Default 24h. Set 0 to disable expiry (cache forever).
    */
   cacheTtlMs?: number;
+  /** Cache TTL for git trees specifically (default 7 days). */
+  treeCacheTtlMs?: number;
+  /**
+   * Guard: if true, check the /rate_limit endpoint before each batch and
+   * pause once the core quota is nearly exhausted. Default true.
+   */
+  preflightGuard?: boolean;
+  /** Fraction (0..1) of the core quota that must remain before we pause. */
+  preflightThreshold?: number;
 }
 
 interface CacheEntry {
@@ -60,9 +69,12 @@ export class GitHubClient {
   public readonly token: string;
   private readonly maxRetries: number;
   private readonly cacheTtlMs: number;
+  private readonly treeCacheTtlMs: number;
   private readonly cacheDir?: string;
   private readonly cacheFile?: string;
   private readonly memory = new Map<string, CacheEntry>();
+  private readonly preflightGuard: boolean;
+  private readonly preflightThreshold: number;
 
   constructor(options: GitHubClientOptions = {}) {
     const token = options.token ?? process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN ?? '';
@@ -73,16 +85,7 @@ export class GitHubClient {
       );
     }
     this.token = token;
-    // NOTE: Octokit's `throttle` option only takes effect when the
-    // @octokit/plugin-throttling plugin is registered. We intentionally do NOT
-    // rely on it and instead handle rate limits explicitly in `withRetry` so
-    // that we can wait until the *hourly* window resets instead of burning the
-    // retry budget with sub-second backoff (which never recovers a 403).
-    //
-    // The plugin ALSO gives us a global Bottleneck queue so requests are
-    // serialized instead of bursting (bursts are what trigger GitHub's
-    // *secondary* rate limit / abuse detection — the 403 that has no
-    // `x-ratelimit-reset` header and never recovers from a short backoff).
+
     const OctokitWithThrottling = Octokit.plugin(throttling);
     this.octokit = new OctokitWithThrottling({
       auth: token,
@@ -110,8 +113,12 @@ export class GitHubClient {
         },
       },
     });
+
     this.maxRetries = options.maxRetries ?? 3;
     this.cacheTtlMs = options.cacheTtlMs ?? 24 * 60 * 60 * 1000;
+    this.treeCacheTtlMs = options.treeCacheTtlMs ?? 7 * 24 * 60 * 60 * 1000;
+    this.preflightGuard = options.preflightGuard ?? true;
+    this.preflightThreshold = options.preflightThreshold ?? 0.1;
     if (options.cacheDir) {
       this.cacheDir = options.cacheDir;
       this.cacheFile = path.join(options.cacheDir, 'github.json');
@@ -130,11 +137,7 @@ export class GitHubClient {
     return token;
   }
 
-  /**
-   * Synchronously load the on-disk cache at construction time so the very first
-   * requests in a run can hit previously fetched data. Expired entries (older
-   * than `cacheTtlMs`) are dropped so stale metadata is never served.
-   */
+  /** Synchronously load the on-disk cache at construction time. */
   private loadCacheSync(): void {
     if (!this.cacheFile) return;
     try {
@@ -145,7 +148,8 @@ export class GitHubClient {
       for (const [k, v] of Object.entries(data)) {
         const fetchedAt = new Date(v?.fetchedAt ?? '').getTime();
         if (Number.isNaN(fetchedAt)) continue;
-        if (this.cacheTtlMs > 0 && now - fetchedAt > this.cacheTtlMs) continue;
+        const ttl = k.startsWith('tree:') ? this.treeCacheTtlMs : this.cacheTtlMs;
+        if (ttl > 0 && now - fetchedAt > ttl) continue;
         this.memory.set(k, v);
         loaded++;
       }
@@ -171,17 +175,23 @@ export class GitHubClient {
     return `${method}:${JSON.stringify(params)}`;
   }
 
-  private getCache<T>(key: string): T | undefined {
+  /** Get a cached entry, honoring per-kind TTL. Returns undefined on miss/expired. */
+  private getCacheByKey<T>(key: string, ttlMs: number): T | undefined {
     const hit = this.memory.get(key);
     if (!hit) return undefined;
-    if (this.cacheTtlMs > 0) {
+    if (ttlMs > 0) {
       const fetchedAt = new Date(hit.fetchedAt).getTime();
-      if (!Number.isNaN(fetchedAt) && Date.now() - fetchedAt > this.cacheTtlMs) {
+      if (!Number.isNaN(fetchedAt) && Date.now() - fetchedAt > ttlMs) {
         this.memory.delete(key);
         return undefined;
       }
     }
     return hit.data as T;
+  }
+
+  private getCache<T>(key: string, kind: 'default' | 'tree' = 'default'): T | undefined {
+    const ttl = kind === 'tree' ? this.treeCacheTtlMs : this.cacheTtlMs;
+    return this.getCacheByKey<T>(key, ttl);
   }
 
   private setCache(key: string, data: unknown): void {
@@ -198,11 +208,7 @@ export class GitHubClient {
     return undefined;
   }
 
-  /**
-   * GitHub returns `x-ratelimit-reset` (Unix epoch seconds) on rate-limited
-   * responses. Compute how long we must wait for the *window* to reset. This is
-   * what actually recovers a 403 — the default 1s/2s/4s backoff never does.
-   */
+  /** GitHub returns `x-ratelimit-reset` (Unix epoch seconds) on rate-limited responses. */
   private rateLimitResetMs(err: unknown): number | undefined {
     const e = err as { response?: { headers?: Record<string, string> } };
     const header =
@@ -230,26 +236,17 @@ export class GitHubClient {
 
   /**
    * Run an Octokit request with retry + backoff.
-   *
-   * Two failure classes are handled differently:
-   *  - Rate limits (403/429): the throttling plugin already serializes requests
-   *    globally and honors `Retry-After`. If we still see one here, wait until
-   *    the quota window resets (via `x-ratelimit-reset` / `Retry-After`).
-   *    However, requests marked `failFastOnRateLimit` (readme / languages /
-   *    tree — data we can live without) throw immediately instead of sleeping,
-   *    so a secondary/abuse 403 can never stall the pipeline.
-   *  - Other transient errors (5xx): exponential backoff up to `maxRetries`.
-   *  - 404/410: non-retryable, fail fast.
    */
   private async withRetry<T>(
     context: string,
     fn: () => Promise<T>,
     useCache: boolean,
     cacheKeyStr: string,
-    failFastOnRateLimit = false,
+    opts: { failFastOnRateLimit?: boolean; cacheKind?: 'default' | 'tree' } = {},
   ): Promise<T> {
+    const { failFastOnRateLimit = false, cacheKind = 'default' } = opts;
     if (useCache) {
-      const cached = this.getCache<T>(cacheKeyStr);
+      const cached = this.getCache<T>(cacheKeyStr, cacheKind);
       if (cached !== undefined) return cached;
     }
     const MAX_RATE_LIMIT_WAITS = 2;
@@ -289,8 +286,6 @@ export class GitHubClient {
               true,
             );
           }
-          // readme/languages/tree are optional metadata: a 403 here must NOT
-          // block the whole run. Fail fast so the caller degrades gracefully.
           if (failFastOnRateLimit) {
             throw new GitHubError(
               `GitHub rate limit (skipped, non-essential): ${context} (${e?.message ?? ''})`,
@@ -298,10 +293,6 @@ export class GitHubClient {
               true,
             );
           }
-          // Trust x-ratelimit-reset only on the FIRST hit. If we waited once
-          // and are still limited, the header (or our parse) is unreliable
-          // (common with secondary/abuse limits) — fall back to a short wait
-          // instead of re-sleeping a full window.
           const reset = rateLimitWaits === 1 ? this.rateLimitResetMs(err) : undefined;
           const ra = this.retryAfterMs(err);
           const wait = Math.min(
@@ -321,6 +312,34 @@ export class GitHubClient {
         await sleep(wait);
         delay = Math.min(delay * 2, 30_000);
       }
+    }
+  }
+
+  /**
+   * Check the core rate limit before a batch of requests. When below the
+   * threshold, waits until the reset time before continuing (bounded), so a
+   * batch no longer exhausts the quota and then burns the job timeout waiting
+   * one request at a time.
+   */
+  async ensureQuota(expectedRequests = 1): Promise<void> {
+    if (!this.preflightGuard) return;
+    try {
+      const limit = await this.octokit.rest.rateLimit.get();
+      const core = (
+        limit.data as {
+          resources?: Record<string, { remaining: number; limit: number; reset: number }>;
+        }
+      ).resources?.core;
+      if (!core) return;
+      const threshold = Math.max(1, Math.ceil(core.limit * this.preflightThreshold));
+      if (core.remaining > threshold + expectedRequests) return;
+      const waitMs = Math.min(15 * 60 * 1000, Math.max(0, core.reset * 1000 - Date.now()));
+      log.warn(
+        `[RATE-GUARD] core quota low: ${core.remaining}/${core.limit} remaining; waiting ${Math.round(waitMs / 1000)}s until reset`,
+      );
+      if (waitMs > 0) await sleep(waitMs);
+    } catch {
+      /* best-effort preflight; individual calls still handle rate limits */
     }
   }
 
@@ -416,7 +435,7 @@ export class GitHubClient {
         () => this.octokit.rest.repos.getReadme({ owner, repo }),
         true,
         `readme:${fullName}`,
-        true, // readme is optional — a rate-limit 403 must not stall the run
+        { failFastOnRateLimit: true },
       );
       const content = (res.data as { content?: string; encoding?: string }).content ?? '';
       const encoding = (res.data as { encoding?: string }).encoding ?? 'base64';
@@ -443,7 +462,7 @@ export class GitHubClient {
         () => this.octokit.rest.repos.listLanguages({ owner, repo }),
         true,
         `lang:${fullName}`,
-        true, // languages are optional — a rate-limit 403 must not stall the run
+        { failFastOnRateLimit: true },
       );
       return Object.keys(res.data ?? {});
     } catch {
@@ -452,8 +471,23 @@ export class GitHubClient {
   }
 
   /**
-   * Fetch the Git tree (recursive). Never throws for tree problems — returns a
-   * TreeResult so the pipeline can mark `tree_status` and continue.
+   * Fetch README text + languages together (used by the enrich stage).
+   * Each sub-request is optional: failures degrade to null/[].
+   */
+  async getReadmeAndLanguages(
+    fullName: string,
+  ): Promise<{ readme: string | null; languages: string[] }> {
+    const [readme, languages] = await Promise.all([
+      this.getReadme(fullName),
+      this.getLanguages(fullName),
+    ]);
+    return { readme, languages };
+  }
+  /**
+   * Fetch the Git tree (recursive). Cached on disk with a long TTL (7 days by
+   * default) because trees change rarely and are the most expensive per-repo
+   * request. Never throws for tree problems — returns a TreeResult so the
+   * pipeline can mark `tree_status` and continue.
    */
   async getTree(fullName: string, ref: string): Promise<TreeResult> {
     const [owner, repo] = fullName.split('/');
@@ -467,9 +501,9 @@ export class GitHubClient {
             tree_sha: ref,
             recursive: 'true',
           }),
-        false,
+        true, // cache trees on disk (7-day TTL)
         `tree:${fullName}:${ref}`,
-        true, // tree is optional metadata — a rate-limit 403 must not stall the run
+        { failFastOnRateLimit: true, cacheKind: 'tree' },
       );
       const tree = (res.data.tree ?? []).map((t) => ({
         path: (t as { path?: string }).path ?? '',

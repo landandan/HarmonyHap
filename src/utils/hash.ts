@@ -7,17 +7,18 @@ export function sha256(input: string): string {
 
 /**
  * Content hash used for change detection. Combining multiple signals keeps
- * the pipeline from re-processing repositories whose tree / README / metadata
- * have not changed.
+ * the pipeline from re-processing repositories whose tree / metadata have
+ * not changed. NOTE: README text is intentionally NOT hashed separately —
+ * the tree signature already includes every blob path (including README.md),
+ * so a README change changes the tree SHA and therefore the signature.
  */
 export function contentHash(parts: Array<string | number | null | undefined>): string {
   return sha256(parts.map((p) => (p === null || p === undefined ? '' : String(p))).join('||'));
 }
 
-/** Hash used specifically for tree evidence + readme + metadata change detection. */
+/** Hash used specifically for tree evidence + metadata change detection. */
 export function repositoryContentHash(opts: {
   treeSignature: string;
-  readme: string;
   stars: number;
   pushedAt: string;
   archived: boolean;
@@ -25,7 +26,6 @@ export function repositoryContentHash(opts: {
 }): string {
   return contentHash([
     opts.treeSignature,
-    opts.readme,
     opts.stars,
     opts.pushedAt,
     opts.archived ? 1 : 0,

@@ -2,9 +2,13 @@ name: Weekly Full Scan
 
 # Re-runs the complete discovery + processing pipeline from scratch once a week.
 # Unlike the daily "Collect" run which relies on the on-disk intermediate state,
-# this scan wipes the intermediate work dir and API cache first, so newly-published
-# HAP projects (and projects that only recently added a buildable HAP structure) are
-# guaranteed to be discovered and re-detected rather than skipped via cached data.
+# this scan wipes the intermediate work dir first, so newly-published HAP projects
+# (and projects that only recently added a buildable HAP structure) are guaranteed
+# to be discovered and re-detected rather than skipped via stale work files.
+#
+# The GitHub API response cache (.cache) is preserved and restored (same key
+# namespace as Collect): trees carry a 7-day TTL, so unchanged repos are not
+# re-fetched — this is what keeps the scan inside the API rate budget.
 
 on:
   schedule:
@@ -29,31 +33,47 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Compute cache key
+        id: cache-key
+        run: |
+          HASH=$(git ls-tree HEAD config src | git hash-object --stdin)
+          echo "key=github-cache-$HASH" >> $GITHUB_OUTPUT
+          echo "restore=github-cache-" >> $GITHUB_OUTPUT
+
+      - name: Cache GitHub API responses
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: ${{ steps.cache-key.outputs.key }}
+          restore-keys: |
+            ${{ steps.cache-key.outputs.restore }}
+
       - name: Install dependencies
         run: npm ci
 
-      # Force a clean slate: ignore any cached discovery/work state so the scan
-      # cannot silently skip repositories that changed since the last daily run.
+      # Force a clean slate for discovery/work state so the scan cannot
+      # silently skip repositories that changed since the last daily run.
+      # The .cache (API responses) is intentionally kept.
       - name: Clean intermediate state
-        run: rm -rf data/.work .cache
+        run: rm -rf data/.work
 
       - name: Discover candidates (full)
         run: npm run discover
         env:
           GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
 
-      - name: Fetch repository metadata
+      - name: Fetch metadata + trees
         run: npm run fetch
-        env:
-          GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
-
-      - name: Fetch repository trees
-        run: npm run fetch-tree
         env:
           GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
 
       - name: Detect HAP
         run: npm run hap
+
+      - name: Enrich HAP-verified repos (README + languages)
+        run: npm run enrich
+        env:
+          GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
 
       - name: Detect platform
         run: npm run platform
