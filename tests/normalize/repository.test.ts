@@ -67,6 +67,9 @@ describe('Normalization + schema', () => {
     fs.readFileSync(path.join(process.cwd(), 'tests/fixtures/sample-fetched.json'), 'utf8'),
   );
 
+  const byName: Record<string, any> = {};
+  for (const item of fixture.items) byName[item.full_name] = item;
+
   it('every analyzed repo validates against the Zod schema', () => {
     for (const item of fixture.items) {
       const a = analyze(item);
@@ -76,9 +79,6 @@ describe('Normalization + schema', () => {
   });
 
   it('binary / buildable are indexed; partial / invalid are rejected', () => {
-    const byName: Record<string, any> = {};
-    for (const item of fixture.items) byName[item.full_name] = item;
-
     const binary = toRepositoryRecord(analyze(byName['acme/hap-binary-demo']), '2026-01-01T00:00:00.000Z');
     expect(binary.status).toBe('indexed');
 

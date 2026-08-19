@@ -1,4 +1,5 @@
-import type { Evidence, Platform } from '../schemas/repository.js';
+import type { Platform } from '../schemas/repository.js';
+import type { Evidence } from '../schemas/hap.js';
 import { PLATFORM_RULES, type PlatformRule, type PlatformSignalSource } from './rules.js';
 
 export interface PlatformDetectionInput {

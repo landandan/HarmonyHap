@@ -4,6 +4,7 @@ import type { PlatformDetectionResult } from '../platform/detector.js';
 import type { ClassificationResult } from '../classification/classifier.js';
 import type { ScoreResult } from '../scoring/scorer.js';
 import type { DiscoveredItem } from '../github/search.js';
+export type { DiscoveredItem };
 
 export type TreeStatus = 'ok' | 'truncated' | 'unavailable';
 
