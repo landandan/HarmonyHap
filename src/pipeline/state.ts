@@ -37,7 +37,11 @@ export class PipelineState {
 
   // ---- discovered ----
   async writeDiscovered(items: DiscoveredItem[], generatedAt: string): Promise<void> {
-    const state: DiscoveredState = { schema_version: SCHEMA_VERSION, generated_at: generatedAt, items };
+    const state: DiscoveredState = {
+      schema_version: SCHEMA_VERSION,
+      generated_at: generatedAt,
+      items,
+    };
     await writeJson(this.workFile('discovered.json'), state);
     log.info(`discovered ${items.length} candidate repositories`);
   }
@@ -50,8 +54,17 @@ export class PipelineState {
   }
 
   // ---- analysis stages ----
-  async writeAnalysis(items: RepoAnalysis[], stage: AnalysisStage, generatedAt: string): Promise<void> {
-    const state: AnalysisState = { schema_version: SCHEMA_VERSION, generated_at: generatedAt, stage, items };
+  async writeAnalysis(
+    items: RepoAnalysis[],
+    stage: AnalysisStage,
+    generatedAt: string,
+  ): Promise<void> {
+    const state: AnalysisState = {
+      schema_version: SCHEMA_VERSION,
+      generated_at: generatedAt,
+      stage,
+      items,
+    };
     await writeJson(this.workFile(`${stage}.json`), state);
     log.info(`stage ${stage}: ${items.length} repositories`);
   }

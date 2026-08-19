@@ -15,10 +15,7 @@ export interface PlatformDetectionResult {
   platform_evidence: Evidence[];
 }
 
-function signalsForSource(
-  source: PlatformSignalSource,
-  input: PlatformDetectionInput,
-): string {
+function signalsForSource(source: PlatformSignalSource, input: PlatformDetectionInput): string {
   switch (source) {
     case 'topic':
       return input.topics.join(' ');
@@ -62,7 +59,8 @@ export function detectPlatform(input: PlatformDetectionInput): PlatformDetection
     if (rule.source === 'organization') hasOrgMatch = true;
     evidence.push({
       source: 'github',
-      type: rule.source === 'topic' ? 'topic' : rule.source === 'readme' ? 'readme' : 'organization',
+      type:
+        rule.source === 'topic' ? 'topic' : rule.source === 'readme' ? 'readme' : 'organization',
       value: `${rule.platform} <- ${rule.source}:/${rule.pattern}`,
       weight: rule.weight,
     });

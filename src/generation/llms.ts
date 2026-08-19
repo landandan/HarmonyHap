@@ -78,11 +78,15 @@ export function generateLlmsFullTxt(
     lines.push(`- url: ${r.url}`);
     lines.push(`- platform: ${r.platform.join(', ')} (confidence ${r.platform_confidence})`);
     lines.push(`- category: ${r.category.join(', ')}`);
-    lines.push(`- hap_status: ${r.hap.status} (score ${r.hap.score}, packages ${r.hap.package_types.join('/') || '-'})`);
+    lines.push(
+      `- hap_status: ${r.hap.status} (score ${r.hap.score}, packages ${r.hap.package_types.join('/') || '-'})`,
+    );
     lines.push(`- hap_evidence: ${hapEvidence || '-'}`);
     lines.push(`- summary: ${(r.ai?.summary ?? '').replace(/\n/g, ' ')}`);
     lines.push(`- use_cases: ${(r.ai?.use_cases ?? []).join(', ')}`);
-    lines.push(`- stars: ${r.stars} | license: ${r.license ?? 'none'} | activity: ${r.activity.status}`);
+    lines.push(
+      `- stars: ${r.stars} | license: ${r.license ?? 'none'} | activity: ${r.activity.status}`,
+    );
     lines.push(`- navigator_score: ${r.navigator_score}`);
     lines.push('');
   }

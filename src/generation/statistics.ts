@@ -85,12 +85,15 @@ export function computeOrganizations(
     .map(([name, reposForOrg]) => ({
       name,
       count: reposForOrg.length,
-      repositories: sortRepos(
-        indexed.filter((r) => r.organization === name),
-      )
+      repositories: sortRepos(indexed.filter((r) => r.organization === name))
         .slice(0, topPerOrg)
         .map((r) => r.full_name),
     }))
     .sort((a, b) => b.count - a.count);
-  return { schema_version: SCHEMA_VERSION, generated_at: generatedAt, source: SOURCE, organizations };
+  return {
+    schema_version: SCHEMA_VERSION,
+    generated_at: generatedAt,
+    source: SOURCE,
+    organizations,
+  };
 }

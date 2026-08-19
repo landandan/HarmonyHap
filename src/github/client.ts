@@ -55,8 +55,7 @@ export class GitHubClient {
   private readonly memory = new Map<string, CacheEntry>();
 
   constructor(options: GitHubClientOptions = {}) {
-    const token =
-      options.token ?? process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN ?? '';
+    const token = options.token ?? process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN ?? '';
     if (!token) {
       throw new GitHubAuthError(
         'Missing GitHub token. Set GITHUB_TOKEN (or GH_TOKEN) environment variable.\n' +
@@ -131,8 +130,7 @@ export class GitHubClient {
 
   private retryAfterMs(err: unknown): number | undefined {
     const e = err as { response?: { headers?: Record<string, string> } };
-    const header =
-      e?.response?.headers?.['retry-after'] ?? e?.response?.headers?.['Retry-After'];
+    const header = e?.response?.headers?.['retry-after'] ?? e?.response?.headers?.['Retry-After'];
     if (header) {
       const secs = Number(header);
       if (!Number.isNaN(secs)) return secs * 1000;
@@ -173,7 +171,7 @@ export class GitHubClient {
           );
         }
         attempt++;
-        const wait = isRateLimit ? this.retryAfterMs(err) ?? delay : delay;
+        const wait = isRateLimit ? (this.retryAfterMs(err) ?? delay) : delay;
         log.warn(
           `retry ${attempt}/${this.maxRetries} for ${context} (status=${status ?? '?'}) in ${wait}ms`,
         );
@@ -350,8 +348,11 @@ export class GitHubClient {
   async getRateLimit(): Promise<{ remaining: number; limit: number; reset: number } | null> {
     try {
       const res = await this.octokit.rest.rateLimit.get();
-      const core = (res.data as { resources?: Record<string, { remaining: number; limit: number; reset: number }> })
-        .resources?.core;
+      const core = (
+        res.data as {
+          resources?: Record<string, { remaining: number; limit: number; reset: number }>;
+        }
+      ).resources?.core;
       return core ?? null;
     } catch {
       return null;

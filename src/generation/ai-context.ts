@@ -28,7 +28,9 @@ export function generateAiContext(
   lines.push('- 唯一外部事实来源：**GitHub**（REST API）。');
   lines.push('- 不使用 HTML 爬取、Google/Bing 搜索或第三方 GitHub 镜像。');
   lines.push('- 不依赖独立服务器、数据库服务器或爬虫服务器。');
-  lines.push('- GitHub 原始字段（stars、license、description、topics 等）不会被任何 AI 生成结果覆盖。');
+  lines.push(
+    '- GitHub 原始字段（stars、license、description、topics 等）不会被任何 AI 生成结果覆盖。',
+  );
   lines.push('');
   lines.push('## HAP 收录标准（HAP 优先）');
   lines.push('');
@@ -50,7 +52,9 @@ export function generateAiContext(
   lines.push('');
   for (const id of categoryOrder(config)) {
     const meta = getCategoryMeta(config, id);
-    lines.push(`- **${meta.label}** (\`${meta.id}\`)${meta.description ? `：${meta.description}` : ''}`);
+    lines.push(
+      `- **${meta.label}** (\`${meta.id}\`)${meta.description ? `：${meta.description}` : ''}`,
+    );
   }
   lines.push('');
   lines.push('## 数据字段（repositories.json）');
@@ -60,7 +64,9 @@ export function generateAiContext(
   lines.push('| `full_name` / `url` | GitHub 仓库标识与地址（由 API 返回） |');
   lines.push('| `platform` / `platform_confidence` / `platform_evidence` | 平台判定及证据 |');
   lines.push('| `category` / `classification_evidence` | 配置驱动的分类及证据 |');
-  lines.push('| `hap.status` / `hap.score` / `hap.package_types` / `hap.evidence` | HAP 检测结果 |');
+  lines.push(
+    '| `hap.status` / `hap.score` / `hap.package_types` / `hap.evidence` | HAP 检测结果 |',
+  );
   lines.push('| `activity.score` / `activity.status` | 活跃度（基于最近 push 等） |');
   lines.push('| `quality.*` | 文档 / 社区 / 综合质量 |');
   lines.push('| `navigator_score` / `score_breakdown` | 综合评分与分项构成 |');
@@ -70,7 +76,9 @@ export function generateAiContext(
   lines.push('');
   lines.push('## 排序规则');
   lines.push('');
-  lines.push('- 默认按 `navigator_score` 降序；相同时按 `stars` 降序；再相同按 `full_name` 升序（稳定）。');
+  lines.push(
+    '- 默认按 `navigator_score` 降序；相同时按 `stars` 降序；再相同按 `full_name` 升序（稳定）。',
+  );
   lines.push('- 精选项目：Top 20（无人工硬编码）。');
   lines.push('');
   lines.push('## 推荐规则');

@@ -8,7 +8,11 @@ import { detectPlatform } from '../../src/platform/detector.js';
 import { classify } from '../../src/classification/classifier.js';
 import { scoreRepository } from '../../src/scoring/scorer.js';
 import { toRepositoryRecord } from '../../src/normalize/repository.js';
-import { computeStatistics, computeCategories, computeOrganizations } from '../../src/generation/statistics.js';
+import {
+  computeStatistics,
+  computeCategories,
+  computeOrganizations,
+} from '../../src/generation/statistics.js';
 import { generateReadme } from '../../src/generation/readme.js';
 import { generateAiContext, generateSystemPrompt } from '../../src/generation/ai-context.js';
 import { generateLlmsTxt, generateLlmsFullTxt } from '../../src/generation/llms.js';
@@ -155,7 +159,10 @@ describe('Generation + validation', () => {
     await state.writeGenerated('README.md', generateReadme(repos, stats, config.categories));
     await state.writeGenerated('ai-context.md', generateAiContext(repos, stats, config.categories));
     await state.writeGenerated('llms.txt', generateLlmsTxt(repos));
-    await state.writeGenerated('llms-full.txt', generateLlmsFullTxt(repos, stats, config.categories));
+    await state.writeGenerated(
+      'llms-full.txt',
+      generateLlmsFullTxt(repos, stats, config.categories),
+    );
 
     await expect(validateOutputs(state)).resolves.toBeUndefined();
     fs.rmSync(tmp, { recursive: true, force: true });

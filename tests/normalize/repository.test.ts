@@ -27,10 +27,14 @@ describe('Normalization + schema', () => {
       languages: item.languages,
       treePaths: item.treePaths,
       treeStatus: item.treeStatus,
-        treeSignature: item.treeSignature,
-      };
-      const repo = item.repo!;
-      a.hap = detectHap({ treePaths: item.treePaths, readme: item.readme, treeStatus: item.treeStatus });
+      treeSignature: item.treeSignature,
+    };
+    const repo = item.repo!;
+    a.hap = detectHap({
+      treePaths: item.treePaths,
+      readme: item.readme,
+      treeStatus: item.treeStatus,
+    });
     a.platform = detectPlatform({
       topics: repo.topics ?? [],
       readme: item.readme,
@@ -80,13 +84,22 @@ describe('Normalization + schema', () => {
   });
 
   it('binary / buildable are indexed; partial / invalid are rejected', () => {
-    const binary = toRepositoryRecord(analyze(byName['acme/hap-binary-demo']), '2026-01-01T00:00:00.000Z');
+    const binary = toRepositoryRecord(
+      analyze(byName['acme/hap-binary-demo']),
+      '2026-01-01T00:00:00.000Z',
+    );
     expect(binary.status).toBe('indexed');
 
-    const buildable = toRepositoryRecord(analyze(byName['acme/hap-buildable']), '2026-01-01T00:00:00.000Z');
+    const buildable = toRepositoryRecord(
+      analyze(byName['acme/hap-buildable']),
+      '2026-01-01T00:00:00.000Z',
+    );
     expect(buildable.status).toBe('indexed');
 
-    const readmeOnly = toRepositoryRecord(analyze(byName['acme/readme-only']), '2026-01-01T00:00:00.000Z');
+    const readmeOnly = toRepositoryRecord(
+      analyze(byName['acme/readme-only']),
+      '2026-01-01T00:00:00.000Z',
+    );
     expect(readmeOnly.status).toBe('rejected');
 
     const plain = toRepositoryRecord(analyze(byName['acme/plain-ts']), '2026-01-01T00:00:00.000Z');
@@ -97,17 +110,26 @@ describe('Normalization + schema', () => {
   });
 
   it('archived repos are marked archived, not indexed', () => {
-    const archived = toRepositoryRecord(analyze(byName['acme/old-app']), '2026-01-01T00:00:00.000Z');
+    const archived = toRepositoryRecord(
+      analyze(byName['acme/old-app']),
+      '2026-01-01T00:00:00.000Z',
+    );
     expect(archived.status).toBe('archived');
   });
 
   it('organization is recorded for org-owned repos', () => {
-    const org = toRepositoryRecord(analyze(byName['openharmony/sample']), '2026-01-01T00:00:00.000Z');
+    const org = toRepositoryRecord(
+      analyze(byName['openharmony/sample']),
+      '2026-01-01T00:00:00.000Z',
+    );
     expect(org.organization).toBe('openharmony');
   });
 
   it('GitHub raw URL is preserved and valid', () => {
-    const r = toRepositoryRecord(analyze(byName['acme/hap-binary-demo']), '2026-01-01T00:00:00.000Z');
+    const r = toRepositoryRecord(
+      analyze(byName['acme/hap-binary-demo']),
+      '2026-01-01T00:00:00.000Z',
+    );
     expect(r.url).toBe('https://github.com/acme/hap-binary-demo');
   });
 });

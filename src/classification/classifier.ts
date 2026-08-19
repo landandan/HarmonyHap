@@ -15,10 +15,7 @@ export interface ClassificationResult {
   classification_evidence: Evidence[];
 }
 
-function signalForSource(
-  source: KeywordRule['source'],
-  input: ClassificationInput,
-): string {
+function signalForSource(source: KeywordRule['source'], input: ClassificationInput): string {
   switch (source) {
     case 'topic':
       return input.topics.join(' ');

@@ -19,9 +19,7 @@ import { detectPlatform } from '../platform/detector.js';
 import { classify } from '../classification/classifier.js';
 import { scoreRepository } from '../scoring/scorer.js';
 import { normalizeAll } from '../normalize/repository.js';
-import {
-  generateReadme,
-} from '../generation/readme.js';
+import { generateReadme } from '../generation/readme.js';
 import {
   computeStatistics,
   computeCategories,

@@ -36,7 +36,9 @@ function renderTable(repos: Repository[], topN: number): string {
     '|---|---|---|---:|---|---|---:|';
   const rows = sorted.map((r) => {
     const name = `[${escapeTableCell(r.full_name)}](${r.url})`;
-    const desc = r.description ? `<br><small>${escapeTableCell(truncate(r.description, 120))}</small>` : '';
+    const desc = r.description
+      ? `<br><small>${escapeTableCell(truncate(r.description, 120))}</small>`
+      : '';
     const lic = r.license ? escapeTableCell(r.license) : '-';
     return `| ${name}${desc} | ${platformLabel(r)} | ${hapLabel(r.hap.status)} | ${r.stars} | ${escapeTableCell(r.activity.status)} | ${lic} | ${r.navigator_score} |`;
   });
@@ -44,7 +46,8 @@ function renderTable(repos: Repository[], topN: number): string {
 }
 
 function countByPlatform(repos: Repository[], platform: string): number {
-  return repos.filter((r) => r.platform.includes(platform as Repository['platform'][number])).length;
+  return repos.filter((r) => r.platform.includes(platform as Repository['platform'][number]))
+    .length;
 }
 
 /**
@@ -133,7 +136,9 @@ export function generateReadme(
   for (const sec of platformSections) {
     lines.push(`## ${sec.title}`);
     lines.push('');
-    const inSec = indexed.filter((r) => r.platform.includes(sec.key as Repository['platform'][number]));
+    const inSec = indexed.filter((r) =>
+      r.platform.includes(sec.key as Repository['platform'][number]),
+    );
     lines.push(`共 ${inSec.length} 个（展示 Top ${topN}）：`);
     lines.push('');
     lines.push(renderTable(inSec, topN));

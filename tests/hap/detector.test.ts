@@ -47,7 +47,10 @@ describe('HAP detector', () => {
   });
 
   it('HAR-only library is not a full HAP app', () => {
-    const r = detectHap({ treePaths: ['library/src/main/module.json5', 'dist/x.har'], readme: null });
+    const r = detectHap({
+      treePaths: ['library/src/main/module.json5', 'dist/x.har'],
+      readme: null,
+    });
     expect(r.status).toBe('partial');
     expect(r.package_types).toContain('HAR');
   });

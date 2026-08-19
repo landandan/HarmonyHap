@@ -94,7 +94,11 @@ export function toRepositoryRecord(
     package_types: [] as Repository['hap']['package_types'],
     evidence: [],
   };
-  const platform = a.platform ?? { platform: ['Unknown' as Platform], platform_confidence: 0.2, platform_evidence: [] };
+  const platform = a.platform ?? {
+    platform: ['Unknown' as Platform],
+    platform_confidence: 0.2,
+    platform_evidence: [],
+  };
   const classification = a.classification ?? { category: ['other'], classification_evidence: [] };
   const score = a.score ?? {
     navigator_score: 0,
@@ -146,7 +150,7 @@ export function toRepositoryRecord(
     rejection_reasons:
       status === 'indexed' || status === 'archived'
         ? undefined
-        : hap.rejection_reasons ?? ['NO_HAP_EVIDENCE'],
+        : (hap.rejection_reasons ?? ['NO_HAP_EVIDENCE']),
     organization: isOrg ? repo.owner.login : null,
     content_hash: a.content_hash,
     source: { type: 'github', repository: repo.full_name },
@@ -201,7 +205,9 @@ export function normalizeAll(
     }
   }
   if (failures.length > 0) {
-    throw new Error(`Schema validation failed for ${failures.length} repositories:\n${failures.join('\n')}`);
+    throw new Error(
+      `Schema validation failed for ${failures.length} repositories:\n${failures.join('\n')}`,
+    );
   }
   return records;
 }

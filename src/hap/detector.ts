@@ -26,7 +26,9 @@ function matchRule(
     if (!readme) return null;
     try {
       if (new RegExp(rule.match, 'i').test(readme)) {
-        return { evidence: { source: 'github', type: 'readme', value: rule.evidence, weight: rule.weight } };
+        return {
+          evidence: { source: 'github', type: 'readme', value: rule.evidence, weight: rule.weight },
+        };
       }
     } catch {
       /* ignore bad regex */
@@ -38,7 +40,13 @@ function matchRule(
     const hit = lowerPaths.find((p) => p === rule.match || p.startsWith(rule.match + '/'));
     if (hit) {
       return {
-        evidence: { source: 'github', type: 'file', value: rule.evidence, path: hit, weight: rule.weight },
+        evidence: {
+          source: 'github',
+          type: 'file',
+          value: rule.evidence,
+          path: hit,
+          weight: rule.weight,
+        },
         path: hit,
       };
     }
@@ -51,7 +59,13 @@ function matchRule(
     const hit = lowerPaths.find((p) => p.endsWith(ext));
     if (hit) {
       return {
-        evidence: { source: 'github', type: 'file', value: rule.evidence, path: hit, weight: rule.weight },
+        evidence: {
+          source: 'github',
+          type: 'file',
+          value: rule.evidence,
+          path: hit,
+          weight: rule.weight,
+        },
         path: hit,
       };
     }
@@ -63,7 +77,13 @@ function matchRule(
   );
   if (hit) {
     return {
-      evidence: { source: 'github', type: 'file', value: rule.evidence, path: hit, weight: rule.weight },
+      evidence: {
+        source: 'github',
+        type: 'file',
+        value: rule.evidence,
+        path: hit,
+        weight: rule.weight,
+      },
       path: hit,
     };
   }
@@ -96,8 +116,7 @@ export function detectHap(input: HapDetectionInput): Hap {
   let rejectionReasons: string[] = [];
   let readmeOnly = false;
 
-  const hasHarmonyReadme =
-    !!readme && /harmonyos|openharmony|\bohos\b/i.test(readme);
+  const hasHarmonyReadme = !!readme && /harmonyos|openharmony|\bohos\b/i.test(readme);
 
   if (treeUnavailable && !hasHapBinary) {
     status = 'unknown';
@@ -115,7 +134,9 @@ export function detectHap(input: HapDetectionInput): Hap {
     const hasHarmonyDescriptor = matched.some(
       (m) => m.rule.id === 'module-json5' || m.rule.id === 'readme-hap',
     );
-    rejectionReasons = [hasHarmonyDescriptor ? 'NO_HAP_EVIDENCE' : 'INSUFFICIENT_PROJECT_STRUCTURE'];
+    rejectionReasons = [
+      hasHarmonyDescriptor ? 'NO_HAP_EVIDENCE' : 'INSUFFICIENT_PROJECT_STRUCTURE',
+    ];
   } else if (hasHarmonyReadme) {
     // README mentions HarmonyOS/OpenHarmony but no project structure.
     status = 'partial';
@@ -150,8 +171,6 @@ export function detectHap(input: HapDetectionInput): Hap {
 }
 
 /** Convenience: extract blob/tree paths from tree items. */
-export function treeItemsToPaths(
-  items: Array<{ path: string; type: 'blob' | 'tree' }>,
-): string[] {
+export function treeItemsToPaths(items: Array<{ path: string; type: 'blob' | 'tree' }>): string[] {
   return items.map((i) => i.path).filter(Boolean);
 }

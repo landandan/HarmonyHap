@@ -49,8 +49,14 @@ describe('Scoring', () => {
   });
 
   it('archived projects get penalized activity', () => {
-    const active = computeActivity({ pushed_at: new Date().toISOString(), archived: false }, config);
-    const archived = computeActivity({ pushed_at: new Date().toISOString(), archived: true }, config);
+    const active = computeActivity(
+      { pushed_at: new Date().toISOString(), archived: false },
+      config,
+    );
+    const archived = computeActivity(
+      { pushed_at: new Date().toISOString(), archived: true },
+      config,
+    );
     expect(archived.score).toBeLessThan(active.score);
     expect(archived.status).toBe('archived');
   });

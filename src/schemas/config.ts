@@ -35,9 +35,7 @@ export type CategoriesConfig = z.infer<typeof categoriesConfigSchema>;
 export const keywordRuleSchema = z.object({
   pattern: z.string(),
   categories: z.array(z.string()),
-  source: z
-    .enum(['topic', 'readme', 'description', 'file', 'language', 'any'])
-    .default('any'),
+  source: z.enum(['topic', 'readme', 'description', 'file', 'language', 'any']).default('any'),
   weight: z.number().default(1),
   regex: z.boolean().default(false),
 });

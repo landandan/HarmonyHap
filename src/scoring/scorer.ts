@@ -31,10 +31,7 @@ function pickThreshold(value: number, list: Array<{ min: number; score: number }
   return 0;
 }
 
-function computeDocumentation(
-  readme: string | null,
-  cfg: ScoringConfig['documentation'],
-): number {
+function computeDocumentation(readme: string | null, cfg: ScoringConfig['documentation']): number {
   if (!readme) return 0;
   const len = readme.length;
   const base = cfg.has_readme_score;
