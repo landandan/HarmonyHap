@@ -1,0 +1,293 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-19T08:59:39.218Z",
+  "source": "github",
+  "organizations": [
+    {
+      "name": "openharmony",
+      "count": 14,
+      "repositories": [
+        "openharmony/codelabs",
+        "openharmony/applications_hap",
+        "openharmony/arkui_ace_engine",
+        "openharmony/global_resmgr_lite",
+        "openharmony/global_resmgr_standard",
+        "openharmony/communication_wifi",
+        "openharmony/arkui_arkui_cangjie_wrapper",
+        "openharmony/powermgr_power_manager",
+        "openharmony/xts_tools",
+        "openharmony/aafwk_standard",
+        "openharmony/appexecfwk_standard",
+        "openharmony/security",
+        "openharmony/distributedschedule_dms_fwk",
+        "openharmony/xts_acts"
+      ]
+    },
+    {
+      "name": "ohosvscode",
+      "count": 3,
+      "repositories": [
+        "ohosvscode/arkTS",
+        "ohosvscode/project-detector",
+        "ohosvscode/harmony-next-pipeline"
+      ]
+    },
+    {
+      "name": "OHPG",
+      "count": 2,
+      "repositories": [
+        "OHPG/FinVideo",
+        "OHPG/FinMusic"
+      ]
+    },
+    {
+      "name": "WisdomGardenInc",
+      "count": 2,
+      "repositories": [
+        "WisdomGardenInc/Cloak",
+        "WisdomGardenInc/CloakPlugins"
+      ]
+    },
+    {
+      "name": "HarmonyCandies",
+      "count": 2,
+      "repositories": [
+        "HarmonyCandies/pull_to_refresh",
+        "HarmonyCandies/loading_more_list"
+      ]
+    },
+    {
+      "name": "arkui-x",
+      "count": 2,
+      "repositories": [
+        "arkui-x/cli",
+        "arkui-x/samples"
+      ]
+    },
+    {
+      "name": "eclipse-oniro-mirrors",
+      "count": 2,
+      "repositories": [
+        "eclipse-oniro-mirrors/arkui_arkui_cangjie_wrapper",
+        "eclipse-oniro-mirrors/arkui_idlize"
+      ]
+    },
+    {
+      "name": "Tencent-TDS",
+      "count": 1,
+      "repositories": [
+        "Tencent-TDS/KuiklyUI"
+      ]
+    },
+    {
+      "name": "alibaba",
+      "count": 1,
+      "repositories": [
+        "alibaba/GaiaX"
+      ]
+    },
+    {
+      "name": "AGenUI",
+      "count": 1,
+      "repositories": [
+        "AGenUI/AGenUI"
+      ]
+    },
+    {
+      "name": "didi",
+      "count": 1,
+      "repositories": [
+        "didi/dimina"
+      ]
+    },
+    {
+      "name": "harmony-on-android",
+      "count": 1,
+      "repositories": [
+        "harmony-on-android/HOA"
+      ]
+    },
+    {
+      "name": "OpenBMB",
+      "count": 1,
+      "repositories": [
+        "OpenBMB/MiniCPM-V-Apps"
+      ]
+    },
+    {
+      "name": "harmoninux",
+      "count": 1,
+      "repositories": [
+        "harmoninux/Harmonix"
+      ]
+    },
+    {
+      "name": "HuolalaTech",
+      "count": 1,
+      "repositories": [
+        "HuolalaTech/hll-wp-therouter-harmony"
+      ]
+    },
+    {
+      "name": "ecnusse",
+      "count": 1,
+      "repositories": [
+        "ecnusse/Kea"
+      ]
+    },
+    {
+      "name": "bytedance",
+      "count": 1,
+      "repositories": [
+        "bytedance/rdbStore"
+      ]
+    },
+    {
+      "name": "siyuan-note",
+      "count": 1,
+      "repositories": [
+        "siyuan-note/siyuan-harmony"
+      ]
+    },
+    {
+      "name": "larksuite",
+      "count": 1,
+      "repositories": [
+        "larksuite/rich-text-vista"
+      ]
+    },
+    {
+      "name": "collaborative-creation",
+      "count": 1,
+      "repositories": [
+        "collaborative-creation/etohos"
+      ]
+    },
+    {
+      "name": "AimesSoft",
+      "count": 1,
+      "repositories": [
+        "AimesSoft/Erika"
+      ]
+    },
+    {
+      "name": "AppGalleryConnect",
+      "count": 1,
+      "repositories": [
+        "AppGalleryConnect/agc-HarmonyOS-demos"
+      ]
+    },
+    {
+      "name": "DeadlinerStudio",
+      "count": 1,
+      "repositories": [
+        "DeadlinerStudio/DeadlinerNEXT"
+      ]
+    },
+    {
+      "name": "DompetApp",
+      "count": 1,
+      "repositories": [
+        "DompetApp/Dompet.harmony"
+      ]
+    },
+    {
+      "name": "harmony-contrib",
+      "count": 1,
+      "repositories": [
+        "harmony-contrib/openharmony-ability"
+      ]
+    },
+    {
+      "name": "KodeGood",
+      "count": 1,
+      "repositories": [
+        "KodeGood/webkitview-openharmony"
+      ]
+    },
+    {
+      "name": "ohos-rs",
+      "count": 1,
+      "repositories": [
+        "ohos-rs/ani-rs"
+      ]
+    },
+    {
+      "name": "better-oh",
+      "count": 1,
+      "repositories": [
+        "better-oh/oh-cookbook"
+      ]
+    },
+    {
+      "name": "LingXia-Dev",
+      "count": 1,
+      "repositories": [
+        "LingXia-Dev/Rong"
+      ]
+    },
+    {
+      "name": "harmony-library-provider",
+      "count": 1,
+      "repositories": [
+        "harmony-library-provider/Logger"
+      ]
+    },
+    {
+      "name": "WenYin-Community",
+      "count": 1,
+      "repositories": [
+        "WenYin-Community/harmonyOffice"
+      ]
+    },
+    {
+      "name": "harmonyos-dev",
+      "count": 1,
+      "repositories": [
+        "harmonyos-dev/arkui-codelabs"
+      ]
+    },
+    {
+      "name": "LumenVestige",
+      "count": 1,
+      "repositories": [
+        "LumenVestige/HarmonyHelloWorldApp"
+      ]
+    },
+    {
+      "name": "OSSD-Course-SYSU-1",
+      "count": 1,
+      "repositories": [
+        "OSSD-Course-SYSU-1/2026Spring-25307013-Lab1"
+      ]
+    },
+    {
+      "name": "openeuler-mirror",
+      "count": 1,
+      "repositories": [
+        "openeuler-mirror/arkui-linux"
+      ]
+    },
+    {
+      "name": "xiebyapps",
+      "count": 1,
+      "repositories": [
+        "xiebyapps/link-my-harmony"
+      ]
+    },
+    {
+      "name": "gitee2github",
+      "count": 1,
+      "repositories": [
+        "gitee2github/arkui-linux"
+      ]
+    },
+    {
+      "name": "HarmonyOS-Next",
+      "count": 1,
+      "repositories": [
+        "HarmonyOS-Next/history_today"
+      ]
+    }
+  ]
+}

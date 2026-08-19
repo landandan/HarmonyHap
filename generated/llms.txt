@@ -1,0 +1,73 @@
+# HarmonyOS HAP Open Source Navigator
+
+> GitHub 驱动的鸿蒙 HAP 开源应用知识库：自动发现、验证（仅收录 HAP / HAP Buildable）并索引 HarmonyOS / HarmonyOS NEXT / OpenHarmony 项目。
+
+## Purpose
+为开发者提供经过 HAP 真实性验证的鸿蒙开源应用导航与检索上下文。
+
+## Data source
+GitHub（唯一外部事实来源）。无服务器、无数据库、无爬虫。
+
+## HAP policy
+仅 `binary`（含 .hap）或 `buildable`（完整 HAP 构建工程）进入正式索引。
+
+## Platform definitions
+HarmonyOS | HarmonyOS NEXT | OpenHarmony | Multi-platform | Unknown。
+
+## Data files
+- [repositories.json](data/repositories.json): 完整结构化数据
+- [ai-context.md](generated/ai-context.md): AI 上下文与规则
+- [llms-full.txt](generated/llms-full.txt): 完整 AI 检索上下文
+- [ai-system-prompt.md](generated/ai-system-prompt.md): AI 系统提示词
+
+## Top projects
+- [ohosvscode/arkTS](https://github.com/ohosvscode/arkTS) — 🧩 VSCode鸿蒙ArkTS插件 ✨✍️ 支持各种补全/跳转 ⛺️ 支持codelinter检测代码错误 🎵 VSCode HarmonyOS ArkTS plugin for personal use ✨✍️ supports so
+- [JackJiang2011/MobileIMSDK](https://github.com/JackJiang2011/MobileIMSDK) — 原创全平台IM通信层框架，轻量级、高度提炼，历经10年、久经考验。可能是市面上唯一同时支持UDP+TCP+WebSocket三种协议的同类开源框架，支持 iOS、Android、Java、H5、小程序、Uniapp、鸿蒙Next，服务端基于
+- [Tencent-TDS/KuiklyUI](https://github.com/Tencent-TDS/KuiklyUI) — A Kotlin Multiplatform UI framework from Tencent TDS — high-performance, one codebase for six platforms, with dynamic de
+- [SKL-666666/mnn-local-ai-chat](https://github.com/SKL-666666/mnn-local-ai-chat) — HarmonyOS 本地 AI 对话应用：MNN + llama.cpp 双引擎，完全离线运行大模型推理 / On-device LLM chat app for HarmonyOS with dual MNN & llama.cpp en
+- [waylau/harmonyos-tutorial](https://github.com/waylau/harmonyos-tutorial) — HarmonyOS Tutorial. 《跟老卫学HarmonyOS开发》
+- [harmony-on-android/HOA](https://github.com/harmony-on-android/HOA) — Run OpenHarmony hap on Android
+- [lkimuk/ReArk](https://github.com/lkimuk/ReArk) — 鸿蒙 HarmonyOS NEXT APP/HAP/ABC 专业逆向工具，支持反汇编、反编译、交叉引用、Agent智能分析、签名识别、包体浏览、实时投屏、设备操纵、HAP安装等功能。
+- [AGenUI/AGenUI](https://github.com/AGenUI/AGenUI) — Native A2UI Renderer for iOS/Android/HarmonyOS. High performance streaming Generative UI. Custom Components, Styles and 
+- [ecnusse/Kea](https://github.com/ecnusse/Kea) — Property-based Testing for Mobile GUI Apps
+- [openharmony/codelabs](https://github.com/openharmony/codelabs) — 分享知识与见解，一起探索代码的独特魅力。
+- [openharmony/applications_hap](https://github.com/openharmony/applications_hap) — 暂无描述
+- [openharmony/arkui_ace_engine](https://github.com/openharmony/arkui_ace_engine) — The OpenHarmony JS UI framework provides basic| container| and canvas UI components and standard CSS animation capabilit
+- [LiMingKuan-UESTC/HarmonyOs-Clock-Demo](https://github.com/LiMingKuan-UESTC/HarmonyOs-Clock-Demo) — 一个基于 HarmonyOS ArkTS 的翻页时钟与饭点提醒 Demo 应用，支持三餐闹钟设置与通知提醒 A HarmonyOS ArkTS demo app that features a flip clock and meal rem
+- [openharmony/global_resmgr_lite](https://github.com/openharmony/global_resmgr_lite) — Global resource manager framework | 全球化资源管理框架
+- [openharmony/global_resmgr_standard](https://github.com/openharmony/global_resmgr_standard)
+- [suibianqwe/Ehviewer_OHOS](https://github.com/suibianqwe/Ehviewer_OHOS) — Ehviewer on Harmony OS，原生构建，纵享丝滑。还原安卓版多数功能，同时添加了一些实用功能。现已支持图片ocr翻译。
+- [fenwii/OpenHarmony](https://github.com/fenwii/OpenHarmony) — 华为鸿蒙分布式操作系统（Huawei HarmonyOS，纯血鸿蒙Harmony Next ），开源鸿蒙分布式操作系统（ OpenHarmony）开发技术交流，最全鸿蒙技术资料库，手册，指南，共建国产操作系统万物互联新生态。
+- [didi/dimina](https://github.com/didi/dimina) — 星河小程序 - 滴滴开源小程序 / Dimina MiniProgram - DiDi's Open-Source MiniProgram
+- [OpenBMB/MiniCPM-V-Apps](https://github.com/OpenBMB/MiniCPM-V-Apps) — MiniCPM-V apps — fully offline multimodal chat on iOS / Android / HarmonyOS
+- [AimesSoft/Erika](https://github.com/AimesSoft/Erika) — Rust media player kernel
+- [popsiclelmlm/Hey](https://github.com/popsiclelmlm/Hey) — A native network tunnel and protocol debugging client for HarmonyOS NEXT. Bring your own server.
+- [ywl5320/wlmedia](https://github.com/ywl5320/wlmedia) — Android&HarmonyOS Next 音视频播放器SDK，几句代码即可实现音视频播放功能（支持：手机、车机系统、电视盒子等设备。支持：http、https、rtsp、rtp、rtmp、byte[]、加密视频和各种文件格式视频；包含视
+- [wgli-collab/qs-arkts](https://github.com/wgli-collab/qs-arkts) — qs v6.15.2 ported to HarmonyOS ArkTS — querystring parser and stringifier with prototype pollution protection
+- [WisdomGardenInc/Cloak](https://github.com/WisdomGardenInc/Cloak) — Cloak - A Hybrid Development Framework for HarmonyOS
+- [harmony-contrib/openharmony-ability](https://github.com/harmony-contrib/openharmony-ability) — Building application for OpenHarmony with Rust
+- [OHPG/FinVideo](https://github.com/OHPG/FinVideo) — Jellyfin video client for HarmonyOS.
+- [xuegao-tzx/Fllama](https://github.com/xuegao-tzx/Fllama) — A flutter binding for llama.cpp, which use platform channel.
+- [wgli-collab/arkts-lodash](https://github.com/wgli-collab/arkts-lodash) — lodash v4.17.21 ported to HarmonyOS ArkTS — 230+ utility functions with strict-mode type safety
+- [haohaoai0/UniClipboardHarmonyOS](https://github.com/haohaoai0/UniClipboardHarmonyOS) — Community HarmonyOS client for UniClipboard, built with ArkTS, ArkUI, Rust and encrypted P2P sync.
+- [StarHeartY/CalculatorX](https://github.com/StarHeartY/CalculatorX) — HarmonyOS端的专业科学符号计算器
+- [linhay/harmony-next.skills](https://github.com/linhay/harmony-next.skills) — 🚀 Expert guidance for HarmonyOS NEXT (API 12+) development. Covers IDE operations, performance tuning, architecture (HA
+- [awemorris/suika3](https://github.com/awemorris/suika3) — Visual novel engine written in C. Scripts run in a JIT virtual machine. Windows, Mac, Linux, iPhone, Android, HarmonyOS,
+- [LingXia-Dev/Rong](https://github.com/LingXia-Dev/Rong) — Rong is a JavaScript runtime for Rust with a unified API over multiple JS engines. It is designed for embedding, Rust-dr
+- [huihui200739/YueJiPC](https://github.com/huihui200739/YueJiPC) — 阅迹：HarmonyOS PC 可追溯阅读工作台，连接 PDF 阅读、证据卡与复习整理
+- [rickytan/OhosPatch](https://github.com/rickytan/OhosPatch) — The missing HarmonyOS Patch Implementation! 鸿蒙 ArkTS 零业务入侵热修复方案：现有代码无需改造，基于 JSVM 动态修复方法与声明式组件 / Zero-intrusion HarmonyOS
+- [Torry2022/turbo-ai-chat-harmonyos](https://github.com/Torry2022/turbo-ai-chat-harmonyos) — Multi-model native LLM chat for HarmonyOS NEXT with MNN Runtime
+- [XCNXNXNX/lingxi-flow-agent](https://github.com/XCNXNXNX/lingxi-flow-agent) — 灵犀流序（Lingxi Flow）：运行在 HarmonyOS NEXT 上的 AI 智能体（Agent）个人助理。一句话描述需求，AI 自主规划、调用系统工具完成任务。纯 ArkTS 实现，支持 25+ 系统工具（文件/提醒/日历/天气/
+- [caidingding233/chromium-hmos](https://github.com/caidingding233/chromium-hmos) — 从华为官方在GitCopy（划掉）改版Chromium的Fork/Fork From Huawei's official version of Chromium from GitCode repository
+- [siyuan-note/siyuan-harmony](https://github.com/siyuan-note/siyuan-harmony) — SiYuan HarmonyOS NEXT APP
+- [DawningW/CoralReefPlayer](https://github.com/DawningW/CoralReefPlayer) — 珊瑚礁播放器，一款现代化跨平台流媒体播放器库，支持 RTSP、RTP 和 MJPEG over HTTP 流，提供可定制、高性能、低延迟的推拉流、编解码及录像能力
+- [zhengzaihong/rxnet](https://github.com/zhengzaihong/rxnet) — RxNet 是一款专为 Flutter 开发的跨平台网络请求工具，贴合原生开发习惯，几乎零学习成本即可上手。它不仅让网络通信更丝滑，还支持丰富的功能组合，助你构建高性能、可维护的移动应用，已经支持Android、ios、windows、li
+- [MinamiJogen/HarmonyOS-EhViewer](https://github.com/MinamiJogen/HarmonyOS-EhViewer) — 鸿蒙 EhViewer / HarmonyOS 原生 EhViewer 客户端，ArkTS 开发，支持 HarmonyOS 6.1+
+- [yongoe1024/RdbPlus](https://github.com/yongoe1024/RdbPlus) — 哈啰出行SQLite的ORM框架，无需编写sql代码，通过装饰器解析表结构，一行搞定增删改查
+- [daugf2527/harmonyos-libretro-emulator](https://github.com/daugf2527/harmonyos-libretro-emulator) — HarmonyOS Libretro emulator frontend with ArkTS + C++ + XComponent (GLES/Vulkan), multi-core ROM loading, audio bridge, 
+- [dososo/HarmonyOS-HCheck](https://github.com/dososo/HarmonyOS-HCheck) — 鸿鉴 HCheck：HarmonyOS 应用本地优先、证据驱动的发布前审查 CLI. Local-first, evidence-driven pre-release inspection for HarmonyOS apps.
+- [KodeGood/webkitview-openharmony](https://github.com/KodeGood/webkitview-openharmony) — WebKitView for OpenHarmony
+- [CCDawn/harmony-pc-touchpad](https://github.com/CCDawn/harmony-pc-touchpad) — Turn a HarmonyOS phone into an Apple-style touchpad for Windows PCs.
+- [Cloudrs/Cloudrs-ohos](https://github.com/Cloudrs/Cloudrs-ohos) — HarmonyOS Next native client for Cloudreve, built with ArkTS + Rust. Supports Cloudreve V3/V4.
+- [composable-tu/pangu.arkts](https://github.com/composable-tu/pangu.arkts) — Inserts spacing between CJK characters and Latin letters, numbers, or symbols in ArkTS
+- [GYZsoftware/data-pacakage-killer](https://github.com/GYZsoftware/data-pacakage-killer) — 一个网络流量测试工具，为HarmonyOS NEXT打造
