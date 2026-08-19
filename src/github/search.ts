@@ -1,4 +1,7 @@
-import { GitHubClient } from './client.js';
+import { GitHubClient, GitHubError } from './client.js';
+import { Logger } from '../utils/logger.js';
+
+const log = new Logger('DISCOVERY');
 
 export interface DiscoveredItem {
   id: number;
@@ -53,11 +56,23 @@ export async function discoverByOrgs(
 ): Promise<Map<string, Set<string>>> {
   const out = new Map<string, Set<string>>();
   for (const org of orgs) {
-    const repos = await client.listOrgRepos(org, opts);
-    for (const r of repos) {
-      const key = r.full_name;
-      if (!out.has(key)) out.set(key, new Set());
-      out.get(key)!.add(`organization:${org}`);
+    try {
+      const repos = await client.listOrgRepos(org, opts);
+      for (const r of repos) {
+        const key = r.full_name;
+        if (!out.has(key)) out.set(key, new Set());
+        out.get(key)!.add(`organization:${org}`);
+      }
+    } catch (err) {
+      // A single broken/missing org must not abort the whole discovery run.
+      const status = err instanceof GitHubError ? err.status : undefined;
+      if (status === 404) {
+        log.warn(`organization "${org}" not found (404) — skipping org enumeration`);
+      } else {
+        log.warn(
+          `failed to enumerate organization "${org}": ${(err as Error).message} — skipping`,
+        );
+      }
     }
   }
   return out;

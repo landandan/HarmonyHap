@@ -163,7 +163,9 @@ export class GitHubClient {
         const e = err as { status?: number; message?: string };
         const status = e?.status;
         const isRateLimit = status === 403 || status === 429;
-        if (attempt >= this.maxRetries) {
+        // 404/410 are non-transient: retrying will never succeed, so fail fast.
+        const isNonRetryable = status === 404 || status === 410;
+        if (attempt >= this.maxRetries || isNonRetryable) {
           throw new GitHubError(
             `GitHub request failed after ${attempt + 1} attempts: ${context} (${e?.message ?? ''})`,
             status,
