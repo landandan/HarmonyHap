@@ -107,7 +107,8 @@ async function main(): Promise<void> {
     await state.writeAnalysis(fixture, 'fetched', generatedAt);
   } else {
     try {
-      client = new GitHubClient();
+      const cacheDir = process.env.HAP_CACHE_DIR ?? '.cache/github';
+      client = new GitHubClient({ cacheDir });
     } catch (e) {
       if (e instanceof GitHubAuthError) {
         console.error('[AUTH] ' + e.message);

@@ -1,7 +1,8 @@
 import { Octokit } from '@octokit/rest';
 import * as path from 'node:path';
+import { readFileSync } from 'node:fs';
 import { Logger } from '../utils/logger.js';
-import { readJson, writeJson, fileExists } from '../utils/io.js';
+import { writeJson } from '../utils/io.js';
 import { sleep } from '../utils/concurrency.js';
 import type { RawGitHubRepo, SearchResult, TreeResult } from './types.js';
 
@@ -28,7 +29,14 @@ export class GitHubError extends Error {
 export interface GitHubClientOptions {
   token?: string;
   cacheDir?: string;
+  /** Max retries for transient (non-rate-limit) errors. Default 3. */
   maxRetries?: number;
+  /**
+   * Disk-cache TTL in ms. Entries older than this are treated as a miss and
+   * refetched, keeping metadata fresh while avoiding redundant calls within
+   * the window. Default 24h. Set 0 to disable expiry (cache forever).
+   */
+  cacheTtlMs?: number;
 }
 
 interface CacheEntry {
@@ -50,6 +58,7 @@ export class GitHubClient {
   public readonly octokit: Octokit;
   public readonly token: string;
   private readonly maxRetries: number;
+  private readonly cacheTtlMs: number;
   private readonly cacheDir?: string;
   private readonly cacheFile?: string;
   private readonly memory = new Map<string, CacheEntry>();
@@ -63,17 +72,22 @@ export class GitHubClient {
       );
     }
     this.token = token;
+    // NOTE: Octokit's `throttle` option only takes effect when the
+    // @octokit/plugin-throttling plugin is registered. We intentionally do NOT
+    // rely on it and instead handle rate limits explicitly in `withRetry` so
+    // that we can wait until the *hourly* window resets instead of burning the
+    // retry budget with sub-second backoff (which never recovers a 403).
     this.octokit = new Octokit({
       auth: token,
       userAgent: 'harmonyos-hap-navigator',
-      throttle: { enabled: false },
     });
     this.maxRetries = options.maxRetries ?? 3;
+    this.cacheTtlMs = options.cacheTtlMs ?? 24 * 60 * 60 * 1000;
     if (options.cacheDir) {
       this.cacheDir = options.cacheDir;
       this.cacheFile = path.join(options.cacheDir, 'github.json');
+      this.loadCacheSync();
     }
-    this.loadCache();
   }
 
   /** Resolve + validate a token without constructing a client. */
@@ -87,20 +101,29 @@ export class GitHubClient {
     return token;
   }
 
-  private loadCache(): void {
+  /**
+   * Synchronously load the on-disk cache at construction time so the very first
+   * requests in a run can hit previously fetched data. Expired entries (older
+   * than `cacheTtlMs`) are dropped so stale metadata is never served.
+   */
+  private loadCacheSync(): void {
     if (!this.cacheFile) return;
-    // Synchronous-ish best-effort load; ignore errors.
-    void (async () => {
-      try {
-        if (await fileExists(this.cacheFile!)) {
-          const data = await readJson<Record<string, CacheEntry>>(this.cacheFile!);
-          for (const [k, v] of Object.entries(data)) this.memory.set(k, v);
-          log.debug(`loaded ${this.memory.size} cached entries`);
-        }
-      } catch {
-        /* ignore */
+    try {
+      const raw = readFileSync(this.cacheFile, 'utf8');
+      const data = JSON.parse(raw) as Record<string, CacheEntry>;
+      const now = Date.now();
+      let loaded = 0;
+      for (const [k, v] of Object.entries(data)) {
+        const fetchedAt = new Date(v?.fetchedAt ?? '').getTime();
+        if (Number.isNaN(fetchedAt)) continue;
+        if (this.cacheTtlMs > 0 && now - fetchedAt > this.cacheTtlMs) continue;
+        this.memory.set(k, v);
+        loaded++;
       }
-    })();
+      if (loaded > 0) log.debug(`loaded ${loaded} cached entries`);
+    } catch {
+      /* missing or corrupt cache is fine — start fresh */
+    }
   }
 
   /** Persist in-memory cache to disk (call before process exit). */
@@ -121,7 +144,15 @@ export class GitHubClient {
 
   private getCache<T>(key: string): T | undefined {
     const hit = this.memory.get(key);
-    return hit ? (hit.data as T) : undefined;
+    if (!hit) return undefined;
+    if (this.cacheTtlMs > 0) {
+      const fetchedAt = new Date(hit.fetchedAt).getTime();
+      if (!Number.isNaN(fetchedAt) && Date.now() - fetchedAt > this.cacheTtlMs) {
+        this.memory.delete(key);
+        return undefined;
+      }
+    }
+    return hit.data as T;
   }
 
   private setCache(key: string, data: unknown): void {
@@ -130,7 +161,8 @@ export class GitHubClient {
 
   private retryAfterMs(err: unknown): number | undefined {
     const e = err as { response?: { headers?: Record<string, string> } };
-    const header = e?.response?.headers?.['retry-after'] ?? e?.response?.headers?.['Retry-After'];
+    const header =
+      e?.response?.headers?.['retry-after'] ?? e?.response?.headers?.['Retry-After'];
     if (header) {
       const secs = Number(header);
       if (!Number.isNaN(secs)) return secs * 1000;
@@ -139,8 +171,46 @@ export class GitHubClient {
   }
 
   /**
-   * Run an Octokit request with retry + exponential backoff.
-   * Detects 403/429 rate limits and surfaces them clearly.
+   * GitHub returns `x-ratelimit-reset` (Unix epoch seconds) on rate-limited
+   * responses. Compute how long we must wait for the *window* to reset. This is
+   * what actually recovers a 403 — the default 1s/2s/4s backoff never does.
+   */
+  private rateLimitResetMs(err: unknown): number | undefined {
+    const e = err as { response?: { headers?: Record<string, string> } };
+    const header =
+      e?.response?.headers?.['x-ratelimit-reset'] ??
+      e?.response?.headers?.['X-RateLimit-Reset'];
+    if (header) {
+      const resetSecs = Number(header);
+      if (!Number.isNaN(resetSecs)) {
+        const ms = resetSecs * 1000 - Date.now();
+        return ms > 0 ? ms : 0;
+      }
+    }
+    return undefined;
+  }
+
+  /** True when the error is (or is caused by) a GitHub rate limit. */
+  private isRateLimit(status: number | undefined, message?: string): boolean {
+    if (status === 403 || status === 429) return true;
+    const m = (message ?? '').toLowerCase();
+    return (
+      m.includes('rate limit') ||
+      m.includes('secondary rate limit') ||
+      m.includes('abuse detection')
+    );
+  }
+
+  /**
+   * Run an Octokit request with retry + backoff.
+   *
+   * Two failure classes are handled differently:
+   *  - Rate limits (403/429): wait until the quota window resets (via
+   *    `x-ratelimit-reset` / `Retry-After`) and retry — these are NOT bounded by
+   *    `maxRetries`, because a short backoff can never recover an hourly limit.
+   *    A cap (`MAX_RATE_LIMIT_WAITS`) prevents an infinite stall.
+   *  - Other transient errors (5xx): exponential backoff up to `maxRetries`.
+   *  - 404/410: non-retryable, fail fast.
    */
   private async withRetry<T>(
     context: string,
@@ -152,7 +222,10 @@ export class GitHubClient {
       const cached = this.getCache<T>(cacheKeyStr);
       if (cached !== undefined) return cached;
     }
+    const MAX_RATE_LIMIT_WAITS = 4;
+    const MAX_WAIT_MS = 15 * 60 * 1000; // stay safely under the 60m job timeout
     let attempt = 0;
+    let rateLimitWaits = 0;
     let delay = 1000;
     while (true) {
       try {
@@ -160,23 +233,43 @@ export class GitHubClient {
         if (useCache) this.setCache(cacheKeyStr, result);
         return result;
       } catch (err) {
-        const e = err as { status?: number; message?: string };
+        const e = err as {
+          status?: number;
+          message?: string;
+          response?: { headers?: Record<string, string> };
+        };
         const status = e?.status;
-        const isRateLimit = status === 403 || status === 429;
+        const rateLimited = this.isRateLimit(status, e?.message);
         // 404/410 are non-transient: retrying will never succeed, so fail fast.
         const isNonRetryable = status === 404 || status === 410;
-        if (attempt >= this.maxRetries || isNonRetryable) {
+        if (isNonRetryable || (!rateLimited && attempt >= this.maxRetries)) {
           throw new GitHubError(
             `GitHub request failed after ${attempt + 1} attempts: ${context} (${e?.message ?? ''})`,
             status,
-            isRateLimit,
+            rateLimited,
           );
         }
         attempt++;
-        const wait = isRateLimit ? (this.retryAfterMs(err) ?? delay) : delay;
-        log.warn(
-          `retry ${attempt}/${this.maxRetries} for ${context} (status=${status ?? '?'}) in ${wait}ms`,
-        );
+        if (rateLimited) {
+          rateLimitWaits++;
+          if (rateLimitWaits > MAX_RATE_LIMIT_WAITS) {
+            throw new GitHubError(
+              `GitHub rate limit did not recover after ${rateLimitWaits - 1} waits: ${context} (${e?.message ?? ''})`,
+              status,
+              true,
+            );
+          }
+          const reset = this.rateLimitResetMs(err);
+          const ra = this.retryAfterMs(err);
+          const wait = Math.min(MAX_WAIT_MS, Math.max(reset ?? ra ?? 60_000, 1000));
+          log.warn(
+            `rate limit hit for ${context}; waiting ${Math.round(wait / 1000)}s until reset (wait ${rateLimitWaits}/${MAX_RATE_LIMIT_WAITS})`,
+          );
+          await sleep(wait);
+          continue;
+        }
+        const wait = Math.min(delay, MAX_WAIT_MS);
+        log.warn(`retry ${attempt}/${this.maxRetries} for ${context} (status=${status ?? '?'}) in ${wait}ms`);
         await sleep(wait);
         delay = Math.min(delay * 2, 30_000);
       }

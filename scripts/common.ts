@@ -18,7 +18,11 @@ export async function loadCtx(workDir = 'data/.work'): Promise<Ctx> {
 /** Create a GitHub client or exit with a clear auth error. */
 export function createClient(): GitHubClient {
   try {
-    return new GitHubClient();
+    // Cache API responses under .cache/ so daily runs reuse previously fetched
+    // metadata instead of re-hitting the rate limit every run. The Collect
+    // workflow persists .cache via actions/cache across runs.
+    const cacheDir = process.env.HAP_CACHE_DIR ?? '.cache/github';
+    return new GitHubClient({ cacheDir });
   } catch (e) {
     if (e instanceof GitHubAuthError) {
       console.error('[AUTH] ' + e.message);

@@ -42,7 +42,9 @@ const log = new Logger('PIPELINE');
 
 export function getConcurrency(): number {
   const n = Number(process.env.HAP_CONCURRENCY);
-  return Number.isFinite(n) && n > 0 ? n : 6;
+  // Lower default (was 6): GitHub's secondary rate limit is sensitive to bursty
+  // concurrent traffic, and a smaller fan-out reduces the chance of 403 storms.
+  return Number.isFinite(n) && n > 0 ? n : 4;
 }
 
 function ownerOf(fullName: string): string {
