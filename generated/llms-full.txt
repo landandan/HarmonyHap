@@ -2181,17 +2181,6 @@
 - stars: 1 | license: none | activity: active
 - navigator_score: 54
 
-### LaNasilDark/OpenHarmony_HeartBeat_Monitor
-- url: https://github.com/LaNasilDark/OpenHarmony_HeartBeat_Monitor
-- platform: Multi-platform (confidence 0.89)
-- category: arkts, sdk, network, database, storage, system, developer-tools, adaptation, security, application
-- hap_status: buildable (score 90, packages HAP)
-- hap_evidence: HarmonyOS module descriptor (module.json5); ArkTS entry source directory (entry/src/main/ets); Entry module descriptor (entry/src/main/module.json5); Build profile (build-profile.json5); Hvigor build script (hvigorfile.ts); Hvigor build script (hvigorfile.js); OHOS package manifest (oh-package.json5)
-- summary: Heart Beat Monitor for OpenHarmony OS 5.0.0.71 # OpenHarmony 设备监控系统
-- use_cases: arkts, sdk, network, database, storage, system
-- stars: 0 | license: none | activity: moderate
-- navigator_score: 54
-
 ### WinWang/HarmoneyOpenEye
 - url: https://github.com/WinWang/HarmoneyOpenEye
 - platform: HarmonyOS NEXT (confidence 0.56)
@@ -2498,6 +2487,17 @@
 - summary: # JS UI Framework<a name="EN-US_TOPIC_0000001076213364"></a>
 - use_cases: arkui, ui-framework, ui-component, database, graphics, image
 - stars: 0 | license: Apache-2.0 | activity: moderate
+- navigator_score: 50
+
+### LaNasilDark/OpenHarmony_HeartBeat_Monitor
+- url: https://github.com/LaNasilDark/OpenHarmony_HeartBeat_Monitor
+- platform: Multi-platform (confidence 0.89)
+- category: arkts, sdk, network, database, storage, system, developer-tools, adaptation, security, application
+- hap_status: buildable (score 90, packages HAP)
+- hap_evidence: HarmonyOS module descriptor (module.json5); ArkTS entry source directory (entry/src/main/ets); Entry module descriptor (entry/src/main/module.json5); Build profile (build-profile.json5); Hvigor build script (hvigorfile.ts); Hvigor build script (hvigorfile.js); OHOS package manifest (oh-package.json5)
+- summary: Heart Beat Monitor for OpenHarmony OS 5.0.0.71 # OpenHarmony 设备监控系统
+- use_cases: arkts, sdk, network, database, storage, system
+- stars: 0 | license: none | activity: stale
 - navigator_score: 50
 
 ### linwu-hi/open_neteasy_cloud
@@ -3293,7 +3293,7 @@
 - navigator_score: 23
 
 ## Stats
-- generated_at: 2026-08-19T08:59:39.218Z
+- generated_at: 2026-08-20T02:58:37.961Z
 - total_indexed: 294
 - hap_binary: 19 / hap_buildable: 279
-- updated_7d: 55 / updated_30d: 87
+- updated_7d: 51 / updated_30d: 86

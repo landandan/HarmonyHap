@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-19T08:59:39.218Z",
+  "generated_at": "2026-08-20T02:58:37.961Z",
   "source": "github",
   "total_discovered": 785,
   "total_indexed": 294,
@@ -56,7 +56,7 @@
     "research": 4,
     "websocket": 4
   },
-  "updated_last_24h": 22,
-  "updated_last_7d": 55,
-  "updated_last_30d": 87
+  "updated_last_24h": 9,
+  "updated_last_7d": 51,
+  "updated_last_30d": 86
 }
