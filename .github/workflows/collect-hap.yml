@@ -1,0 +1,49 @@
+name: Collect HAP Projects
+
+on:
+  schedule:
+    # 每天北京时间凌晨 2:00 运行一次（UTC 18:00，GitHub cron 使用 UTC）
+    # 如需 UTC 凌晨 2 点，改为 "0 2 * * *"
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# 防止上一轮任务未结束时新一轮任务并发写入导致推送冲突
+concurrency:
+  group: collect-hap
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run collector
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/collect.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md data/projects.json data/state.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: update HAP project list [skip ci]"
+          git push
