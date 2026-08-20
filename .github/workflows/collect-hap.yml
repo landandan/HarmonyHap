@@ -33,7 +33,7 @@ jobs:
 
       - name: Run collector
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.HARMONY_TOKEN }}
         run: python scripts/collect.py
 
       - name: Commit and push changes
