@@ -15,6 +15,7 @@
 
 import json
 import os
+import re
 import sys
 import time
 from datetime import datetime, timezone
@@ -32,11 +33,17 @@ PROJECTS_FILE = DATA_DIR / "projects.json"
 README_FILE = ROOT / "README.md"
 
 SEARCH_QUERIES = [
+    # 生态话题标签
     "topic:harmonyos",
     "topic:openharmony",
+    "topic:ohos",
+    # 英文关键词（名称/描述）
     "harmonyos in:name,description",
     "openharmony in:name,description",
+    "ohos in:name,description",  # 大量项目用 -ohos 后缀（如 FlClash-ohos）
     "hap in:name,description",
+    # 中文关键词（国内项目描述常用）
+    "鸿蒙 in:name,description",
 ]
 
 SEARCH_PAGE_SIZE = 100
@@ -45,6 +52,7 @@ SEARCH_PACING_SECONDS = 3  # 搜索 API 每次请求之间至少间隔 3 秒（�
 RELEASES_PER_PAGE = 10
 EVENTS_PER_PAGE = 100
 PROCESSED_EVENT_IDS_LIMIT = 2000  # 只保留最近的事件 id，防止列表无限膨胀
+RE_CHECK_INTERVAL_SECONDS = 24 * 3600  # 无 hap 的仓库 24 小时内不重复复查，控制配额
 
 TABLE_START = "<!-- HAP_TABLE_START -->"
 TABLE_END = "<!-- HAP_TABLE_END -->"
@@ -55,6 +63,69 @@ TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
 def now_iso():
     """当前 UTC 时间的 ISO8601 字符串。"""
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def parse_iso(value):
+    """解析 ISO8601 时间字符串为 Unix 时间戳，失败返回 0.0。"""
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00")).timestamp()
+    except (ValueError, TypeError):
+        return 0.0
+
+
+def format_stars(count):
+    """Stars 千分位格式化，如 1234567 -> 1,234,567。"""
+    try:
+        return f"{int(count):,}"
+    except (TypeError, ValueError):
+        return "0"
+
+
+def human_size(size):
+    """文件大小人类可读格式化：B / KB / MB / GB。"""
+    if size is None:
+        return ""
+    try:
+        size = int(size)
+    except (TypeError, ValueError):
+        return ""
+    if size < 1024:
+        return f"{size} B"
+    for unit in ("KB", "MB", "GB"):
+        size /= 1024.0
+        if size < 1024 or unit == "GB":
+            return f"{size:.1f} {unit}"
+    return f"{size:.1f} GB"
+
+
+def truncate(text, limit):
+    """超长文本截断并追加省略号。"""
+    text = str(text)
+    if len(text) <= limit:
+        return text
+    return text[: limit - 1] + "…"
+
+
+def wbr_wrap(text, chunk=16):
+    """在长文本中插入 <wbr> 断行点，避免 GitHub 表格横向溢出。
+
+    GitHub 表格无法设置列宽，横向溢出只能靠内容可断行解决。
+      - 含空格的文本（如简介）：浏览器在空格处自然换行，仅补 - _ . / 分隔符断点，不强制断词
+      - 含中文的无空格文本：浏览器可任意断行，同样仅补分隔符断点
+      - 纯 ASCII 连续长串（文件名/tag）：在分隔符后断开，超长连续段按 chunk 兜底断开
+    """
+    text = str(text)
+    if " " in text or re.search(r"[\u4e00-\u9fff]", text):
+        return re.sub(r"([\-_./])", r"\1<wbr>", text)
+    parts, seg = [], ""
+    for ch in text:
+        seg += ch
+        if ch in "-_./" or len(seg) >= chunk:
+            parts.append(seg)
+            seg = ""
+    if seg:
+        parts.append(seg)
+    return "<wbr>".join(parts)
 
 
 def load_json(path, default):
@@ -245,7 +316,15 @@ def inspect_releases(full_name, releases):
 
 
 def build_table(projects):
-    """生成 README 表格内容（按最新 HAP Release 发布时间降序）。"""
+    """生成 README 表格内容（按最新 HAP Release 发布时间降序）。
+
+    布局优化（GitHub 表格无法设列宽，靠对齐语法 + <wbr> 断行实现）：
+      - 项目列：仓库名加粗 + 所属者第二行小字，列宽紧凑
+      - Stars / 更新日期 / 最新版本 居中
+      - 最新版本列窄化：tag 截断 30 字符并允许断行
+      - 简介 / tag 插入 <wbr>，内容可换行，整表不横向滚动
+      - 不含下载列：HAP 附件数据仍完整保存在 data/projects.json
+    """
     ordered = sorted(
         projects,
         key=lambda p: (p.get("latest_hap_release") or {}).get("published_at") or "",
@@ -253,30 +332,38 @@ def build_table(projects):
     )
     rows = [
         "<!-- 自动生成，请勿手动编辑 -->",
-        "| 项目 | 简介 | Stars | 最新版本 | 更新日期 | HAP 下载 |",
-        "|------|------|------|---------|---------|----------|",
+        f"**共收录 {len(ordered)} 个项目** · 更新于 {now_iso()[:16]} (UTC)",
+        "",
+        "| 项目 | 简介 | ⭐ Stars | 📅 更新日期 | 🏷️ 最新版本 |",
+        "|:-----|:-----|:-------:|:-----------:|:------------|",
     ]
     for p in ordered:
         name = p.get("full_name", "")
         repo_url = p.get("html_url") or f"https://github.com/{name}"
-        desc = (
-            (p.get("description") or "")
-            .replace("\r", " ")
-            .replace("\n", " ")[:60]
-            .replace("|", "\\|")
-        )
-        stars = p.get("stars", 0)
+        # 项目列：仓库名加粗，所属者换行小字（owner/repo 拆两行）
+        owner, _, repo = name.partition("/")
+        if repo:
+            project_cell = f"[**{repo}**]({repo_url})<br><sub>{owner}</sub>"
+        else:
+            project_cell = f"[**{name}**]({repo_url})"
+        # 简介：60 字符截断 + 省略号，允许断行
+        desc = (p.get("description") or "").replace("\r", " ").replace("\n", " ")
+        if len(desc) > 60:
+            desc = desc[:57] + "…"
+        desc = wbr_wrap(desc, 20).replace("|", "\\|").strip()
+        if not desc:
+            desc = "—"
+        stars = format_stars(p.get("stars", 0))
         rel = p.get("latest_hap_release") or {}
-        tag = rel.get("tag_name") or ""
-        rel_url = rel.get("html_url") or ""
         published = rel.get("published_at") or ""
-        date = published[:10]  # YYYY-MM-DD
-        assets = rel.get("assets") or []
-        downloads = "<br>".join(
-            f"[{a.get('name', '')}]({a.get('browser_download_url', '')})" for a in assets
-        )
+        date = published[:10] or "—"  # YYYY-MM-DD
+        # 最新版本：截断 30 字符 + 断行点，压缩列宽
+        tag = truncate(rel.get("tag_name") or "", 30).replace("|", "\\|")
+        tag = wbr_wrap(tag, 12)
+        rel_url = rel.get("html_url") or ""
         rows.append(
-            f"| [{name}]({repo_url}) | {desc} | {stars} | [{tag}]({rel_url}) | {date} | {downloads} |"
+            f"| {project_cell} | {desc} | {stars} "
+            f"| {date} | [{tag}]({rel_url}) |"
         )
     return "\n".join(rows)
 
@@ -323,6 +410,16 @@ def main():
     skipped = 0
     for name in sorted(candidates):
         cand = state["candidates"].setdefault(name, {})
+        # 已确认无 hap 且 24 小时内刚查过 -> 跳过，控制核心 API 配额
+        if (
+            not cand.get("has_hap")
+            and RE_CHECK_INTERVAL_SECONDS
+            and cand.get("last_checked_at")
+        ):
+            last_ts = parse_iso(cand["last_checked_at"])
+            if last_ts and (time.time() - last_ts) < RE_CHECK_INTERVAL_SECONDS:
+                skipped += 1
+                continue
         try:
             # 已确认有 hap 且 ETag 未变化 -> 跳过，节省配额
             if cand.get("has_hap") and cand.get("etag"):
