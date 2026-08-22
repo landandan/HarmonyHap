@@ -1,18 +1,59 @@
 [
   {
-    "full_name": "forwardz666/Syncthing-for-HarmonyOS",
-    "html_url": "https://github.com/forwardz666/Syncthing-for-HarmonyOS",
-    "description": "A Syncthing client for HarmonyOS Next. Embeds the original Go Syncthing core: app-sandbox and Download/Documents public-directory sync, device/folder management, QR pairing, background keep-alive sync, real-time transfer.",
-    "stars": 3,
+    "full_name": "apap6628114/lnga_harmony",
+    "html_url": "https://github.com/apap6628114/lnga_harmony",
+    "description": "Harmony鸿蒙原生开源NGA",
+    "stars": 8,
     "latest_hap_release": {
-      "tag_name": "v2.0.1",
-      "published_at": "2026-08-21T14:18:34Z",
-      "html_url": "https://github.com/forwardz666/Syncthing-for-HarmonyOS/releases/tag/v2.0.1",
+      "tag_name": "1.2.0",
+      "published_at": "2026-08-22T16:55:16Z",
+      "html_url": "https://github.com/apap6628114/lnga_harmony/releases/tag/1.2.0",
       "assets": [
         {
-          "name": "Syncthing-for-HarmonyOS-v2.0.1-unsigned.hap",
-          "browser_download_url": "https://github.com/forwardz666/Syncthing-for-HarmonyOS/releases/download/v2.0.1/Syncthing-for-HarmonyOS-v2.0.1-unsigned.hap",
-          "size": 53134141
+          "name": "entry-default-unsigned.hap",
+          "browser_download_url": "https://github.com/apap6628114/lnga_harmony/releases/download/1.2.0/entry-default-unsigned.hap",
+          "size": 3835110
+        },
+        {
+          "name": "entry-default.hap",
+          "browser_download_url": "https://github.com/apap6628114/lnga_harmony/releases/download/1.2.0/entry-default.hap",
+          "size": 3835110
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "yabi-zzh/livify-ohos",
+    "html_url": "https://github.com/yabi-zzh/livify-ohos",
+    "description": "HarmonyOS NEXT 纯原生直播聚合（聚映）。mpv 内核，支持 HDR、硬件解码与系统投屏。推荐使用 HoKit 侧载。",
+    "stars": 4,
+    "latest_hap_release": {
+      "tag_name": "v1.1.0",
+      "published_at": "2026-08-22T15:41:31Z",
+      "html_url": "https://github.com/yabi-zzh/livify-ohos/releases/tag/v1.1.0",
+      "assets": [
+        {
+          "name": "LiVify-1.1.0.hap",
+          "browser_download_url": "https://github.com/yabi-zzh/livify-ohos/releases/download/v1.1.0/LiVify-1.1.0.hap",
+          "size": 13376909
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "jonas-pi/FMphoto",
+    "html_url": "https://github.com/jonas-pi/FMphoto",
+    "description": "第三方飞牛相册鸿蒙端实现",
+    "stars": 19,
+    "latest_hap_release": {
+      "tag_name": "v1.3.2",
+      "published_at": "2026-08-22T13:58:04Z",
+      "html_url": "https://github.com/jonas-pi/FMphoto/releases/tag/v1.3.2",
+      "assets": [
+        {
+          "name": "entry-default-unsigned.hap",
+          "browser_download_url": "https://github.com/jonas-pi/FMphoto/releases/download/v1.3.2/entry-default-unsigned.hap",
+          "size": 9659941
         }
       ]
     }
@@ -23,14 +64,50 @@
     "description": "原生HarmonyOS平台尼康相机蓝牙GPS信息传输工具",
     "stars": 6,
     "latest_hap_release": {
-      "tag_name": "v2.3.0",
-      "published_at": "2026-08-21T12:47:21Z",
-      "html_url": "https://github.com/Octopustank/HarmoNiLink/releases/tag/v2.3.0",
+      "tag_name": "v2.4.1",
+      "published_at": "2026-08-22T12:31:23Z",
+      "html_url": "https://github.com/Octopustank/HarmoNiLink/releases/tag/v2.4.1",
       "assets": [
         {
           "name": "entry-default-unsigned.hap",
-          "browser_download_url": "https://github.com/Octopustank/HarmoNiLink/releases/download/v2.3.0/entry-default-unsigned.hap",
-          "size": 497813
+          "browser_download_url": "https://github.com/Octopustank/HarmoNiLink/releases/download/v2.4.1/entry-default-unsigned.hap",
+          "size": 511045
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "forwardz666/Syncthing-for-HarmonyOS",
+    "html_url": "https://github.com/forwardz666/Syncthing-for-HarmonyOS",
+    "description": "A Syncthing client for HarmonyOS Next. Embeds the original Go Syncthing core: app-sandbox and Download/Documents public-directory sync, device/folder management, QR pairing, background keep-alive sync, real-time transfer.",
+    "stars": 4,
+    "latest_hap_release": {
+      "tag_name": "v2.0.2",
+      "published_at": "2026-08-22T08:07:12Z",
+      "html_url": "https://github.com/forwardz666/Syncthing-for-HarmonyOS/releases/tag/v2.0.2",
+      "assets": [
+        {
+          "name": "Syncthing-for-HarmonyOS-v2.0.2-unsigned.hap",
+          "browser_download_url": "https://github.com/forwardz666/Syncthing-for-HarmonyOS/releases/download/v2.0.2/Syncthing-for-HarmonyOS-v2.0.2-unsigned.hap",
+          "size": 53285868
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "XiaoLuoLYG/Appless-Phone",
+    "html_url": "https://github.com/XiaoLuoLYG/Appless-Phone",
+    "description": "Device-local HarmonyOS agent phone prototype where the agent becomes the entry point and apps become tools",
+    "stars": 11,
+    "latest_hap_release": {
+      "tag_name": "v0.1.0-appgallery-10000-b2",
+      "published_at": "2026-08-22T03:00:34Z",
+      "html_url": "https://github.com/XiaoLuoLYG/Appless-Phone/releases/tag/v0.1.0-appgallery-10000-b2",
+      "assets": [
+        {
+          "name": "Appless-0.1.0-10000-build2-unsigned.hap",
+          "browser_download_url": "https://github.com/XiaoLuoLYG/Appless-Phone/releases/download/v0.1.0-appgallery-10000-b2/Appless-0.1.0-10000-build2-unsigned.hap",
+          "size": 49509404
         }
       ]
     }
@@ -57,7 +134,7 @@
     "full_name": "suibianqwe/Ehviewer_OHOS",
     "html_url": "https://github.com/suibianqwe/Ehviewer_OHOS",
     "description": "Ehviewer on Harmony OS，原生构建，纵享丝滑。还原安卓版多数功能，同时添加了一些实用功能。现已支持图片ocr翻译。",
-    "stars": 22,
+    "stars": 23,
     "latest_hap_release": {
       "tag_name": "v0.6.2",
       "published_at": "2026-08-20T20:29:42Z",
@@ -113,24 +190,6 @@
     }
   },
   {
-    "full_name": "yabi-zzh/livify-ohos",
-    "html_url": "https://github.com/yabi-zzh/livify-ohos",
-    "description": "HarmonyOS NEXT 纯原生直播聚合（聚映）。mpv 内核，支持 HDR、硬件解码与系统投屏。推荐使用 HoKit 侧载。",
-    "stars": 4,
-    "latest_hap_release": {
-      "tag_name": "v1.0.3",
-      "published_at": "2026-08-20T14:07:40Z",
-      "html_url": "https://github.com/yabi-zzh/livify-ohos/releases/tag/v1.0.3",
-      "assets": [
-        {
-          "name": "LiVify-1.0.3.hap",
-          "browser_download_url": "https://github.com/yabi-zzh/livify-ohos/releases/download/v1.0.3/LiVify-1.0.3.hap",
-          "size": 12505479
-        }
-      ]
-    }
-  },
-  {
     "full_name": "Bokiiii02/PocketHana",
     "html_url": "https://github.com/Bokiiii02/PocketHana",
     "description": "个人适配的HanaAgent鸿蒙端壳应用",
@@ -170,7 +229,7 @@
     "full_name": "LoMoCatAp/Bika-HarmonyOS",
     "html_url": "https://github.com/LoMoCatAp/Bika-HarmonyOS",
     "description": "鸿蒙系统第三方哔咔客户端",
-    "stars": 7,
+    "stars": 9,
     "latest_hap_release": {
       "tag_name": "v1.3.2",
       "published_at": "2026-08-19T15:09:04Z",
@@ -180,24 +239,6 @@
           "name": "entry-default-unsigned.hap",
           "browser_download_url": "https://github.com/LoMoCatAp/Bika-HarmonyOS/releases/download/v1.3.2/entry-default-unsigned.hap",
           "size": 5695916
-        }
-      ]
-    }
-  },
-  {
-    "full_name": "jonas-pi/FMphoto",
-    "html_url": "https://github.com/jonas-pi/FMphoto",
-    "description": "第三方飞牛相册鸿蒙端实现",
-    "stars": 19,
-    "latest_hap_release": {
-      "tag_name": "v1.3.2-beta.4",
-      "published_at": "2026-08-18T11:32:02Z",
-      "html_url": "https://github.com/jonas-pi/FMphoto/releases/tag/v1.3.2-beta.4",
-      "assets": [
-        {
-          "name": "entry-default-unsigned.hap",
-          "browser_download_url": "https://github.com/jonas-pi/FMphoto/releases/download/v1.3.2-beta.4/entry-default-unsigned.hap",
-          "size": 9483296
         }
       ]
     }
@@ -260,7 +301,7 @@
     "full_name": "winehua/WineHua",
     "html_url": "https://github.com/winehua/WineHua",
     "description": "Run Windows exe on HarmonyOS based on box64 and Wine",
-    "stars": 105,
+    "stars": 106,
     "latest_hap_release": {
       "tag_name": "dev-26.8.18",
       "published_at": "2026-08-17T19:12:03Z",
@@ -311,29 +352,6 @@
     }
   },
   {
-    "full_name": "apap6628114/lnga_harmony",
-    "html_url": "https://github.com/apap6628114/lnga_harmony",
-    "description": "Harmony鸿蒙原生开源NGA",
-    "stars": 7,
-    "latest_hap_release": {
-      "tag_name": "1.1.2",
-      "published_at": "2026-08-16T08:55:58Z",
-      "html_url": "https://github.com/apap6628114/lnga_harmony/releases/tag/1.1.2",
-      "assets": [
-        {
-          "name": "entry-default-unsigned.hap",
-          "browser_download_url": "https://github.com/apap6628114/lnga_harmony/releases/download/1.1.2/entry-default-unsigned.hap",
-          "size": 3710128
-        },
-        {
-          "name": "entry-default.hap",
-          "browser_download_url": "https://github.com/apap6628114/lnga_harmony/releases/download/1.1.2/entry-default.hap",
-          "size": 3710128
-        }
-      ]
-    }
-  },
-  {
     "full_name": "adlsdztony/tailscale-hos",
     "html_url": "https://github.com/adlsdztony/tailscale-hos",
     "description": "Experimental native Tailscale client for HarmonyOS PC (ARM64)",
@@ -373,7 +391,7 @@
     "full_name": "tljk/FlClash-ohos",
     "html_url": "https://github.com/tljk/FlClash-ohos",
     "description": "A multi-platform proxy client based on ClashMeta,simple and easy to use, open-source and ad-free.",
-    "stars": 110,
+    "stars": 111,
     "latest_hap_release": {
       "tag_name": "v0.8.93+2026081501",
       "published_at": "2026-08-15T07:56:59Z",
@@ -730,7 +748,7 @@
     "full_name": "ks-lm-kf/harmony-kslmkf-karing-hap",
     "html_url": "https://github.com/ks-lm-kf/harmony-kslmkf-karing-hap",
     "description": "HarmonyOS HAP beta release for Karing/sing-box based build",
-    "stars": 53,
+    "stars": 54,
     "latest_hap_release": {
       "tag_name": "v1.0.9-beta",
       "published_at": "2026-08-02T15:48:17Z",
@@ -1041,7 +1059,7 @@
     "full_name": "flypigJ/Tailscale-OHOS",
     "html_url": "https://github.com/flypigJ/Tailscale-OHOS",
     "description": "Native HarmonyOS NEXT port of Tailscale",
-    "stars": 31,
+    "stars": 33,
     "latest_hap_release": {
       "tag_name": "v0.3.19-release",
       "published_at": "2026-07-16T03:33:46Z",
@@ -1077,7 +1095,7 @@
     "full_name": "YuanChu-Tec/JMComic-HarmonyOS",
     "html_url": "https://github.com/YuanChu-Tec/JMComic-HarmonyOS",
     "description": "JMComic对HarmonyOS的适配版本",
-    "stars": 85,
+    "stars": 89,
     "latest_hap_release": {
       "tag_name": "JMComic1.0.8",
       "published_at": "2026-07-09T13:04:12Z",
@@ -1092,33 +1110,10 @@
     }
   },
   {
-    "full_name": "XiaoLuoLYG/Appless-Phone",
-    "html_url": "https://github.com/XiaoLuoLYG/Appless-Phone",
-    "description": "Device-local HarmonyOS agent phone prototype where the agent becomes the entry point and apps become tools",
-    "stars": 11,
-    "latest_hap_release": {
-      "tag_name": "v0.1.5",
-      "published_at": "2026-07-07T15:11:49Z",
-      "html_url": "https://github.com/XiaoLuoLYG/Appless-Phone/releases/tag/v0.1.5",
-      "assets": [
-        {
-          "name": "ApplessPhone-v0.1.5-signed.hap",
-          "browser_download_url": "https://github.com/XiaoLuoLYG/Appless-Phone/releases/download/v0.1.5/ApplessPhone-v0.1.5-signed.hap",
-          "size": 22789464
-        },
-        {
-          "name": "ApplessPhone-v0.1.5-unsigned.hap",
-          "browser_download_url": "https://github.com/XiaoLuoLYG/Appless-Phone/releases/download/v0.1.5/ApplessPhone-v0.1.5-unsigned.hap",
-          "size": 22653615
-        }
-      ]
-    }
-  },
-  {
     "full_name": "1055235342/Wpixelgram-for-HarmonyOS",
     "html_url": "https://github.com/1055235342/Wpixelgram-for-HarmonyOS",
     "description": "",
-    "stars": 17,
+    "stars": 18,
     "latest_hap_release": {
       "tag_name": "v0.1.0",
       "published_at": "2026-07-03T10:06:11Z",
@@ -1452,7 +1447,7 @@
     "full_name": "HanversionOvO/OHcode",
     "html_url": "https://github.com/HanversionOvO/OHcode",
     "description": "Run vscode on your HarmonyOS PC",
-    "stars": 121,
+    "stars": 122,
     "latest_hap_release": {
       "tag_name": "v1.0.0",
       "published_at": "2026-06-10T17:48:39Z",
@@ -1668,7 +1663,7 @@
     "full_name": "mgz0227/legado-Harmony",
     "html_url": "https://github.com/mgz0227/legado-Harmony",
     "description": "开源阅读鸿蒙版仓库",
-    "stars": 2114,
+    "stars": 2116,
     "latest_hap_release": {
       "tag_name": "Beta-V1.0.0.2",
       "published_at": "2026-05-15T10:42:51Z",
@@ -1685,7 +1680,7 @@
   {
     "full_name": "Your-USTC/DailyNic_HMOS",
     "html_url": "https://github.com/Your-USTC/DailyNic_HMOS",
-    "description": "鸿蒙NEXT版你的科大",
+    "description": "为鸿蒙 NEXT 打造的中科大本科生生活类 App",
     "stars": 27,
     "latest_hap_release": {
       "tag_name": "2.1.1",
@@ -1799,7 +1794,7 @@
     "full_name": "xiaobaigroup/ClashBox",
     "html_url": "https://github.com/xiaobaigroup/ClashBox",
     "description": "HarmonyOS NEXT的代理软件",
-    "stars": 4210,
+    "stars": 4214,
     "latest_hap_release": {
       "tag_name": "1.7.4",
       "published_at": "2026-04-02T14:50:20Z",
@@ -1835,7 +1830,7 @@
     "full_name": "likuai2010/auto-installer",
     "html_url": "https://github.com/likuai2010/auto-installer",
     "description": "HarmonyOS Next Hap installer",
-    "stars": 2887,
+    "stars": 2890,
     "latest_hap_release": {
       "tag_name": "3.1.0",
       "published_at": "2026-03-25T01:22:17Z",
