@@ -1,9 +1,99 @@
 [
   {
+    "full_name": "Pkeji/FluxDown-OHOS",
+    "html_url": "https://github.com/Pkeji/FluxDown-OHOS",
+    "description": "",
+    "stars": 1,
+    "latest_hap_release": {
+      "tag_name": "最新发行版",
+      "published_at": "2026-08-27T21:04:40Z",
+      "html_url": "https://github.com/Pkeji/FluxDown-OHOS/releases/tag/%E6%9C%80%E6%96%B0%E5%8F%91%E8%A1%8C%E7%89%88",
+      "assets": [
+        {
+          "name": "fluxdowncover-unsigned.hap",
+          "browser_download_url": "https://github.com/Pkeji/FluxDown-OHOS/releases/download/%E6%9C%80%E6%96%B0%E5%8F%91%E8%A1%8C%E7%89%88/fluxdowncover-unsigned.hap",
+          "size": 1458767
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "WingedFin1251/GoTally",
+    "html_url": "https://github.com/WingedFin1251/GoTally",
+    "description": "本地优先的 OpenCode Go 用量统计面板 — HarmonyOS 原生应用（ArkTS）：配额窗口、Token 构成、模型排行与使用记录，打开即见。",
+    "stars": 0,
+    "latest_hap_release": {
+      "tag_name": "v1.0.0",
+      "published_at": "2026-08-27T13:32:12Z",
+      "html_url": "https://github.com/WingedFin1251/GoTally/releases/tag/v1.0.0",
+      "assets": [
+        {
+          "name": "entry-default-unsigned.hap",
+          "browser_download_url": "https://github.com/WingedFin1251/GoTally/releases/download/v1.0.0/entry-default-unsigned.hap",
+          "size": 1462677
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "fe-spark/EcoHub-for-OHOS",
+    "html_url": "https://github.com/fe-spark/EcoHub-for-OHOS",
+    "description": "App for OHOS",
+    "stars": 1,
+    "latest_hap_release": {
+      "tag_name": "v1.1.0",
+      "published_at": "2026-08-27T11:03:50Z",
+      "html_url": "https://github.com/fe-spark/EcoHub-for-OHOS/releases/tag/v1.1.0",
+      "assets": [
+        {
+          "name": "EcoHub-1.1.0-de9b150-signed.hap",
+          "browser_download_url": "https://github.com/fe-spark/EcoHub-for-OHOS/releases/download/v1.1.0/EcoHub-1.1.0-de9b150-signed.hap",
+          "size": 660669
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "dev4harmony/PiliPlus",
+    "html_url": "https://github.com/dev4harmony/PiliPlus",
+    "description": "PiliPlus",
+    "stars": 271,
+    "latest_hap_release": {
+      "tag_name": "2.1.2.1-ohos",
+      "published_at": "2026-08-27T09:54:41Z",
+      "html_url": "https://github.com/dev4harmony/PiliPlus/releases/tag/2.1.2.1-ohos",
+      "assets": [
+        {
+          "name": "PiliPlus_ohos_2.1.2.1-ohos_unsigned.hap",
+          "browser_download_url": "https://github.com/dev4harmony/PiliPlus/releases/download/2.1.2.1-ohos/PiliPlus_ohos_2.1.2.1-ohos_unsigned.hap",
+          "size": 89834015
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "GarhinZhou/terminAI",
+    "html_url": "https://github.com/GarhinZhou/terminAI",
+    "description": "鸿蒙CLI-Agent管理器",
+    "stars": 2,
+    "latest_hap_release": {
+      "tag_name": "v1.0.0",
+      "published_at": "2026-08-27T09:24:11Z",
+      "html_url": "https://github.com/GarhinZhou/terminAI/releases/tag/v1.0.0",
+      "assets": [
+        {
+          "name": "terminAI-v1.0.0-unsigned.hap",
+          "browser_download_url": "https://github.com/GarhinZhou/terminAI/releases/download/v1.0.0/terminAI-v1.0.0-unsigned.hap",
+          "size": 4455621
+        }
+      ]
+    }
+  },
+  {
     "full_name": "mgz0227/legado-Harmony",
     "html_url": "https://github.com/mgz0227/legado-Harmony",
     "description": "开源阅读鸿蒙版仓库",
-    "stars": 2125,
+    "stars": 2137,
     "latest_hap_release": {
       "tag_name": "V1.0.6.31",
       "published_at": "2026-08-26T17:11:43Z",
@@ -54,19 +144,19 @@
     }
   },
   {
-    "full_name": "fe-spark/EcoHub-for-OHOS",
-    "html_url": "https://github.com/fe-spark/EcoHub-for-OHOS",
-    "description": "App for OHOS",
-    "stars": 1,
+    "full_name": "YANGZX22/XCube",
+    "html_url": "https://github.com/YANGZX22/XCube",
+    "description": "A native AI agent harness for HarmonyOS 7.",
+    "stars": 2,
     "latest_hap_release": {
-      "tag_name": "v1.0.6",
-      "published_at": "2026-08-26T08:45:44Z",
-      "html_url": "https://github.com/fe-spark/EcoHub-for-OHOS/releases/tag/v1.0.6",
+      "tag_name": "v1.3.6",
+      "published_at": "2026-08-26T08:38:37Z",
+      "html_url": "https://github.com/YANGZX22/XCube/releases/tag/v1.3.6",
       "assets": [
         {
-          "name": "EcoHub-1.0.6-79a0422-signed.hap",
-          "browser_download_url": "https://github.com/fe-spark/EcoHub-for-OHOS/releases/download/v1.0.6/EcoHub-1.0.6-79a0422-signed.hap",
-          "size": 629814
+          "name": "entry-default-unsigned.hap",
+          "browser_download_url": "https://github.com/YANGZX22/XCube/releases/download/v1.3.6/entry-default-unsigned.hap",
+          "size": 470769213
         }
       ]
     }
@@ -75,7 +165,7 @@
     "full_name": "Ember5843/YourPipe",
     "html_url": "https://github.com/Ember5843/YourPipe",
     "description": "一个基于New pipe extractor的鸿蒙youtube客户端实现",
-    "stars": 26,
+    "stars": 27,
     "latest_hap_release": {
       "tag_name": "v0.5.9-1000024",
       "published_at": "2026-08-26T08:18:56Z",
@@ -126,10 +216,28 @@
     }
   },
   {
+    "full_name": "QinpanWan/dsh-harmonyos-pc",
+    "html_url": "https://github.com/QinpanWan/dsh-harmonyos-pc",
+    "description": "让 DeepSeek Harness(dsh) 在 HarmonyOS 完整跑起来：缓存优化对话预设 + 启动补丁 + 工具链 | Run DeepSeek Harness on HarmonyOS: cache-optimized agent presets, patches & tooling",
+    "stars": 13,
+    "latest_hap_release": {
+      "tag_name": "v2.0.0-pad",
+      "published_at": "2026-08-25T23:14:32Z",
+      "html_url": "https://github.com/QinpanWan/dsh-harmonyos-pc/releases/tag/v2.0.0-pad",
+      "assets": [
+        {
+          "name": "dsh-pad-2.0.hap",
+          "browser_download_url": "https://github.com/QinpanWan/dsh-harmonyos-pc/releases/download/v2.0.0-pad/dsh-pad-2.0.hap",
+          "size": 494182
+        }
+      ]
+    }
+  },
+  {
     "full_name": "LecAfyc/WitBili-OH",
     "html_url": "https://github.com/LecAfyc/WitBili-OH",
     "description": "A bilibili client for HarmonyOS Next watches.",
-    "stars": 7,
+    "stars": 9,
     "latest_hap_release": {
       "tag_name": "v1.1.6",
       "published_at": "2026-08-25T09:50:27Z",
@@ -156,7 +264,7 @@
         {
           "name": "DBX_HarmonyOS_v1.1.0_dbx0.5.93_unsigned.hap",
           "browser_download_url": "https://github.com/GetZ110/dbx-ohos/releases/download/v1.1.0-dbx0.5.93/DBX_HarmonyOS_v1.1.0_dbx0.5.93_unsigned.hap",
-          "size": 61648249
+          "size": 62682007
         }
       ]
     }
@@ -242,7 +350,7 @@
     "full_name": "tljk/FlClash-ohos",
     "html_url": "https://github.com/tljk/FlClash-ohos",
     "description": "A multi-platform proxy client based on ClashMeta,simple and easy to use, open-source and ad-free.",
-    "stars": 121,
+    "stars": 122,
     "latest_hap_release": {
       "tag_name": "v0.8.93+2026082301",
       "published_at": "2026-08-23T12:31:11Z",
@@ -522,7 +630,7 @@
     "full_name": "xiasi0/ha-companion-harmonyos",
     "html_url": "https://github.com/xiasi0/ha-companion-harmonyos",
     "description": "",
-    "stars": 37,
+    "stars": 39,
     "latest_hap_release": {
       "tag_name": "v1.4.1",
       "published_at": "2026-08-17T17:00:58Z",
@@ -558,7 +666,7 @@
     "full_name": "adlsdztony/tailscale-hos",
     "html_url": "https://github.com/adlsdztony/tailscale-hos",
     "description": "Experimental native Tailscale client for HarmonyOS PC (ARM64)",
-    "stars": 0,
+    "stars": 1,
     "latest_hap_release": {
       "tag_name": "v1.0.0-beta.2",
       "published_at": "2026-08-16T05:43:18Z",
@@ -727,24 +835,6 @@
     }
   },
   {
-    "full_name": "dev4harmony/PiliPlus",
-    "html_url": "https://github.com/dev4harmony/PiliPlus",
-    "description": "PiliPlus",
-    "stars": 268,
-    "latest_hap_release": {
-      "tag_name": "2.1.0-ohos-2",
-      "published_at": "2026-08-10T11:49:18Z",
-      "html_url": "https://github.com/dev4harmony/PiliPlus/releases/tag/2.1.0-ohos-2",
-      "assets": [
-        {
-          "name": "PiliPlus_ohos_2.1.0-ohos-2_unsigned.hap",
-          "browser_download_url": "https://github.com/dev4harmony/PiliPlus/releases/download/2.1.0-ohos-2/PiliPlus_ohos_2.1.0-ohos-2_unsigned.hap",
-          "size": 135546678
-        }
-      ]
-    }
-  },
-  {
     "full_name": "SKL-666666/qingtu-harmony",
     "html_url": "https://github.com/SKL-666666/qingtu-harmony",
     "description": "青图 - HarmonyOS 图像处理应用：AI 超分辨率 + 智能压缩 + 专业相机 / QingTu - HarmonyOS image processing app: AI super-resolution + smart compression + pro camera",
@@ -861,7 +951,7 @@
     "full_name": "wly5556/S1-Orange",
     "html_url": "https://github.com/wly5556/S1-Orange",
     "description": "开源Stage1st论坛客户端，适用鸿蒙平台",
-    "stars": 41,
+    "stars": 42,
     "latest_hap_release": {
       "tag_name": "v1.4.2",
       "published_at": "2026-08-03T15:16:55Z",
@@ -915,7 +1005,7 @@
     "full_name": "ks-lm-kf/harmony-kslmkf-karing-hap",
     "html_url": "https://github.com/ks-lm-kf/harmony-kslmkf-karing-hap",
     "description": "HarmonyOS HAP beta release for Karing/sing-box based build",
-    "stars": 55,
+    "stars": 57,
     "latest_hap_release": {
       "tag_name": "v1.0.9-beta",
       "published_at": "2026-08-02T15:48:17Z",
@@ -956,7 +1046,7 @@
     "full_name": "Aloereed/vlc-qt6-ohos",
     "html_url": "https://github.com/Aloereed/vlc-qt6-ohos",
     "description": "VLC Media Player with Qt6 and HarmonyOS",
-    "stars": 7,
+    "stars": 8,
     "latest_hap_release": {
       "tag_name": "3.0.21",
       "published_at": "2026-08-02T08:42:04Z",
@@ -1226,7 +1316,7 @@
     "full_name": "flypigJ/Tailscale-OHOS",
     "html_url": "https://github.com/flypigJ/Tailscale-OHOS",
     "description": "Native HarmonyOS NEXT port of Tailscale",
-    "stars": 37,
+    "stars": 38,
     "latest_hap_release": {
       "tag_name": "v0.3.19-release",
       "published_at": "2026-07-16T03:33:46Z",
@@ -1280,7 +1370,7 @@
     "full_name": "1055235342/Wpixelgram-for-HarmonyOS",
     "html_url": "https://github.com/1055235342/Wpixelgram-for-HarmonyOS",
     "description": "",
-    "stars": 20,
+    "stars": 22,
     "latest_hap_release": {
       "tag_name": "v0.1.0",
       "published_at": "2026-07-03T10:06:11Z",
@@ -1321,7 +1411,7 @@
     "full_name": "Chenlvin/Melotopia-HMOS",
     "html_url": "https://github.com/Chenlvin/Melotopia-HMOS",
     "description": "Melotopia For HarmonyOS",
-    "stars": 247,
+    "stars": 248,
     "latest_hap_release": {
       "tag_name": "v1.12.0",
       "published_at": "2026-07-02T11:29:56Z",
@@ -1362,7 +1452,7 @@
     "full_name": "MinamiJogen/HarmonyOS-EhViewer",
     "html_url": "https://github.com/MinamiJogen/HarmonyOS-EhViewer",
     "description": "鸿蒙 EhViewer / HarmonyOS 原生 EhViewer 客户端，ArkTS 开发，支持 HarmonyOS 6.1+",
-    "stars": 38,
+    "stars": 37,
     "latest_hap_release": {
       "tag_name": "v1.0.6",
       "published_at": "2026-07-01T08:20:03Z",
@@ -1596,7 +1686,7 @@
     "full_name": "HanversionOvO/OHBittorrent",
     "html_url": "https://github.com/HanversionOvO/OHBittorrent",
     "description": "qBittorrent for HarmonyOS 2in1 and tablet device",
-    "stars": 9,
+    "stars": 10,
     "latest_hap_release": {
       "tag_name": "v1.0.0",
       "published_at": "2026-06-12T22:40:28Z",
@@ -1758,7 +1848,7 @@
     "full_name": "HanversionOvO/OHSidian",
     "html_url": "https://github.com/HanversionOvO/OHSidian",
     "description": "Using Obsidian on your HarmonyOS PC or tablet",
-    "stars": 141,
+    "stars": 142,
     "latest_hap_release": {
       "tag_name": "latest",
       "published_at": "2026-05-30T08:05:24Z",
@@ -1794,7 +1884,7 @@
     "full_name": "YuanChu-Tec/HMTG",
     "html_url": "https://github.com/YuanChu-Tec/HMTG",
     "description": "Telegram for HarmonyOS",
-    "stars": 54,
+    "stars": 55,
     "latest_hap_release": {
       "tag_name": "HMTG1.0.4",
       "published_at": "2026-05-25T02:56:31Z",
@@ -1943,7 +2033,7 @@
     "full_name": "xiaobaigroup/ClashBox",
     "html_url": "https://github.com/xiaobaigroup/ClashBox",
     "description": "HarmonyOS NEXT的代理软件",
-    "stars": 4226,
+    "stars": 4230,
     "latest_hap_release": {
       "tag_name": "1.7.4",
       "published_at": "2026-04-02T14:50:20Z",
@@ -1979,7 +2069,7 @@
     "full_name": "likuai2010/auto-installer",
     "html_url": "https://github.com/likuai2010/auto-installer",
     "description": "HarmonyOS Next Hap installer",
-    "stars": 2897,
+    "stars": 2900,
     "latest_hap_release": {
       "tag_name": "3.1.0",
       "published_at": "2026-03-25T01:22:17Z",
@@ -2808,7 +2898,7 @@
     "full_name": "Aloereed/llama.cpp-server-ohos",
     "html_url": "https://github.com/Aloereed/llama.cpp-server-ohos",
     "description": "Llama.cpp server for OpenHarmony",
-    "stars": 15,
+    "stars": 14,
     "latest_hap_release": {
       "tag_name": "1.0",
       "published_at": "2025-01-15T13:37:48Z",
