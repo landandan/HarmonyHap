@@ -1,5 +1,136 @@
 [
   {
+    "full_name": "Octopustank/HarmoNiLink",
+    "html_url": "https://github.com/Octopustank/HarmoNiLink",
+    "description": "原生HarmonyOS平台尼康相机蓝牙GPS信息传输工具",
+    "stars": 6,
+    "latest_hap_release": {
+      "tag_name": "v2.4.2",
+      "published_at": "2026-08-29T16:19:52Z",
+      "html_url": "https://github.com/Octopustank/HarmoNiLink/releases/tag/v2.4.2",
+      "assets": [
+        {
+          "name": "entry-default-unsigned.hap",
+          "browser_download_url": "https://github.com/Octopustank/HarmoNiLink/releases/download/v2.4.2/entry-default-unsigned.hap",
+          "size": 685147
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "mgz0227/legado-Harmony",
+    "html_url": "https://github.com/mgz0227/legado-Harmony",
+    "description": "开源阅读鸿蒙版仓库",
+    "stars": 2140,
+    "latest_hap_release": {
+      "tag_name": "V1.0.6.48",
+      "published_at": "2026-08-29T13:43:35Z",
+      "html_url": "https://github.com/mgz0227/legado-Harmony/releases/tag/V1.0.6.48",
+      "assets": [
+        {
+          "name": "Legado-1.0.6.48-26082922-unsigned.hap",
+          "browser_download_url": "https://github.com/mgz0227/legado-Harmony/releases/download/V1.0.6.48/Legado-1.0.6.48-26082922-unsigned.hap",
+          "size": 30656429
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "sunny-luoyun/HM_pixiv",
+    "html_url": "https://github.com/sunny-luoyun/HM_pixiv",
+    "description": "Pixiv for HarmonyOS",
+    "stars": 6,
+    "latest_hap_release": {
+      "tag_name": "2.9.0",
+      "published_at": "2026-08-29T10:31:45Z",
+      "html_url": "https://github.com/sunny-luoyun/HM_pixiv/releases/tag/2.9.0",
+      "assets": [
+        {
+          "name": "Hpixiv-2.9.0-unsigned.hap",
+          "browser_download_url": "https://github.com/sunny-luoyun/HM_pixiv/releases/download/2.9.0/Hpixiv-2.9.0-unsigned.hap",
+          "size": 55251660
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "dev4harmony/PiliPlus",
+    "html_url": "https://github.com/dev4harmony/PiliPlus",
+    "description": "PiliPlus",
+    "stars": 275,
+    "latest_hap_release": {
+      "tag_name": "2.1.2.1-ohos-3",
+      "published_at": "2026-08-29T09:34:56Z",
+      "html_url": "https://github.com/dev4harmony/PiliPlus/releases/tag/2.1.2.1-ohos-3",
+      "assets": [
+        {
+          "name": "PiliPlus_ohos_2.1.2.1-ohos-3_unsigned.hap",
+          "browser_download_url": "https://github.com/dev4harmony/PiliPlus/releases/download/2.1.2.1-ohos-3/PiliPlus_ohos_2.1.2.1-ohos-3_unsigned.hap",
+          "size": 89476033
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "shihuan1999/openjiuwen-ohos-port",
+    "html_url": "https://github.com/shihuan1999/openjiuwen-ohos-port",
+    "description": "openJiuwen + KB agents + Agent Store + kbapp HAP on OpenHarmony riscv64",
+    "stars": 0,
+    "latest_hap_release": {
+      "tag_name": "v1.0.0",
+      "published_at": "2026-08-29T07:40:46Z",
+      "html_url": "https://github.com/shihuan1999/openjiuwen-ohos-port/releases/tag/v1.0.0",
+      "assets": [
+        {
+          "name": "kbapp-entry-signed.hap",
+          "browser_download_url": "https://github.com/shihuan1999/openjiuwen-ohos-port/releases/download/v1.0.0/kbapp-entry-signed.hap",
+          "size": 544762
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "tljk/FlClash-ohos",
+    "html_url": "https://github.com/tljk/FlClash-ohos",
+    "description": "A multi-platform proxy client based on ClashMeta,simple and easy to use, open-source and ad-free.",
+    "stars": 126,
+    "latest_hap_release": {
+      "tag_name": "v0.8.94+2026082901",
+      "published_at": "2026-08-29T07:17:58Z",
+      "html_url": "https://github.com/tljk/FlClash-ohos/releases/tag/v0.8.94%2B2026082901",
+      "assets": [
+        {
+          "name": "FlClash-0.8.94+2026082901-ohos.hap",
+          "browser_download_url": "https://github.com/tljk/FlClash-ohos/releases/download/v0.8.94%2B2026082901/FlClash-0.8.94%2B2026082901-ohos.hap",
+          "size": 82028812
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "StarHeartY/CalculatorX",
+    "html_url": "https://github.com/StarHeartY/CalculatorX",
+    "description": "HarmonyOS端的专业科学符号计算器",
+    "stars": 10,
+    "latest_hap_release": {
+      "tag_name": "v1.6.2",
+      "published_at": "2026-08-29T04:16:49Z",
+      "html_url": "https://github.com/StarHeartY/CalculatorX/releases/tag/v1.6.2",
+      "assets": [
+        {
+          "name": "CalcX-1.6.2-release-signed.hap",
+          "browser_download_url": "https://github.com/StarHeartY/CalculatorX/releases/download/v1.6.2/CalcX-1.6.2-release-signed.hap",
+          "size": 51043386
+        },
+        {
+          "name": "CalcX-1.6.2-release-unsigned.hap",
+          "browser_download_url": "https://github.com/StarHeartY/CalculatorX/releases/download/v1.6.2/CalcX-1.6.2-release-unsigned.hap",
+          "size": 50691295
+        }
+      ]
+    }
+  },
+  {
     "full_name": "suibianqwe/Ehviewer_OHOS",
     "html_url": "https://github.com/suibianqwe/Ehviewer_OHOS",
     "description": "Ehviewer on Harmony OS，原生构建，纵享丝滑。还原安卓版多数功能，同时添加了一些实用功能。现已支持图片ocr翻译。",
@@ -49,24 +180,6 @@
           "name": "entry-default-unsigned.hap",
           "browser_download_url": "https://github.com/jonas-pi/FMphoto/releases/download/v1.3.3/entry-default-unsigned.hap",
           "size": 5723871
-        }
-      ]
-    }
-  },
-  {
-    "full_name": "mgz0227/legado-Harmony",
-    "html_url": "https://github.com/mgz0227/legado-Harmony",
-    "description": "开源阅读鸿蒙版仓库",
-    "stars": 2138,
-    "latest_hap_release": {
-      "tag_name": "V1.0.6.46",
-      "published_at": "2026-08-28T13:34:56Z",
-      "html_url": "https://github.com/mgz0227/legado-Harmony/releases/tag/V1.0.6.46",
-      "assets": [
-        {
-          "name": "Legado-1.0.6.46-26082809-unsigned.hap",
-          "browser_download_url": "https://github.com/mgz0227/legado-Harmony/releases/download/V1.0.6.46/Legado-1.0.6.46-26082809-unsigned.hap",
-          "size": 24473892
         }
       ]
     }
@@ -126,24 +239,6 @@
     }
   },
   {
-    "full_name": "dev4harmony/PiliPlus",
-    "html_url": "https://github.com/dev4harmony/PiliPlus",
-    "description": "PiliPlus",
-    "stars": 274,
-    "latest_hap_release": {
-      "tag_name": "2.1.2.1-ohos-2",
-      "published_at": "2026-08-28T06:00:17Z",
-      "html_url": "https://github.com/dev4harmony/PiliPlus/releases/tag/2.1.2.1-ohos-2",
-      "assets": [
-        {
-          "name": "PiliPlus_ohos_2.1.2.1-ohos-2_unsigned.hap",
-          "browser_download_url": "https://github.com/dev4harmony/PiliPlus/releases/download/2.1.2.1-ohos-2/PiliPlus_ohos_2.1.2.1-ohos-2_unsigned.hap",
-          "size": 89844024
-        }
-      ]
-    }
-  },
-  {
     "full_name": "Pkeji/FluxDown-OHOS",
     "html_url": "https://github.com/Pkeji/FluxDown-OHOS",
     "description": "",
@@ -165,7 +260,7 @@
     "full_name": "Pkeji/FluxDownCover-OHOS",
     "html_url": "https://github.com/Pkeji/FluxDownCover-OHOS",
     "description": "",
-    "stars": 1,
+    "stars": 2,
     "latest_hap_release": {
       "tag_name": "最新发行版",
       "published_at": "2026-08-27T21:04:40Z",
@@ -255,7 +350,7 @@
     "full_name": "Ember5843/YourPipe",
     "html_url": "https://github.com/Ember5843/YourPipe",
     "description": "一个基于New pipe extractor的鸿蒙youtube客户端实现",
-    "stars": 27,
+    "stars": 31,
     "latest_hap_release": {
       "tag_name": "v0.5.9-1000024",
       "published_at": "2026-08-26T08:18:56Z",
@@ -309,7 +404,7 @@
     "full_name": "QinpanWan/dsh-harmonyos-pc",
     "html_url": "https://github.com/QinpanWan/dsh-harmonyos-pc",
     "description": "让 DeepSeek Harness(dsh) 在 HarmonyOS 完整跑起来：缓存优化对话预设 + 启动补丁 + 工具链 | Run DeepSeek Harness on HarmonyOS: cache-optimized agent presets, patches & tooling",
-    "stars": 16,
+    "stars": 17,
     "latest_hap_release": {
       "tag_name": "v2.0.0-pad",
       "published_at": "2026-08-25T23:14:32Z",
@@ -378,29 +473,6 @@
     }
   },
   {
-    "full_name": "StarHeartY/CalculatorX",
-    "html_url": "https://github.com/StarHeartY/CalculatorX",
-    "description": "HarmonyOS端的专业科学符号计算器",
-    "stars": 10,
-    "latest_hap_release": {
-      "tag_name": "v1.6.1",
-      "published_at": "2026-08-23T15:33:09Z",
-      "html_url": "https://github.com/StarHeartY/CalculatorX/releases/tag/v1.6.1",
-      "assets": [
-        {
-          "name": "CalcX-1.6.1-release-signed.hap",
-          "browser_download_url": "https://github.com/StarHeartY/CalculatorX/releases/download/v1.6.1/CalcX-1.6.1-release-signed.hap",
-          "size": 45258988
-        },
-        {
-          "name": "CalcX-1.6.1-release-unsigned.hap",
-          "browser_download_url": "https://github.com/StarHeartY/CalculatorX/releases/download/v1.6.1/CalcX-1.6.1-release-unsigned.hap",
-          "size": 44907878
-        }
-      ]
-    }
-  },
-  {
     "full_name": "LoMoCatAp/Bika-HarmonyOS",
     "html_url": "https://github.com/LoMoCatAp/Bika-HarmonyOS",
     "description": "鸿蒙系统第三方哔咔客户端",
@@ -414,24 +486,6 @@
           "name": "entry-default-unsigned.hap",
           "browser_download_url": "https://github.com/LoMoCatAp/Bika-HarmonyOS/releases/download/v1.3.3/entry-default-unsigned.hap",
           "size": 5698425
-        }
-      ]
-    }
-  },
-  {
-    "full_name": "tljk/FlClash-ohos",
-    "html_url": "https://github.com/tljk/FlClash-ohos",
-    "description": "A multi-platform proxy client based on ClashMeta,simple and easy to use, open-source and ad-free.",
-    "stars": 122,
-    "latest_hap_release": {
-      "tag_name": "v0.8.93+2026082301",
-      "published_at": "2026-08-23T12:31:11Z",
-      "html_url": "https://github.com/tljk/FlClash-ohos/releases/tag/v0.8.93%2B2026082301",
-      "assets": [
-        {
-          "name": "FlClash-0.8.93+2026082301-ohos.hap",
-          "browser_download_url": "https://github.com/tljk/FlClash-ohos/releases/download/v0.8.93%2B2026082301/FlClash-0.8.93%2B2026082301-ohos.hap",
-          "size": 81522183
         }
       ]
     }
@@ -499,7 +553,7 @@
     "full_name": "yabi-zzh/livify-ohos",
     "html_url": "https://github.com/yabi-zzh/livify-ohos",
     "description": "HarmonyOS NEXT 纯原生直播聚合（聚映）。mpv 内核，支持 HDR、硬件解码与系统投屏。推荐使用 HoKit 侧载。",
-    "stars": 7,
+    "stars": 9,
     "latest_hap_release": {
       "tag_name": "v1.1.0",
       "published_at": "2026-08-22T15:41:31Z",
@@ -514,28 +568,10 @@
     }
   },
   {
-    "full_name": "Octopustank/HarmoNiLink",
-    "html_url": "https://github.com/Octopustank/HarmoNiLink",
-    "description": "原生HarmonyOS平台尼康相机蓝牙GPS信息传输工具",
-    "stars": 6,
-    "latest_hap_release": {
-      "tag_name": "v2.4.1",
-      "published_at": "2026-08-22T12:31:23Z",
-      "html_url": "https://github.com/Octopustank/HarmoNiLink/releases/tag/v2.4.1",
-      "assets": [
-        {
-          "name": "entry-default-unsigned.hap",
-          "browser_download_url": "https://github.com/Octopustank/HarmoNiLink/releases/download/v2.4.1/entry-default-unsigned.hap",
-          "size": 514175
-        }
-      ]
-    }
-  },
-  {
     "full_name": "forwardz666/Syncthing-for-HarmonyOS",
     "html_url": "https://github.com/forwardz666/Syncthing-for-HarmonyOS",
     "description": "A Syncthing client for HarmonyOS Next. Embeds the original Go Syncthing core: app-sandbox and Download/Documents public-directory sync, device/folder management, QR pairing, background keep-alive sync, real-time transfer.",
-    "stars": 4,
+    "stars": 5,
     "latest_hap_release": {
       "tag_name": "v2.0.2",
       "published_at": "2026-08-22T08:07:12Z",
@@ -684,7 +720,7 @@
     "full_name": "xiasi0/ha-companion-harmonyos",
     "html_url": "https://github.com/xiasi0/ha-companion-harmonyos",
     "description": "",
-    "stars": 39,
+    "stars": 41,
     "latest_hap_release": {
       "tag_name": "v1.4.1",
       "published_at": "2026-08-17T17:00:58Z",
@@ -748,24 +784,6 @@
           "name": "entry-diag-unsigned.hap",
           "browser_download_url": "https://github.com/xiaogouyo/dsh-harmonyos/releases/download/v1.0.4-diag/entry-diag-unsigned.hap",
           "size": 145368
-        }
-      ]
-    }
-  },
-  {
-    "full_name": "sunny-luoyun/HM_pixiv",
-    "html_url": "https://github.com/sunny-luoyun/HM_pixiv",
-    "description": "Pixiv for HarmonyOS",
-    "stars": 6,
-    "latest_hap_release": {
-      "tag_name": "2.8.0",
-      "published_at": "2026-08-15T03:36:45Z",
-      "html_url": "https://github.com/sunny-luoyun/HM_pixiv/releases/tag/2.8.0",
-      "assets": [
-        {
-          "name": "Hpixiv-2.8.0-unsigned.hap",
-          "browser_download_url": "https://github.com/sunny-luoyun/HM_pixiv/releases/download/2.8.0/Hpixiv-2.8.0-unsigned.hap",
-          "size": 55100818
         }
       ]
     }
@@ -1082,7 +1100,7 @@
     "full_name": "Aloereed/vlc-qt6-ohos",
     "html_url": "https://github.com/Aloereed/vlc-qt6-ohos",
     "description": "VLC Media Player with Qt6 and HarmonyOS",
-    "stars": 8,
+    "stars": 7,
     "latest_hap_release": {
       "tag_name": "3.0.21",
       "published_at": "2026-08-02T08:42:04Z",
@@ -1388,7 +1406,7 @@
     "full_name": "YuanChu-Tec/JMComic-HarmonyOS",
     "html_url": "https://github.com/YuanChu-Tec/JMComic-HarmonyOS",
     "description": "JMComic对HarmonyOS的适配版本",
-    "stars": 91,
+    "stars": 92,
     "latest_hap_release": {
       "tag_name": "JMComic1.0.8",
       "published_at": "2026-07-09T13:04:12Z",
@@ -1406,7 +1424,7 @@
     "full_name": "1055235342/Wpixelgram-for-HarmonyOS",
     "html_url": "https://github.com/1055235342/Wpixelgram-for-HarmonyOS",
     "description": "",
-    "stars": 22,
+    "stars": 21,
     "latest_hap_release": {
       "tag_name": "v0.1.0",
       "published_at": "2026-07-03T10:06:11Z",
@@ -1884,7 +1902,7 @@
     "full_name": "HanversionOvO/OHSidian",
     "html_url": "https://github.com/HanversionOvO/OHSidian",
     "description": "Using Obsidian on your HarmonyOS PC or tablet",
-    "stars": 143,
+    "stars": 144,
     "latest_hap_release": {
       "tag_name": "latest",
       "published_at": "2026-05-30T08:05:24Z",
@@ -1920,7 +1938,7 @@
     "full_name": "YuanChu-Tec/HMTG",
     "html_url": "https://github.com/YuanChu-Tec/HMTG",
     "description": "Telegram for HarmonyOS",
-    "stars": 55,
+    "stars": 54,
     "latest_hap_release": {
       "tag_name": "HMTG1.0.4",
       "published_at": "2026-05-25T02:56:31Z",
@@ -2069,7 +2087,7 @@
     "full_name": "xiaobaigroup/ClashBox",
     "html_url": "https://github.com/xiaobaigroup/ClashBox",
     "description": "HarmonyOS NEXT的代理软件",
-    "stars": 4235,
+    "stars": 4241,
     "latest_hap_release": {
       "tag_name": "1.7.4",
       "published_at": "2026-04-02T14:50:20Z",
@@ -2105,7 +2123,7 @@
     "full_name": "likuai2010/auto-installer",
     "html_url": "https://github.com/likuai2010/auto-installer",
     "description": "HarmonyOS Next Hap installer",
-    "stars": 2904,
+    "stars": 2909,
     "latest_hap_release": {
       "tag_name": "3.1.0",
       "published_at": "2026-03-25T01:22:17Z",
@@ -2290,7 +2308,7 @@
     "full_name": "duckeaty/nas_nav_hormony",
     "html_url": "https://github.com/duckeaty/nas_nav_hormony",
     "description": "鸿蒙网页封装，把网页当独立应用使用。",
-    "stars": 6,
+    "stars": 7,
     "latest_hap_release": {
       "tag_name": "1.0.6",
       "published_at": "2026-01-08T23:52:35Z",
@@ -2467,7 +2485,7 @@
     "full_name": "likuai2010/moonlight-harmonyos",
     "html_url": "https://github.com/likuai2010/moonlight-harmonyos",
     "description": "",
-    "stars": 117,
+    "stars": 118,
     "latest_hap_release": {
       "tag_name": "remote-desktop",
       "published_at": "2025-11-24T13:19:40Z",
