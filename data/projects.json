@@ -1,9 +1,158 @@
 [
   {
+    "full_name": "GarhinZhou/terminAI",
+    "html_url": "https://github.com/GarhinZhou/terminAI",
+    "description": "鸿蒙CLI-Agent管理器",
+    "stars": 2,
+    "latest_hap_release": {
+      "tag_name": "v1.1.0",
+      "published_at": "2026-08-31T17:18:36Z",
+      "html_url": "https://github.com/GarhinZhou/terminAI/releases/tag/v1.1.0",
+      "assets": [
+        {
+          "name": "terminAI-1.1.0-unsigned.hap",
+          "browser_download_url": "https://github.com/GarhinZhou/terminAI/releases/download/v1.1.0/terminAI-1.1.0-unsigned.hap",
+          "size": 4694766
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "Chenlvin/Melotopia-HMOS",
+    "html_url": "https://github.com/Chenlvin/Melotopia-HMOS",
+    "description": "Melotopia For HarmonyOS",
+    "stars": 251,
+    "latest_hap_release": {
+      "tag_name": "v1.15.3",
+      "published_at": "2026-08-31T16:02:06Z",
+      "html_url": "https://github.com/Chenlvin/Melotopia-HMOS/releases/tag/v1.15.3",
+      "assets": [
+        {
+          "name": "1.15.3-101539.hap",
+          "browser_download_url": "https://github.com/Chenlvin/Melotopia-HMOS/releases/download/v1.15.3/1.15.3-101539.hap",
+          "size": 36603748
+        },
+        {
+          "name": "HiCar-1.15.3-101539.hap",
+          "browser_download_url": "https://github.com/Chenlvin/Melotopia-HMOS/releases/download/v1.15.3/HiCar-1.15.3-101539.hap",
+          "size": 36603259
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "wtronfi/FreshRSS-Harmony",
+    "html_url": "https://github.com/wtronfi/FreshRSS-Harmony",
+    "description": "基于 HarmonyOS 的 FreshRSS 原生客户端，面向自托管用户打造的 RSS 阅读体验。",
+    "stars": 0,
+    "latest_hap_release": {
+      "tag_name": "2.1",
+      "published_at": "2026-08-31T15:52:36Z",
+      "html_url": "https://github.com/wtronfi/FreshRSS-Harmony/releases/tag/2.1",
+      "assets": [
+        {
+          "name": "FreshRSS-2.1-20260831-unsigned.hap",
+          "browser_download_url": "https://github.com/wtronfi/FreshRSS-Harmony/releases/download/2.1/FreshRSS-2.1-20260831-unsigned.hap",
+          "size": 2616460
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "Suixin04/Anomicon",
+    "html_url": "https://github.com/Suixin04/Anomicon",
+    "description": "面向 HarmonyOS 的非官方 SCP 中文阅读与探索应用，支持档案与故事浏览、本地收藏、阅读历史及交互式 3D 档案。",
+    "stars": 0,
+    "latest_hap_release": {
+      "tag_name": "v1.0.0(1000000)",
+      "published_at": "2026-08-31T15:49:12Z",
+      "html_url": "https://github.com/Suixin04/Anomicon/releases/tag/v1.0.0(1000000)",
+      "assets": [
+        {
+          "name": "phone-default-unsigned.hap",
+          "browser_download_url": "https://github.com/Suixin04/Anomicon/releases/download/v1.0.0%281000000%29/phone-default-unsigned.hap",
+          "size": 26552191
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "jonas-pi/FMphoto",
+    "html_url": "https://github.com/jonas-pi/FMphoto",
+    "description": "第三方飞牛相册鸿蒙端实现",
+    "stars": 19,
+    "latest_hap_release": {
+      "tag_name": "v1.3.4-beta.1",
+      "published_at": "2026-08-31T15:03:59Z",
+      "html_url": "https://github.com/jonas-pi/FMphoto/releases/tag/v1.3.4-beta.1",
+      "assets": [
+        {
+          "name": "entry-default-unsigned.hap",
+          "browser_download_url": "https://github.com/jonas-pi/FMphoto/releases/download/v1.3.4-beta.1/entry-default-unsigned.hap",
+          "size": 9746561
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "WingedFin1251/GoTally",
+    "html_url": "https://github.com/WingedFin1251/GoTally",
+    "description": "本地优先的 OpenCode Go 用量统计面板 — HarmonyOS 原生应用（ArkTS）：配额窗口、Token 构成、模型排行与使用记录，打开即见。",
+    "stars": 0,
+    "latest_hap_release": {
+      "tag_name": "v1.1.0",
+      "published_at": "2026-08-31T09:13:41Z",
+      "html_url": "https://github.com/WingedFin1251/GoTally/releases/tag/v1.1.0",
+      "assets": [
+        {
+          "name": "entry-default-unsigned.hap",
+          "browser_download_url": "https://github.com/WingedFin1251/GoTally/releases/download/v1.1.0/entry-default-unsigned.hap",
+          "size": 1502817
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "fe-spark/EcoHub-for-OHOS",
+    "html_url": "https://github.com/fe-spark/EcoHub-for-OHOS",
+    "description": "EcoHub原生客户端，提供极致流畅的多源聚合观影体验，支持灵活配置与切换私有软件源",
+    "stars": 8,
+    "latest_hap_release": {
+      "tag_name": "v1.1.3",
+      "published_at": "2026-08-31T05:42:09Z",
+      "html_url": "https://github.com/fe-spark/EcoHub-for-OHOS/releases/tag/v1.1.3",
+      "assets": [
+        {
+          "name": "EcoHub-1.1.3-a898799-signed.hap",
+          "browser_download_url": "https://github.com/fe-spark/EcoHub-for-OHOS/releases/download/v1.1.3/EcoHub-1.1.3-a898799-signed.hap",
+          "size": 751233
+        }
+      ]
+    }
+  },
+  {
+    "full_name": "wkj2333666/Android-SSH-Codex",
+    "html_url": "https://github.com/wkj2333666/Android-SSH-Codex",
+    "description": "Codex Desktop-style mobile UI that securely controls remote Codex over SSH on Android and OpenHarmony",
+    "stars": 2,
+    "latest_hap_release": {
+      "tag_name": "v0.4.4",
+      "published_at": "2026-08-31T03:32:39Z",
+      "html_url": "https://github.com/wkj2333666/Android-SSH-Codex/releases/tag/v0.4.4",
+      "assets": [
+        {
+          "name": "android-ssh-codex-ohos-arm64-unsigned.hap",
+          "browser_download_url": "https://github.com/wkj2333666/Android-SSH-Codex/releases/download/v0.4.4/android-ssh-codex-ohos-arm64-unsigned.hap",
+          "size": 25656022
+        }
+      ]
+    }
+  },
+  {
     "full_name": "LoMoCatAp/Bika-HarmonyOS",
     "html_url": "https://github.com/LoMoCatAp/Bika-HarmonyOS",
     "description": "鸿蒙系统第三方哔咔客户端",
-    "stars": 11,
+    "stars": 12,
     "latest_hap_release": {
       "tag_name": "v1.3.5",
       "published_at": "2026-08-30T18:16:28Z",
@@ -36,24 +185,6 @@
     }
   },
   {
-    "full_name": "fe-spark/EcoHub-for-OHOS",
-    "html_url": "https://github.com/fe-spark/EcoHub-for-OHOS",
-    "description": "App for OHOS",
-    "stars": 2,
-    "latest_hap_release": {
-      "tag_name": "v1.1.2",
-      "published_at": "2026-08-30T16:16:20Z",
-      "html_url": "https://github.com/fe-spark/EcoHub-for-OHOS/releases/tag/v1.1.2",
-      "assets": [
-        {
-          "name": "EcoHub-1.1.2-c0c56bb-signed.hap",
-          "browser_download_url": "https://github.com/fe-spark/EcoHub-for-OHOS/releases/download/v1.1.2/EcoHub-1.1.2-c0c56bb-signed.hap",
-          "size": 735533
-        }
-      ]
-    }
-  },
-  {
     "full_name": "Pkeji/FluxDownCover-OHOS",
     "html_url": "https://github.com/Pkeji/FluxDownCover-OHOS",
     "description": "",
@@ -67,24 +198,6 @@
           "name": "fluxdowncover-default-unsigned.hap",
           "browser_download_url": "https://github.com/Pkeji/FluxDownCover-OHOS/releases/download/%E4%BF%AE%E5%A4%8Dbug/fluxdowncover-default-unsigned.hap",
           "size": 1507064
-        }
-      ]
-    }
-  },
-  {
-    "full_name": "wtronfi/FreshRSS-Harmony",
-    "html_url": "https://github.com/wtronfi/FreshRSS-Harmony",
-    "description": "基于 HarmonyOS 的 FreshRSS 原生客户端，面向自托管用户打造的 RSS 阅读体验。",
-    "stars": 0,
-    "latest_hap_release": {
-      "tag_name": "2.0",
-      "published_at": "2026-08-30T08:35:17Z",
-      "html_url": "https://github.com/wtronfi/FreshRSS-Harmony/releases/tag/2.0",
-      "assets": [
-        {
-          "name": "FreshRSS-2.0-20260830-unsigned.hap",
-          "browser_download_url": "https://github.com/wtronfi/FreshRSS-Harmony/releases/download/2.0/FreshRSS-2.0-20260830-unsigned.hap",
-          "size": 2257008
         }
       ]
     }
@@ -111,7 +224,7 @@
     "full_name": "mgz0227/legado-Harmony",
     "html_url": "https://github.com/mgz0227/legado-Harmony",
     "description": "开源阅读鸿蒙版仓库",
-    "stars": 2141,
+    "stars": 2142,
     "latest_hap_release": {
       "tag_name": "V1.0.6.48",
       "published_at": "2026-08-29T13:43:35Z",
@@ -183,7 +296,7 @@
     "full_name": "tljk/FlClash-ohos",
     "html_url": "https://github.com/tljk/FlClash-ohos",
     "description": "A multi-platform proxy client based on ClashMeta,simple and easy to use, open-source and ad-free.",
-    "stars": 128,
+    "stars": 131,
     "latest_hap_release": {
       "tag_name": "v0.8.94+2026082901",
       "published_at": "2026-08-29T07:17:58Z",
@@ -257,24 +370,6 @@
     }
   },
   {
-    "full_name": "jonas-pi/FMphoto",
-    "html_url": "https://github.com/jonas-pi/FMphoto",
-    "description": "第三方飞牛相册鸿蒙端实现",
-    "stars": 19,
-    "latest_hap_release": {
-      "tag_name": "v1.3.3",
-      "published_at": "2026-08-28T14:37:00Z",
-      "html_url": "https://github.com/jonas-pi/FMphoto/releases/tag/v1.3.3",
-      "assets": [
-        {
-          "name": "entry-default-unsigned.hap",
-          "browser_download_url": "https://github.com/jonas-pi/FMphoto/releases/download/v1.3.3/entry-default-unsigned.hap",
-          "size": 5723871
-        }
-      ]
-    }
-  },
-  {
     "full_name": "qitinyu/Pilihos",
     "html_url": "https://github.com/qitinyu/Pilihos",
     "description": "鸿蒙端bilibili移植",
@@ -296,7 +391,7 @@
     "full_name": "ErBWs/Kazumi",
     "html_url": "https://github.com/ErBWs/Kazumi",
     "description": "该分支仓库目前用于发布 HarmonyOS NEXT 版本 hap 包",
-    "stars": 287,
+    "stars": 286,
     "latest_hap_release": {
       "tag_name": "2.3.0",
       "published_at": "2026-08-28T08:09:07Z",
@@ -324,42 +419,6 @@
           "name": "fluxdowncover-unsigned.hap",
           "browser_download_url": "https://github.com/Pkeji/FluxDown-OHOS/releases/download/%E6%9C%80%E6%96%B0%E5%8F%91%E8%A1%8C%E7%89%88/fluxdowncover-unsigned.hap",
           "size": 1458767
-        }
-      ]
-    }
-  },
-  {
-    "full_name": "WingedFin1251/GoTally",
-    "html_url": "https://github.com/WingedFin1251/GoTally",
-    "description": "本地优先的 OpenCode Go 用量统计面板 — HarmonyOS 原生应用（ArkTS）：配额窗口、Token 构成、模型排行与使用记录，打开即见。",
-    "stars": 0,
-    "latest_hap_release": {
-      "tag_name": "v1.0.0",
-      "published_at": "2026-08-27T13:32:12Z",
-      "html_url": "https://github.com/WingedFin1251/GoTally/releases/tag/v1.0.0",
-      "assets": [
-        {
-          "name": "entry-default-unsigned.hap",
-          "browser_download_url": "https://github.com/WingedFin1251/GoTally/releases/download/v1.0.0/entry-default-unsigned.hap",
-          "size": 1462677
-        }
-      ]
-    }
-  },
-  {
-    "full_name": "GarhinZhou/terminAI",
-    "html_url": "https://github.com/GarhinZhou/terminAI",
-    "description": "鸿蒙CLI-Agent管理器",
-    "stars": 2,
-    "latest_hap_release": {
-      "tag_name": "v1.0.0",
-      "published_at": "2026-08-27T09:24:11Z",
-      "html_url": "https://github.com/GarhinZhou/terminAI/releases/tag/v1.0.0",
-      "assets": [
-        {
-          "name": "terminAI-v1.0.0-unsigned.hap",
-          "browser_download_url": "https://github.com/GarhinZhou/terminAI/releases/download/v1.0.0/terminAI-v1.0.0-unsigned.hap",
-          "size": 4594832
         }
       ]
     }
@@ -571,7 +630,7 @@
     "full_name": "yabi-zzh/livify-ohos",
     "html_url": "https://github.com/yabi-zzh/livify-ohos",
     "description": "HarmonyOS NEXT 纯原生直播聚合（聚映）。mpv 内核，支持 HDR、硬件解码与系统投屏。推荐使用 HoKit 侧载。",
-    "stars": 10,
+    "stars": 11,
     "latest_hap_release": {
       "tag_name": "v1.1.0",
       "published_at": "2026-08-22T15:41:31Z",
@@ -951,7 +1010,7 @@
     "full_name": "LZZLHY/amcl",
     "html_url": "https://github.com/LZZLHY/amcl",
     "description": "AMCL — 首款鸿蒙版全量Java版我的世界启动器",
-    "stars": 80,
+    "stars": 81,
     "latest_hap_release": {
       "tag_name": "v1.0.2",
       "published_at": "2026-08-08T12:44:33Z",
@@ -979,24 +1038,6 @@
           "name": "entry-default-unsigned.hap",
           "browser_download_url": "https://github.com/PollenWang6/HiXD/releases/download/v1.5.0/entry-default-unsigned.hap",
           "size": 21872860
-        }
-      ]
-    }
-  },
-  {
-    "full_name": "wkj2333666/Android-SSH-Codex",
-    "html_url": "https://github.com/wkj2333666/Android-SSH-Codex",
-    "description": "Codex Desktop-style mobile UI that securely controls remote Codex over SSH on Android and OpenHarmony",
-    "stars": 2,
-    "latest_hap_release": {
-      "tag_name": "v0.4.3",
-      "published_at": "2026-08-04T10:59:23Z",
-      "html_url": "https://github.com/wkj2333666/Android-SSH-Codex/releases/tag/v0.4.3",
-      "assets": [
-        {
-          "name": "android-ssh-codex-ohos-arm64-unsigned.hap",
-          "browser_download_url": "https://github.com/wkj2333666/Android-SSH-Codex/releases/download/v0.4.3/android-ssh-codex-ohos-arm64-unsigned.hap",
-          "size": 25656022
         }
       ]
     }
@@ -1182,7 +1223,7 @@
     "full_name": "guoxiucai/ohos-scrcpy-app",
     "html_url": "https://github.com/guoxiucai/ohos-scrcpy-app",
     "description": "鸿镜是一个类似安卓Scrcpy，面向 OpenHarmony 设备的投屏开发调试工具。客户端基于Flutter 跨平台，通过 hdc fport 端口转发与设备上常驻的系统服务通信，实时镜像屏幕并提供触控注入、应用管理、终端模拟等控制功能。",
-    "stars": 15,
+    "stars": 16,
     "latest_hap_release": {
       "tag_name": "1.0.3",
       "published_at": "2026-07-30T07:44:31Z",
@@ -1416,7 +1457,7 @@
     "full_name": "w0scan/PiliOH",
     "html_url": "https://github.com/w0scan/PiliOH",
     "description": "PiliPlus的鸿蒙分支",
-    "stars": 3,
+    "stars": 4,
     "latest_hap_release": {
       "tag_name": "2.1.0",
       "published_at": "2026-07-13T17:02:29Z",
@@ -1434,7 +1475,7 @@
     "full_name": "YuanChu-Tec/JMComic-HarmonyOS",
     "html_url": "https://github.com/YuanChu-Tec/JMComic-HarmonyOS",
     "description": "JMComic对HarmonyOS的适配版本",
-    "stars": 92,
+    "stars": 94,
     "latest_hap_release": {
       "tag_name": "JMComic1.0.8",
       "published_at": "2026-07-09T13:04:12Z",
@@ -1490,29 +1531,6 @@
     }
   },
   {
-    "full_name": "Chenlvin/Melotopia-HMOS",
-    "html_url": "https://github.com/Chenlvin/Melotopia-HMOS",
-    "description": "Melotopia For HarmonyOS",
-    "stars": 249,
-    "latest_hap_release": {
-      "tag_name": "v1.12.0",
-      "published_at": "2026-07-02T11:29:56Z",
-      "html_url": "https://github.com/Chenlvin/Melotopia-HMOS/releases/tag/v1.12.0",
-      "assets": [
-        {
-          "name": "Melotopia-1.12.0-HiCar_unsigned.hap",
-          "browser_download_url": "https://github.com/Chenlvin/Melotopia-HMOS/releases/download/v1.12.0/Melotopia-1.12.0-HiCar_unsigned.hap",
-          "size": 37722484
-        },
-        {
-          "name": "Melotopia-1.12.0_unsigned.hap",
-          "browser_download_url": "https://github.com/Chenlvin/Melotopia-HMOS/releases/download/v1.12.0/Melotopia-1.12.0_unsigned.hap",
-          "size": 37722612
-        }
-      ]
-    }
-  },
-  {
     "full_name": "Nekofox-POT/LinMusic",
     "html_url": "https://github.com/Nekofox-POT/LinMusic",
     "description": "一个在HarmonyOS的本地音乐播放器",
@@ -1534,7 +1552,7 @@
     "full_name": "MinamiJogen/HarmonyOS-EhViewer",
     "html_url": "https://github.com/MinamiJogen/HarmonyOS-EhViewer",
     "description": "鸿蒙 EhViewer / HarmonyOS 原生 EhViewer 客户端，ArkTS 开发，支持 HarmonyOS 6.1+",
-    "stars": 37,
+    "stars": 38,
     "latest_hap_release": {
       "tag_name": "v1.0.6",
       "published_at": "2026-07-01T08:20:03Z",
@@ -2133,7 +2151,7 @@
     "full_name": "xiaobaigroup/ClashBox",
     "html_url": "https://github.com/xiaobaigroup/ClashBox",
     "description": "HarmonyOS NEXT的代理软件",
-    "stars": 4245,
+    "stars": 4252,
     "latest_hap_release": {
       "tag_name": "1.7.4",
       "published_at": "2026-04-02T14:50:20Z",
@@ -2169,7 +2187,7 @@
     "full_name": "likuai2010/auto-installer",
     "html_url": "https://github.com/likuai2010/auto-installer",
     "description": "HarmonyOS Next Hap installer",
-    "stars": 2912,
+    "stars": 2914,
     "latest_hap_release": {
       "tag_name": "3.1.0",
       "published_at": "2026-03-25T01:22:17Z",
@@ -3291,7 +3309,7 @@
     "full_name": "Z-P-J/AnimeZ",
     "html_url": "https://github.com/Z-P-J/AnimeZ",
     "description": "AnimeZ，OpenHarmony开源看动漫应用",
-    "stars": 99,
+    "stars": 100,
     "latest_hap_release": {
       "tag_name": "v1.0.1",
       "published_at": "2023-11-18T15:56:33Z",
